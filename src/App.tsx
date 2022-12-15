@@ -2,7 +2,14 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// Ping the server
+function ping() {
+  fetch('http://localhost:3001/ping')
+    .then((res) => res.json())
+}
+
 function App() {
+  ping();
   return (
     <div className="App">
       <header className="App-header">
