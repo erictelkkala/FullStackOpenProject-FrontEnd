@@ -1,28 +1,23 @@
-import { CssBaseline, ThemeProvider, Typography } from '@mui/material'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { theme } from './themes/main'
-import Grid from '@mui/material/Grid'
-import ListingCard from './ListingCard'
+
+import Home from './Home'
+import { Routes, Route } from 'react-router-dom'
+import NavBar from './NavBar'
+import ListingDetails from './ListingDetails'
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Grid container spacing={2} alignItems={'center'}>
-        <Grid item>
-          <ListingCard />
-        </Grid>
-        <Grid item>
-          <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
-            The marketplace
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
-            The marketplace
-          </Typography>
-        </Grid>
-      </Grid>
-    </ThemeProvider>
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/listing/:id" element={<ListingDetails />} />
+        </Routes>
+      </ThemeProvider>
+    </div>
   )
 }
 
