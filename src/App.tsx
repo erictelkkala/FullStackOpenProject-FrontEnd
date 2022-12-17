@@ -1,32 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Navbar from './Navbar';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Box } from '@mui/material';
-
-// Ping the server
-// function ping() {
-//   fetch('http://localhost:3001/ping')
-//     .then((res) => res.json())
-// }
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import './App.css'
 
 function App() {
-  // ping();
+  const [count, setCount] = useState(0)
+
   return (
-    <>
-    <Navbar />
-    <Grid container>
-      <Grid xs={12}>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <img src={logo}
-            className="App-logo"
-            alt="logo" />
-        </Box>
-      </Grid>
-    </Grid>
-    </>
-  );
+    <div className="App">
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src="/vite.svg" className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://reactjs.org" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          Count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </div>
+  )
 }
 
-export default App;
+export default App
