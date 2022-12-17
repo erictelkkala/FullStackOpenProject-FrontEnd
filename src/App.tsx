@@ -1,23 +1,28 @@
-import { useState } from 'react'
-import { AppBar, Box, CssBaseline, ThemeProvider, Toolbar, Typography } from '@mui/material'
-import { appTheme } from './themes/main'
+import { Box, Card, CssBaseline, Paper, styled, ThemeProvider, Typography } from '@mui/material'
+import { theme } from './themes/main'
+import Grid from '@mui/material/Grid'
+import ListingCard from './ListingCard'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <ThemeProvider theme={appTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap>
-              Album layout
-            </Typography>
-          </Toolbar>
-      </AppBar>
-    </Box>
-  </ThemeProvider>
+      <Grid container spacing={2} alignItems={'center'}>
+        <Grid item>
+            <ListingCard />
+        </Grid>
+        <Grid item>
+          <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
+            The marketplace
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
+            The marketplace
+          </Typography>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
   )
 }
 

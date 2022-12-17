@@ -23,8 +23,9 @@ declare module '@mui/material/styles' {
     }
 }
 
-export const appTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
+export const theme = createTheme({
+    spacing: 4,
+    palette: {
+        mode: "dark",
+    },
 });
