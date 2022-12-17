@@ -8,10 +8,10 @@ import { theme } from './themes/main'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-    {/* Make sure that the theme applies correctly */}
+      {/* Make sure that the theme applies correctly */}
       <CssBaseline />
       <NavBar />
       <App />
     </ThemeProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

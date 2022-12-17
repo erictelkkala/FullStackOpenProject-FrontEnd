@@ -1,4 +1,4 @@
-import { Box, Card, CssBaseline, Paper, styled, ThemeProvider, Typography } from '@mui/material'
+import { CssBaseline, ThemeProvider, Typography } from '@mui/material'
 import { theme } from './themes/main'
 import Grid from '@mui/material/Grid'
 import ListingCard from './ListingCard'
@@ -9,7 +9,7 @@ function App() {
       <CssBaseline />
       <Grid container spacing={2} alignItems={'center'}>
         <Grid item>
-            <ListingCard />
+          <ListingCard />
         </Grid>
         <Grid item>
           <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
