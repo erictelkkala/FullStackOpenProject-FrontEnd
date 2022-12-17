@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router'
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
+import ListingDetails from './ListingDetails'
 import NavBar from './NavBar'
 import { theme } from './themes/main'
 
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />
+  },
+  {
+    path: '/listing/:id',
+    element: <ListingDetails />
   }
 ])
 
