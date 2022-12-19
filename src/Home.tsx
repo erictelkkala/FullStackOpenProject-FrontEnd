@@ -1,22 +1,27 @@
-import { Typography } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import ListingCard from './ListingCard'
+import { Item } from './types'
+
+const mockItem: Item = {
+  id: '1',
+  name: 'The react Logo',
+  description: 'This item is very much an item',
+  price: 100,
+  quantity: 2,
+  image: 'src\\assets\\react.svg'
+}
 
 function Home() {
   return (
-    <Grid container spacing={2} alignItems={'center'}>
+    <Grid container spacing={6} rowSpacing={6} justifyContent={'center'}>
       <Grid item>
-        <ListingCard />
+        <ListingCard {...mockItem} />
       </Grid>
       <Grid item>
-        <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
-          The marketplace
-        </Typography>
+        <ListingCard {...mockItem} />
       </Grid>
       <Grid item>
-        <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
-          The marketplace
-        </Typography>
+        <ListingCard {...mockItem} />
       </Grid>
     </Grid>
   )
