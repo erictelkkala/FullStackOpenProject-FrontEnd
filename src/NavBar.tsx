@@ -12,7 +12,8 @@ function NavBar() {
   const itemsInCart = selector.items.length
 
   return (
-    <AppBar position="static">
+    // The AppBar has some interesting behavior with the padding, making it go on top of the content
+    <AppBar position="sticky" sx={{ marginBottom: 10 }}>
       <Toolbar>
         <Link to="/" style={{ textDecoration: 'none', color: 'white', flexGrow: 1 }}>
           <Typography variant="h4" color="inherit">

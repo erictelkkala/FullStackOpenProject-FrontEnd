@@ -13,17 +13,33 @@ import { Container } from '@mui/system'
 import { Link } from 'react-router-dom'
 
 import { Item } from './types'
-import { useAppDispatch } from './redux/hooks'
-import { addItem } from './redux/shoppingCart'
+import { useAppDispatch, useAppSelector } from './redux/hooks'
+import { addItem, increaseQuantity } from './redux/shoppingCart'
+
+import React from 'react'
 
 function ListingCard(item: Item) {
   const dispatch = useAppDispatch()
+  // Check if the item is already in the cart
+  const initialState = useAppSelector((state) =>
+    state.shoppingCart.items.find((i) => i.id === item.id)
+  )
+  const [quantity, setQuantity] = React.useState(initialState ? initialState.quantity : 0)
 
   const addItemToCart = (item: Item) => {
     console.log('Add item to cart', item)
-    if (item) {
+    if (item && quantity == 0) {
+      const itemWithQuantity = { ...item, quantity: 1 }
       // Add the item to the cart
-      dispatch(addItem(item))
+      dispatch(addItem(itemWithQuantity))
+      setQuantity(quantity + 1)
+      console.log(quantity)
+    } else if (item && quantity > 0) {
+      // Increase the quantity of the item in the cart
+      dispatch(increaseQuantity(item))
+      setQuantity(quantity + 1)
+    } else {
+      console.log('Error adding item to cart')
     }
   }
 
@@ -32,13 +48,13 @@ function ListingCard(item: Item) {
       {/* Open the item's page when the car is clicked */}
       <Container>
         <Link to={`/listing/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <CardHeader title="The react Logo" />
-          <CardMedia component="img" height="300" src="src\assets\react.svg" alt="Listing image" />
+          <CardHeader title={item.name} />
+          <CardMedia component="img" width={300} src="src\assets\react.svg" alt="Listing image" />
         </Link>
       </Container>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This item is very much an item
+          {item.description}
         </Typography>
       </CardContent>
       <CardActions>
@@ -51,7 +67,8 @@ function ListingCard(item: Item) {
         >
           {/* Show the add to cart button */}
           <AddShoppingCartIcon />
-          {/* If the item is in car, also show the add and remove quantities buttons */}
+          {/* TODO: If the item is in car, also show the add and remove quantities buttons */}
+          {quantity > 0 && <Typography>{quantity}</Typography>}
         </IconButton>
       </CardActions>
     </Card>
