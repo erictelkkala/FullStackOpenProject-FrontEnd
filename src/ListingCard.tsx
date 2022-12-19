@@ -10,14 +10,13 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import { CardHeader } from '@mui/material'
 import { Container } from '@mui/system'
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { Item } from './types'
 import { useAppDispatch } from './redux/hooks'
 import { addItem } from './redux/shoppingCart'
 
 function ListingCard(item: Item) {
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const addItemToCart = (item: Item) => {
@@ -25,8 +24,6 @@ function ListingCard(item: Item) {
     if (item) {
       // Add the item to the cart
       dispatch(addItem(item))
-      // Aedirect to the item's page
-      return navigate(`/listing/${item.id}`)
     }
   }
 
