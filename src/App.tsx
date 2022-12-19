@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import { store } from './redux/store'
 import { Provider } from 'react-redux'
+import Cart from './Cart/Cart'
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/listing/:id" element={<ListingDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<h1>404: Not Found</h1>} />
           </Routes>
         </Provider>
       </ThemeProvider>
