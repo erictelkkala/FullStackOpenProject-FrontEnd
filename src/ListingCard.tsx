@@ -12,21 +12,37 @@ import { Container } from '@mui/system'
 
 import { useNavigate } from 'react-router-dom'
 
+import { Item } from './types'
+import { useAppDispatch } from './redux/hooks'
+import { addItem } from './redux/shoppingCart'
+
 function ListingCard() {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
-  const AddItemToCart = (id: number) => {
-    console.log('Add item to cart', id)
-    // redirect to the item's page
-    if (id) {
-      return navigate(`/listing/${id}`)
+  const AddItemToCart = (item: Item) => {
+    console.log('Add item to cart', item)
+    if (item) {
+      // Add the item to the cart
+      dispatch(addItem(item))
+      // Aedirect to the item's page
+      return navigate(`/listing/${item.id}`)
     }
+  }
+
+  const mockItem: Item = {
+    id: '1',
+    name: 'The react Logo',
+    description: 'This item is very much an item',
+    price: 100,
+    quantity: 2,
+    image: 'srcassets\react.svg'
   }
 
   return (
     <Card raised sx={{ maxWidth: 345 }}>
       {/* Open the item's page when the car is clicked */}
-      <Container onClick={() => AddItemToCart(1)}>
+      <Container onClick={() => AddItemToCart(mockItem)}>
         <CardHeader title="The react Logo" />
         <CardMedia component="img" height="300" src="src\assets\react.svg" alt="Listing image" />
       </Container>
