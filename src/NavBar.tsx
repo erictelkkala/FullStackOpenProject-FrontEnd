@@ -1,4 +1,4 @@
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
+import { AppBar, IconButton, Toolbar, Typography, Box } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import Badge from '@mui/material/Badge'
@@ -15,11 +15,14 @@ function NavBar() {
     // The AppBar has some interesting behavior with the padding, making it go on top of the content
     <AppBar position="sticky" sx={{ marginBottom: 10 }}>
       <Toolbar>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white', flexGrow: 1 }}>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
           <Typography variant="h4" color="inherit">
             The marketplace
           </Typography>
         </Link>
+
+        {/* Empty box to not make the whole navbar a link */}
+        <Box sx={{ flexGrow: 1 }} />
 
         {itemsInCart > 0 && (
           <Link to="/cart" style={{ textDecoration: 'none', color: 'white' }}>

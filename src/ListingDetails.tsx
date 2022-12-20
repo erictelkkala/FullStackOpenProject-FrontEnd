@@ -3,6 +3,8 @@ import { useAppSelector } from './redux/hooks'
 
 function ListingDetails() {
   const { id } = useParams()
+
+  // TODO: Make it fetch the data from the database
   const item = useAppSelector((state) =>
     state.shoppingCart.items.find((item) => item.id === id)
   ) || {
