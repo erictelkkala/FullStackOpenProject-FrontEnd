@@ -1,4 +1,16 @@
-import { Typography, Card, CardMedia, CardContent, Box, Button } from '@mui/material'
+import {
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  Box,
+  Button,
+  FormControl,
+  IconButton
+} from '@mui/material'
+
+import RemoveIcon from '@mui/icons-material/Remove'
+import AddIcon from '@mui/icons-material/Add'
 
 import { Item } from '../types'
 
@@ -16,7 +28,17 @@ function CartItem(item: Item) {
       {/* Title of the item and the quantity below it */}
       <CardContent sx={{ display: 'flex', flexDirection: 'column', marginRight: 'auto' }}>
         <Typography variant="h5">{item.name}</Typography>
-        <Typography variant="subtitle1">{item.quantity}</Typography>
+        <FormControl sx={{ flexDirection: 'row' }}>
+          <IconButton>
+            <RemoveIcon />
+          </IconButton>
+          <Typography variant="subtitle1" sx={{ alignSelf: 'center' }}>
+            {item.quantity}
+          </Typography>
+          <IconButton>
+            <AddIcon />
+          </IconButton>
+        </FormControl>
       </CardContent>
 
       {/* Price of the item and the delete button */}
