@@ -44,7 +44,7 @@ function ListingCard(item: Item) {
   }
 
   return (
-    <Card raised sx={{ maxWidth: 345 }}>
+    <Card raised sx={{ maxWidth: 400, minWidth: 300 }}>
       {/* Open the item's page when the car is clicked */}
       <Container>
         <Link to={`/listing/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>

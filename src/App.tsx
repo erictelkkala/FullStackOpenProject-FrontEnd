@@ -11,6 +11,8 @@ import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import Cart from './Cart/Cart'
 
+import Login from './Login/Login'
+
 function App() {
   return (
     <div className="App">
@@ -22,6 +24,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/listing/:id" element={<ListingDetails />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<h1>404: Not Found</h1>} />
           </Routes>
         </Provider>
