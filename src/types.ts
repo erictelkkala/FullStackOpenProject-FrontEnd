@@ -7,3 +7,8 @@ export interface Item {
   image: string
   category?: string
 }
+
+export interface LoginValues {
+  username: string
+  password: string
+}
