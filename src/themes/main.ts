@@ -34,5 +34,9 @@ export const theme = createTheme({
   spacing: 4,
   palette: {
     mode: 'dark'
+  },
+  typography: {
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: 14
   }
 })
