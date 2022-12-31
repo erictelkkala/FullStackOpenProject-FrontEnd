@@ -2,7 +2,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { theme } from './themes/main'
 
 import Home from './Home'
-import ListingDetails from './ListingDetails'
+import ItemDetails from './ItemDetails'
 import NavBar from './NavBar'
 
 import { Routes, Route } from 'react-router-dom'
@@ -22,7 +22,7 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/listing/:id" element={<ListingDetails />} />
+            <Route path="/item/:id" element={<ItemDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<h1>404: Not Found</h1>} />

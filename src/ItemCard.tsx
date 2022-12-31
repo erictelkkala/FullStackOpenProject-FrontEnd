@@ -18,7 +18,7 @@ import { addItem, increaseQuantity } from './redux/shoppingCart'
 
 import React from 'react'
 
-function ListingCard(item: Item) {
+function ItemCard(item: Item) {
   const dispatch = useAppDispatch()
   // Check if the item is already in the cart
   const initialState = useAppSelector((state) =>
@@ -47,9 +47,9 @@ function ListingCard(item: Item) {
     <Card raised sx={{ maxWidth: 400, minWidth: 300 }}>
       {/* Open the item's page when the car is clicked */}
       <Container>
-        <Link to={`/listing/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Link to={`/item/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <CardHeader title={item.name} />
-          <CardMedia component="img" width={300} src="src\assets\react.svg" alt="Listing image" />
+          <CardMedia component="img" width={300} src={item.image} alt="Item image" />
         </Link>
       </Container>
       <CardContent>
@@ -75,4 +75,4 @@ function ListingCard(item: Item) {
   )
 }
 
-export default ListingCard
+export default ItemCard

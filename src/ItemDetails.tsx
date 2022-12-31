@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from './redux/hooks'
 
-function ListingDetails() {
+function ItemDetails() {
   const { id } = useParams()
 
   // TODO: Make it fetch the data from the database
@@ -18,10 +18,10 @@ function ListingDetails() {
 
   return (
     <div>
-      <h1>Listing Details</h1>
-      <p>Listing ID: {item.id}</p>
+      <h1>Item Details</h1>
+      <p>Item ID: {item.id}</p>
     </div>
   )
 }
 
-export default ListingDetails
+export default ItemDetails
