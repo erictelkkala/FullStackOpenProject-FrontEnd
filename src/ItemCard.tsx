@@ -7,8 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import { CardHeader } from '@mui/material'
-import { Container } from '@mui/system'
+import { CardHeader, Container } from '@mui/material'
 
 import { Link } from 'react-router-dom'
 
