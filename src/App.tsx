@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
+
+import { CssBaseline, ThemeProvider } from '@mui/material'
+
+import Cart from './Cart/Cart'
+import Home from './Home'
+import ItemDetails from './ItemDetails'
+import Login from './Login/Login'
+import NavBar from './NavBar'
+import { store } from './redux/store'
+import { theme } from './themes/main'
+import { Item } from './types'
+
+const mockItems: Item[] = [
+  {
+    id: '1',
+    name: 'The react Logo',
+    description: 'This item is very much an item',
+    price: 100,
+    quantity: 0,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
+  },
+  {
+    id: '2',
+    name: 'The react Logo',
+    description: 'This item is very much an item',
+    price: 100,
+    quantity: 0,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
+  },
+  {
+    id: '3',
+    name: 'The react Logo',
+    description: 'This item is very much an item',
+    price: 100,
+    quantity: 0,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
+  }
+]
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Provider store={store}>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home mockItems={mockItems} />} />
+            <Route path="/item/:id" element={<ItemDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<h1>404: Not Found</h1>} />
+          </Routes>
+        </Provider>
+      </ThemeProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
