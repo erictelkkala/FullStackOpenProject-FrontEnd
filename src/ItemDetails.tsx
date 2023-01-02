@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+
 import { useAppSelector } from './redux/hooks'
 
 function ItemDetails() {

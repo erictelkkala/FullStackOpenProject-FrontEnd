@@ -1,25 +1,24 @@
+import React from 'react'
+
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 import {
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
   Box,
   Button,
-  FormControl,
-  IconButton,
+  Card,
+  CardContent,
+  CardMedia,
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogActions
+  DialogTitle,
+  FormControl,
+  IconButton,
+  Typography
 } from '@mui/material'
 
-import RemoveIcon from '@mui/icons-material/Remove'
-import AddIcon from '@mui/icons-material/Add'
-
 import { Item } from '../types'
-
-import React from 'react'
 
 function CartItem(item: Item) {
   const [open, setOpen] = React.useState(false)

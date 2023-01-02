@@ -1,13 +1,13 @@
-import { CssBaseline, ThemeProvider } from '@mui/material'
-import { theme } from '../themes/main'
-
 import React, { ReactElement } from 'react'
 
-import { MemoryRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { store } from '../redux/store'
+import { MemoryRouter } from 'react-router-dom'
 
-import { render, RenderOptions, cleanup } from '@testing-library/react'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import { cleanup, render, RenderOptions } from '@testing-library/react'
+
+import { store } from '../redux/store'
+import { theme } from '../themes/main'
 
 afterEach(() => {
   cleanup()

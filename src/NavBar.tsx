@@ -1,11 +1,12 @@
-import { AppBar, IconButton, Toolbar, Typography, Box } from '@mui/material'
+import { Link } from 'react-router-dom'
+
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
 import Badge from '@mui/material/Badge'
 
 import { useAppSelector } from './redux/hooks'
 import { RootState } from './redux/store'
-import { Link } from 'react-router-dom'
 
 function NavBar() {
   const selector = useAppSelector((state: RootState) => state.shoppingCart)

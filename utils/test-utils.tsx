@@ -1,9 +1,11 @@
-import { CssBaseline, ThemeProvider } from '@mui/material'
-import { theme } from '../src/themes/main'
-
 import React, { ReactElement } from 'react'
+
 import { MemoryRouter } from 'react-router-dom'
+
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { render, RenderOptions } from '@testing-library/react'
+
+import { theme } from '../src/themes/main'
 
 const AllProviders = ({ children }: { children: React.ReactNode }) => {
   const initialEntries = ['/']

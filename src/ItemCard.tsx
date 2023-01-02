@@ -1,21 +1,22 @@
-import Card from '@mui/material/Card'
-import CardMedia from '@mui/material/CardMedia'
-import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
-
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import { CardHeader, Container } from '@mui/material'
+import React from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Item } from './types'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Container,
+  IconButton,
+  Typography
+} from '@mui/material'
+
 import { useAppDispatch, useAppSelector } from './redux/hooks'
 import { addItem, increaseQuantity } from './redux/shoppingCart'
-
-import React from 'react'
+import { Item } from './types'
 
 function ItemCard(item: Item) {
   const dispatch = useAppDispatch()
