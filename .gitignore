@@ -25,3 +25,6 @@ dist-ssr
 
 # VS Code workspace files
 FullStackOpenProject-BackEnd.code-workspace
+
+# Local Netlify folder
+.netlify
