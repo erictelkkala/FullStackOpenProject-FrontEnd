@@ -21,7 +21,7 @@ const mockItems: Item[] = [
     description: 'This item is very much an item',
     price: 100,
     quantity: 0,
-    image: 'src\\assets\\react.svg'
+    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
   },
   {
     id: '2',
@@ -29,7 +29,7 @@ const mockItems: Item[] = [
     description: 'This item is very much an item',
     price: 100,
     quantity: 0,
-    image: 'src\\assets\\react.svg'
+    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
   },
   {
     id: '3',
@@ -37,7 +37,7 @@ const mockItems: Item[] = [
     description: 'This item is very much an item',
     price: 100,
     quantity: 0,
-    image: 'src\\assets\\react.svg'
+    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
   }
 ]
 
