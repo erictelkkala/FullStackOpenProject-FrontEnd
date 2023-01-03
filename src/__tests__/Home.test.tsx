@@ -17,5 +17,7 @@ describe('Home', () => {
     ]
     render(<Home mockItems={mockItems} />)
     expect(screen.getByText('The react Logo')).toBeInTheDocument()
+    expect(screen.getByText('This item is very much an item')).toBeInTheDocument()
+    expect(screen.getByText('100 €')).toBeInTheDocument()
   })
 })

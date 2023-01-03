@@ -10,34 +10,21 @@ import Login from './Login/Login'
 import NavBar from './NavBar'
 import { store } from './redux/store'
 import { theme } from './themes/main'
-import { Item } from './types'
 
-const mockItems: Item[] = [
-  {
-    id: '1',
-    name: 'The react Logo',
-    description: 'This item is very much an item',
-    price: 100,
-    quantity: 0,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
-  },
-  {
-    id: '2',
-    name: 'The react Logo',
-    description: 'This item is very much an item',
-    price: 100,
-    quantity: 0,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
-  },
-  {
-    id: '3',
-    name: 'The react Logo',
-    description: 'This item is very much an item',
-    price: 100,
-    quantity: 0,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
+// Get the items from the server
+async function getItems() {
+  let url = ''
+  if (process.env.NODE_ENV !== 'production') {
+    url = 'http://localhost:3001/getItems'
+  } else {
+    url = 'https://old-firefly-6762.fly.dev/getItems'
   }
-]
+  const response = await fetch(url)
+  const data = await response.json()
+  return data
+}
+
+const mockItems = await getItems()
 
 function App() {
   return (

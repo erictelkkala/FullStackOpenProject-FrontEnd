@@ -58,7 +58,7 @@ function ItemCard(item: Item) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Typography>In stock: 2</Typography>
+        <Typography>{item.price || 0} €</Typography>
         <IconButton
           color="primary"
           aria-label="Add to shopping cart"
