@@ -13,15 +13,14 @@ import { theme } from './themes/main'
 
 // Get the items from the server
 async function getItems() {
-  let url = ''
+  let url
   if (process.env.NODE_ENV !== 'production') {
     url = 'http://localhost:3001/getItems'
   } else {
     url = 'https://old-firefly-6762.fly.dev/getItems'
   }
   const response = await fetch(url)
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 const mockItems = await getItems()
