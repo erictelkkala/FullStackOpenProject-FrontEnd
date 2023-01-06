@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 
-import { useAppSelector } from './redux/hooks'
+import { useAppSelector } from '../redux/hooks'
 
 function ItemDetails() {
   const { id } = useParams()

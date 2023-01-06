@@ -14,9 +14,9 @@ import {
   Typography
 } from '@mui/material'
 
-import { useAppDispatch, useAppSelector } from './redux/hooks'
-import { addItem, increaseQuantity } from './redux/shoppingCart'
-import { Item } from './types'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { addItem, increaseQuantity } from '../redux/shoppingCart'
+import { Item } from '../types'
 
 function ItemCard(item: Item) {
   const dispatch = useAppDispatch()

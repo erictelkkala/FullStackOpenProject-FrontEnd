@@ -18,10 +18,13 @@ import {
   Typography
 } from '@mui/material'
 
+import { useAppDispatch } from '../redux/hooks'
+import { removeItem } from '../redux/shoppingCart'
 import { Item } from '../types'
 
 function CartItem(item: Item) {
   const [open, setOpen] = React.useState(false)
+  const dispatch = useAppDispatch()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -30,14 +33,20 @@ function CartItem(item: Item) {
   const handleClose = () => {
     setOpen(false)
   }
+
+  const handleDelete = () => {
+    console.log('Delete item from cart')
+    dispatch(removeItem(item.id))
+    setOpen(false)
+  }
+
   return (
     <Box>
       <Card raised sx={{ display: 'flex' }}>
         <CardMedia
           component="img"
-          sx={{ width: 200 }}
-          // FIXME: temporary image
-          image="https://material-ui.com/static/images/cards/live-from-space.jpg"
+          sx={{ width: 200, height: 200, objectFit: 'contain', marginLeft: 2 }}
+          image={item.image}
           alt="Live from space album cover"
         />
 
@@ -85,10 +94,10 @@ function CartItem(item: Item) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>No</Button>
           <Button onClick={handleClose} autoFocus>
-            Yes
+            No
           </Button>
+          <Button onClick={handleDelete}>Yes</Button>
         </DialogActions>
       </Dialog>
     </Box>

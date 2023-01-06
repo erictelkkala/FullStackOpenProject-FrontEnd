@@ -17,8 +17,9 @@ export const shoppingCartSlice = createSlice({
     addItem: (state, action: PayloadAction<Item>) => {
       state.items.push(action.payload)
     },
-    removeItem: (state, action: PayloadAction<Item>) => {
-      state.items = state.items.filter((item) => item.id !== action.payload.id)
+    removeItem: (state, action: PayloadAction<Item['id']>) => {
+      const id = action.payload
+      state.items = state.items.filter((item) => item.id !== id)
     },
     increaseQuantity: (state, action: PayloadAction<Item>) => {
       const item = state.items.find((item) => item.id === action.payload.id)
