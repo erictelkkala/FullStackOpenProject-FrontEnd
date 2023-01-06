@@ -19,7 +19,7 @@ import {
 } from '@mui/material'
 
 import { useAppDispatch } from '../redux/hooks'
-import { removeItem } from '../redux/shoppingCart'
+import { decreaseQuantity, increaseQuantity, removeItem } from '../redux/shoppingCart'
 import { Item } from '../types'
 
 function CartItem(item: Item) {
@@ -35,9 +35,26 @@ function CartItem(item: Item) {
   }
 
   const handleDelete = () => {
-    console.log('Delete item from cart')
+    // console.log('Delete item from cart')
+
     dispatch(removeItem(item.id))
     setOpen(false)
+  }
+
+  const handleIncrease = () => {
+    // console.log('Increase quantity')
+
+    dispatch(increaseQuantity(item.id))
+  }
+
+  const handleDecrease = () => {
+    // console.log('Decrease quantity')
+
+    // If the quantity is 1, open the dialog to delete the item
+    if (item.quantity === 1) {
+      return handleClickOpen()
+    }
+    dispatch(decreaseQuantity(item.id))
   }
 
   return (
@@ -47,20 +64,20 @@ function CartItem(item: Item) {
           component="img"
           sx={{ width: 200, height: 200, objectFit: 'contain', marginLeft: 2 }}
           image={item.image}
-          alt="Live from space album cover"
+          alt="Image of the item"
         />
 
         {/* Title of the item and the quantity below it */}
         <CardContent sx={{ display: 'flex', flexDirection: 'column', marginRight: 'auto' }}>
           <Typography variant="h5">{item.name}</Typography>
           <FormControl sx={{ flexDirection: 'row' }}>
-            <IconButton>
+            <IconButton onClick={handleDecrease}>
               <RemoveIcon />
             </IconButton>
             <Typography variant="subtitle1" sx={{ alignSelf: 'center' }}>
               {item.quantity}
             </Typography>
-            <IconButton>
+            <IconButton onClick={handleIncrease}>
               <AddIcon />
             </IconButton>
           </FormControl>
