@@ -59,7 +59,7 @@ function CartItem(item: Item) {
 
   return (
     <Box>
-      <Card raised sx={{ display: 'flex' }}>
+      <Card raised sx={{ display: 'flex' }} aria-label="cart-item" role="listitem">
         <CardMedia
           component="img"
           sx={{ width: 200, height: 200, objectFit: 'contain', marginLeft: 2 }}
@@ -71,13 +71,13 @@ function CartItem(item: Item) {
         <CardContent sx={{ display: 'flex', flexDirection: 'column', marginRight: 'auto' }}>
           <Typography variant="h5">{item.name}</Typography>
           <FormControl sx={{ flexDirection: 'row' }}>
-            <IconButton onClick={handleDecrease}>
+            <IconButton role="button" onClick={handleDecrease}>
               <RemoveIcon />
             </IconButton>
             <Typography variant="subtitle1" sx={{ alignSelf: 'center' }}>
               {item.quantity}
             </Typography>
-            <IconButton onClick={handleIncrease}>
+            <IconButton role="button" onClick={handleIncrease}>
               <AddIcon />
             </IconButton>
           </FormControl>
@@ -90,7 +90,7 @@ function CartItem(item: Item) {
             <Typography variant="h5">{item.price} €</Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Button variant="contained" color="error" onClick={handleClickOpen}>
+            <Button variant="contained" color="error" onClick={handleClickOpen} aria-label="Delete">
               Delete
             </Button>
           </Box>
@@ -101,8 +101,10 @@ function CartItem(item: Item) {
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-hidden={open ? 'false' : 'true'}
+        aria-label="alert-dialog-title"
+        role="dialog"
+        className="Confirm"
       >
         <DialogTitle id="alert-dialog-title">{'Delete item?'}</DialogTitle>
         <DialogContent>
@@ -111,10 +113,12 @@ function CartItem(item: Item) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleClose} autoFocus aria-label="item-delete-button-cancel">
             No
           </Button>
-          <Button onClick={handleDelete}>Yes</Button>
+          <Button onClick={handleDelete} aria-label="item-delete-button-confirm">
+            Yes
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>
