@@ -71,13 +71,17 @@ function CartItem(item: Item) {
         <CardContent sx={{ display: 'flex', flexDirection: 'column', marginRight: 'auto' }}>
           <Typography variant="h5">{item.name}</Typography>
           <FormControl sx={{ flexDirection: 'row' }}>
-            <IconButton role="button" onClick={handleDecrease}>
+            <IconButton role="button" onClick={handleDecrease} aria-label="item-quantity-decrease">
               <RemoveIcon />
             </IconButton>
-            <Typography variant="subtitle1" sx={{ alignSelf: 'center' }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ alignSelf: 'center' }}
+              aria-label="item-quantity-count"
+            >
               {item.quantity}
             </Typography>
-            <IconButton role="button" onClick={handleIncrease}>
+            <IconButton role="button" onClick={handleIncrease} aria-label="item-quantity-increase">
               <AddIcon />
             </IconButton>
           </FormControl>
