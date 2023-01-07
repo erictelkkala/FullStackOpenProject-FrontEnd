@@ -8,7 +8,7 @@ import Home from './Home'
 import ItemDetails from './Item/ItemDetails'
 import Login from './Login/Login'
 import NavBar from './NavBar'
-import { store } from './redux/store'
+import { setupStore } from './redux/store'
 import { theme } from './themes/main'
 import { Item } from './types'
 
@@ -44,7 +44,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Provider store={store}>
+        <Provider store={setupStore}>
           <NavBar />
           <Routes>
             <Route path="/" element={<Home mockItems={mockItems} />} />
