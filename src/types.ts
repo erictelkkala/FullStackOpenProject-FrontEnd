@@ -8,7 +8,7 @@ export interface Item {
   category?: string
 }
 
-export interface LoginValues {
+export interface User {
   username: string
   password: string
 }

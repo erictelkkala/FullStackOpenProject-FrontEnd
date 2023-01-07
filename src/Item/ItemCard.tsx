@@ -36,7 +36,7 @@ function ItemCard(item: Item) {
       console.log(quantity)
     } else if (item && quantity > 0) {
       // Increase the quantity of the item in the cart
-      dispatch(increaseQuantity(item))
+      dispatch(increaseQuantity(item.id))
       setQuantity(quantity + 1)
     } else {
       console.log('Error adding item to cart')
