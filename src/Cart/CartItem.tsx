@@ -18,10 +18,13 @@ import {
   Typography
 } from '@mui/material'
 
+import { useAppDispatch } from '../redux/hooks'
+import { decreaseQuantity, increaseQuantity, removeItem } from '../redux/shoppingCart'
 import { Item } from '../types'
 
 function CartItem(item: Item) {
   const [open, setOpen] = React.useState(false)
+  const dispatch = useAppDispatch()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -30,28 +33,55 @@ function CartItem(item: Item) {
   const handleClose = () => {
     setOpen(false)
   }
+
+  const handleDelete = () => {
+    // console.log('Delete item from cart')
+
+    dispatch(removeItem(item.id))
+    setOpen(false)
+  }
+
+  const handleIncrease = () => {
+    // console.log('Increase quantity')
+
+    dispatch(increaseQuantity(item.id))
+  }
+
+  const handleDecrease = () => {
+    // console.log('Decrease quantity')
+
+    // If the quantity is 1, open the dialog to delete the item
+    if (item.quantity === 1) {
+      return handleClickOpen()
+    }
+    dispatch(decreaseQuantity(item.id))
+  }
+
   return (
     <Box>
-      <Card raised sx={{ display: 'flex' }}>
+      <Card raised sx={{ display: 'flex' }} aria-label="cart-item" role="listitem">
         <CardMedia
           component="img"
-          sx={{ width: 200 }}
-          // FIXME: temporary image
-          image="https://material-ui.com/static/images/cards/live-from-space.jpg"
-          alt="Live from space album cover"
+          sx={{ width: 200, height: 200, objectFit: 'contain', marginLeft: 2 }}
+          image={item.image}
+          alt="Image of the item"
         />
 
         {/* Title of the item and the quantity below it */}
         <CardContent sx={{ display: 'flex', flexDirection: 'column', marginRight: 'auto' }}>
           <Typography variant="h5">{item.name}</Typography>
           <FormControl sx={{ flexDirection: 'row' }}>
-            <IconButton>
+            <IconButton role="button" onClick={handleDecrease} aria-label="item-quantity-decrease">
               <RemoveIcon />
             </IconButton>
-            <Typography variant="subtitle1" sx={{ alignSelf: 'center' }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ alignSelf: 'center' }}
+              aria-label="item-quantity-count"
+            >
               {item.quantity}
             </Typography>
-            <IconButton>
+            <IconButton role="button" onClick={handleIncrease} aria-label="item-quantity-increase">
               <AddIcon />
             </IconButton>
           </FormControl>
@@ -64,7 +94,7 @@ function CartItem(item: Item) {
             <Typography variant="h5">{item.price} €</Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Button variant="contained" color="error" onClick={handleClickOpen}>
+            <Button variant="contained" color="error" onClick={handleClickOpen} aria-label="Delete">
               Delete
             </Button>
           </Box>
@@ -75,8 +105,10 @@ function CartItem(item: Item) {
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-hidden={open ? 'false' : 'true'}
+        aria-label="alert-dialog-title"
+        role="dialog"
+        className="Confirm"
       >
         <DialogTitle id="alert-dialog-title">{'Delete item?'}</DialogTitle>
         <DialogContent>
@@ -85,8 +117,10 @@ function CartItem(item: Item) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleClose} autoFocus aria-label="item-delete-button-cancel">
+            No
+          </Button>
+          <Button onClick={handleDelete} aria-label="item-delete-button-confirm">
             Yes
           </Button>
         </DialogActions>

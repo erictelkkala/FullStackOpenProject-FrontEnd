@@ -3,5 +3,5 @@
   "quoteMark": "single",
   "trailingComma": "none",
   "wrappingStyle": "prettier",
-  "keepUnused": []
+  "keepUnused": [".*"]
 }

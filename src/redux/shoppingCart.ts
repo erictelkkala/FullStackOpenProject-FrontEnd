@@ -17,17 +17,17 @@ export const shoppingCartSlice = createSlice({
     addItem: (state, action: PayloadAction<Item>) => {
       state.items.push(action.payload)
     },
-    removeItem: (state, action: PayloadAction<Item>) => {
-      state.items = state.items.filter((item) => item.id !== action.payload.id)
+    removeItem: (state, action: PayloadAction<Item['id']>) => {
+      state.items = state.items.filter((item) => item.id !== action.payload)
     },
-    increaseQuantity: (state, action: PayloadAction<Item>) => {
-      const item = state.items.find((item) => item.id === action.payload.id)
+    increaseQuantity: (state, action: PayloadAction<Item['id']>) => {
+      const item = state.items.find((item) => item.id === action.payload)
       if (item) {
         item.quantity++
       }
     },
-    decreaseQuantity: (state, action: PayloadAction<Item>) => {
-      const item = state.items.find((item) => item.id === action.payload.id)
+    decreaseQuantity: (state, action: PayloadAction<Item['id']>) => {
+      const item = state.items.find((item) => item.id === action.payload)
       if (item) {
         item.quantity--
       }
