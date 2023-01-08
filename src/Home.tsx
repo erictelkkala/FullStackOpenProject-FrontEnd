@@ -5,10 +5,10 @@ import ItemCard from './Item/ItemCard'
 import { Item } from './types'
 
 function Home({ mockItems }: { mockItems: Item[] }) {
-  // console.log(mockItems)
+  console.log(mockItems)
   return (
     <Container>
-      {mockItems.length ? (
+      {mockItems ? (
         <Grid container spacing={6} rowSpacing={6} justifyContent={'center'}>
           {mockItems.map((item) => (
             <Grid item key={item.id}>

@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react'
 
 import Home from '../Home'
-import { Item } from '../types'
 import { render } from '../utils/test-utils'
 
 describe('Home', () => {
@@ -22,7 +21,9 @@ describe('Home', () => {
     expect(screen.getByText('100 €')).toBeInTheDocument()
   })
   it('should render a message if there are no items', () => {
-    const mockItems: Item[] = []
+    const mockItems = undefined
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     render(<Home mockItems={mockItems} />)
     expect(screen.getByText('No items to display')).toBeInTheDocument()
   })
