@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 
-import Home from '../Home'
-import { render } from '../utils/test-utils'
+import Home from '../../Home.js'
+import { render } from '../../utils/test-utils.js'
 
 describe('Home', () => {
   it('renders the home page', () => {
