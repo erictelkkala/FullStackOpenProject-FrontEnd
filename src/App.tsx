@@ -16,7 +16,7 @@ async function getItems() {
   if (process.env.NODE_ENV !== 'production') {
     url = 'http://localhost:3001/api/items'
   } else {
-    url = 'https://old-firefly-6762.fly.dev/items'
+    url = 'https://withered-dawn-3663.fly.dev/api/items'
   }
   return await fetch(url)
     .then((res) => {
