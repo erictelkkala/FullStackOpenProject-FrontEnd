@@ -33,7 +33,6 @@ function ItemCard(item: Item) {
       // Add the item to the cart
       dispatch(addItem(itemWithQuantity))
       setQuantity(quantity + 1)
-      console.log(quantity)
     } else if (item && quantity > 0) {
       // Increase the quantity of the item in the cart
       dispatch(increaseQuantity(item.id))
@@ -58,11 +57,11 @@ function ItemCard(item: Item) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Typography>In stock: 2</Typography>
+        <Typography>{item.price || 0} €</Typography>
         <IconButton
           color="primary"
           aria-label="Add to shopping cart"
-          sx={{ marginLeft: 'auto' }}
+          sx={{ marginLeft: 'auto' }} // Align to the right
           onClick={() => addItemToCart(item)}
         >
           {/* Show the add to cart button */}

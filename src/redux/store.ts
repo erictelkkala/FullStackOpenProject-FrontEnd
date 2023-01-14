@@ -2,7 +2,7 @@ import { combineReducers, configureStore, PreloadedState } from '@reduxjs/toolki
 
 import { shoppingCartReducer } from './shoppingCart'
 
-// Create the root reducer separately so we can extract the RootState type
+// Create the root reducer separately, so we can extract the RootState type
 const rootReducer = combineReducers({
   shoppingCart: shoppingCartReducer
 })

@@ -1,7 +1,7 @@
 import { fireEvent, screen, within } from '@testing-library/react'
 
-import Cart from '../Cart/Cart'
-import { render } from '../utils/test-utils'
+import Cart from '../../Cart/Cart.js'
+import { render } from '../../utils/test-utils.js'
 
 describe('Cart', () => {
   it('renders the cart page when empty', () => {
