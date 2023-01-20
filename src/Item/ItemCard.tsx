@@ -1,7 +1,3 @@
-import React from 'react'
-
-import { Link } from 'react-router-dom'
-
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import {
   Card,
@@ -13,6 +9,9 @@ import {
   IconButton,
   Typography
 } from '@mui/material'
+import React from 'react'
+
+import { Link } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { addItem, increaseQuantity } from '../redux/shoppingCart'
@@ -35,7 +34,7 @@ function ItemCard(item: Item) {
       setQuantity(quantity + 1)
     } else if (item && quantity > 0) {
       // Increase the quantity of the item in the cart
-      dispatch(increaseQuantity(item))
+      dispatch(increaseQuantity(item.id))
       setQuantity(quantity + 1)
     } else {
       console.log('Error adding item to cart')

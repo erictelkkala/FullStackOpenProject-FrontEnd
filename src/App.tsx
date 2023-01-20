@@ -1,4 +1,6 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
+import { useEffect, useState } from 'react'
+
 import { Provider } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 
@@ -9,31 +11,39 @@ import Login from './Login/Login'
 import NavBar from './NavBar'
 import { setupStore } from './redux/store'
 import { theme } from './themes/main'
+import { Item } from './types.js'
 
 // Get the items from the server
-async function getItems() {
-  let url
+
+function App() {
+  const [items, setItems] = useState<Item[]>([])
+  let url: string
   if (process.env.NODE_ENV !== 'production') {
     url = 'http://localhost:3001/api/items'
   } else {
-    url = 'https://old-firefly-6762.fly.dev/items'
+    url = 'https://master--gentle-lamington-6e4b05.netlify.app//api/items'
   }
-  return await fetch(url)
-    .then((res) => {
-      if (!res.ok) {
-        console.log(res)
-        throw new Error('Network response was not OK')
-      }
-      return res.json()
-    })
-    .catch((e) => {
-      console.error(e)
-    })
-}
 
-const mockItems = await getItems()
+  // Fetch the data from the url when mounting
+  // TODO: maybe convert to Redux instead of React state?
+  useEffect(() => {
+    const api = async () => {
+      const data = await fetch(url, {
+        method: 'GET'
+      })
+      return await data.json()
+    }
 
-function App() {
+    api()
+      .then((r) => {
+        // console.log(r)
+        setItems(r)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+  }, [url])
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
@@ -41,7 +51,7 @@ function App() {
         <Provider store={setupStore()}>
           <NavBar />
           <Routes>
-            <Route path="/" element={<Home mockItems={mockItems} />} />
+            <Route path="/" element={<Home mockItems={items} />} />
             <Route path="/item/:id" element={<ItemDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
