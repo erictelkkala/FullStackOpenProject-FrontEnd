@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite'
+import { build, defineConfig } from 'vite'
 
 import react from '@vitejs/plugin-react-swc'
 
@@ -10,5 +10,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/__tests__/setup.ts'
+  },
+  build: {
+    target: 'esnext',
+    minify: true,
   }
 })

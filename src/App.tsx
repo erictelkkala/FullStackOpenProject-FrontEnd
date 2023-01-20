@@ -21,7 +21,7 @@ function App() {
   if (process.env.NODE_ENV !== 'production') {
     url = 'http://localhost:3001/api/items'
   } else {
-    url = 'https://master--gentle-lamington-6e4b05.netlify.app//api/items'
+    url = 'https://withered-dawn-3663.fly.dev/api/items'
   }
 
   // Fetch the data from the url when mounting
