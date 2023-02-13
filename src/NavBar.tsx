@@ -20,8 +20,9 @@ function NavBar() {
           style={{ textDecoration: 'none', color: 'white' }}
           aria-label="navbar-title-link"
         >
-          <Typography variant="h4" color="inherit" aria-label="navbar-title-text"></Typography>
-          The marketplace
+          <Typography variant="h4" color="inherit" aria-label="navbar-title-text">
+            The marketplace
+          </Typography>
         </Link>
 
         {/* Empty box to not make the whole navbar a link */}
