@@ -1,7 +1,6 @@
 /// <reference types="vitest" />
-import { build, defineConfig } from 'vite'
-
 import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +12,6 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    minify: true,
+    minify: true
   }
 })
