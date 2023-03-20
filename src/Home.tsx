@@ -18,17 +18,25 @@ function Home() {
 
   // Fetch the data from the url and dispatch it to allItems
   useEffect(() => {
-    const api = async () => {
-      const data = await fetch(url, {
-        method: 'GET'
-      })
-      return await data.json()
-    }
+    // Only fetch data if in production or development
+    // Test environment will use mock data
+    if (process.env.NODE_ENV === ('production' || 'development')) {
+      const api = async () => {
+        const data = await fetch(url, {
+          method: 'GET'
+        })
+        return await data.json()
+      }
 
-    ;(async () => {
-      const r = await api()
-      dispatch(setItems(await r))
-    })()
+      ;(async () => {
+        try {
+          const r = await api()
+          dispatch(setItems(await r))
+        } catch (e) {
+          console.error(e)
+        }
+      })()
+    }
   }, [dispatch])
 
   const items: Item[] = useAppSelector((state) => state.allItems.items)
