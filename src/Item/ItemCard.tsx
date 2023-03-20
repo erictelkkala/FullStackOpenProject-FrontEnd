@@ -28,7 +28,7 @@ function ItemCard(item: Item) {
   const addItemToCart = (item: Item) => {
     console.log('Add item to cart', item)
     if (item && quantity == 0) {
-      const itemWithQuantity = { ...item, quantity: 1 }
+      const itemWithQuantity: Item = { ...item, quantity: 1 }
       // Add the item to the cart
       dispatch(addItem(itemWithQuantity))
       setQuantity(quantity + 1)

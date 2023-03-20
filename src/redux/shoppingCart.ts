@@ -8,28 +8,28 @@ export interface ShoppingCartState {
 
 const initialState: ShoppingCartState = {
   items: []
-}
+} as ShoppingCartState
 
 export const shoppingCartSlice = createSlice({
   name: 'shoppingCart',
   initialState,
   reducers: {
-    addItem: (state, action: PayloadAction<Item>) => {
+    addItem: (state: ShoppingCartState, action) => {
       state.items.push(action.payload)
     },
-    removeItem: (state, action: PayloadAction<Item['id']>) => {
+    removeItem: (state: ShoppingCartState, action: PayloadAction<Item['id']>) => {
       state.items = state.items.filter((item) => item.id !== action.payload)
     },
-    increaseQuantity: (state, action: PayloadAction<Item['id']>) => {
+    increaseQuantity: (state: ShoppingCartState, action: PayloadAction<Item['id']>) => {
       const item = state.items.find((item) => item.id === action.payload)
       if (item) {
-        item.quantity++
+        item.quantity += 1
       }
     },
-    decreaseQuantity: (state, action: PayloadAction<Item['id']>) => {
+    decreaseQuantity: (state: ShoppingCartState, action: PayloadAction<Item['id']>) => {
       const item = state.items.find((item) => item.id === action.payload)
       if (item) {
-        item.quantity--
+        item.quantity -= 1
       }
     }
   }

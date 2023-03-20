@@ -5,3 +5,4 @@
 # Notes:
 
 - The Vite dev tool likes to fetch data from the back-end multiple times when loading the page, this is fixed when running in prod build
+- IntelliJ IDEA has a bug where it gives an error when using Redux Toolkit with TypeScript, see: [https://youtrack.jetbrains.com/issue/WEB-42559](https://youtrack.jetbrains.com/issue/WEB-42559) & [https://youtrack.jetbrains.com/issue/WEB-46527](https://youtrack.jetbrains.com/issue/WEB-46527)
