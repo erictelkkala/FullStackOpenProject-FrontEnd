@@ -25,7 +25,7 @@ function Login() {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Card raised sx={{ maxWidth: 500, minWidth: 300, display: 'flex', flexDirection: 'column' }}>
-        <CardHeader title={'Login'} sx={{ textAlign: 'center' }}></CardHeader>
+        <CardHeader title={'Login'} sx={{ textAlign: 'center' }} role={'heading'}></CardHeader>
         <CardContent>Enter your username and password to log in</CardContent>
         <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
           <Formik
@@ -39,7 +39,7 @@ function Login() {
               }, 2000)
             }}
           >
-            {({ handleSubmit, errors }) => (
+            {({ handleSubmit, errors, values }) => (
               <Form onSubmit={handleSubmit}>
                 <Field
                   name="username"
@@ -60,8 +60,11 @@ function Login() {
                   sx={{ marginTop: 2 }}
                 />
 
-                {/* Only show allow the user to click the submit button if there are no errors */}
-                {errors.username || errors.password ? (
+                {/* Only show allow the user to click the submit button if there are no errors and the field are NOT empty */}
+                {errors.username ||
+                errors.password ||
+                values.password === '' ||
+                values.username === '' ? (
                   <Button variant="contained" disabled sx={{ width: '100%', marginTop: 2 }}>
                     Login
                   </Button>
