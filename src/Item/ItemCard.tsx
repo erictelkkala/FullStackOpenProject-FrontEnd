@@ -65,7 +65,7 @@ function ItemCard(item: Item) {
         >
           {/* Show the add to cart button */}
           <AddShoppingCartIcon />
-          {/* TODO: If the item is in car, also show the add and remove quantities buttons */}
+          {/* TODO: If the item is in cart, also show the add and remove quantities buttons */}
           {quantity > 0 && <Typography>{quantity}</Typography>}
         </IconButton>
       </CardActions>

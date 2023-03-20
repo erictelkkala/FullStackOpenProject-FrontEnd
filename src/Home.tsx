@@ -9,7 +9,7 @@ function Home({ mockItems }: { mockItems: Item[] }) {
   return (
     <Container>
       {mockItems ? (
-        <Grid container spacing={6} rowSpacing={6} justifyContent={'center'}>
+        <Grid container spacing={6} rowSpacing={6} justifyContent={'center'} paddingBottom={6}>
           {mockItems.map((item) => (
             <Grid item key={item.id}>
               <ItemCard {...item} />
