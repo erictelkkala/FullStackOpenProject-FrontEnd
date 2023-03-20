@@ -14,15 +14,12 @@ import { theme } from './themes/main'
 import { Item } from './types.js'
 
 // Get the items from the server
-
+const url =
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:3001/api/items'
+    : 'https://withered-dawn-3663.fly.dev/api/items'
 function App() {
   const [items, setItems] = useState<Item[]>([])
-  let url: string
-  if (process.env.NODE_ENV !== 'production') {
-    url = 'http://localhost:3001/api/items'
-  } else {
-    url = 'https://withered-dawn-3663.fly.dev/api/items'
-  }
 
   // Fetch the data from the url when mounting
   // TODO: maybe convert to Redux instead of React state?
@@ -34,15 +31,11 @@ function App() {
       return await data.json()
     }
 
-    api()
-      .then((r) => {
-        // console.log(r)
-        setItems(r)
-      })
-      .catch((e) => {
-        console.error(e)
-      })
-  }, [url])
+    ;(async () => {
+      const r = await api()
+      setItems(r)
+    })()
+  }, [])
 
   return (
     <div className="App">
