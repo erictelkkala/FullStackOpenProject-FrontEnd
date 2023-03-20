@@ -14,12 +14,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { addItem, increaseQuantity } from '../redux/shoppingCart'
+import { addItem, increaseQuantity } from '../redux/reducers/shoppingCart'
 import { Item } from '../types'
 
 function ItemCard(item: Item) {
   const dispatch = useAppDispatch()
-  // Check if the item is already in the cart
+  // Check if the item is already in the cart to get the quantity
   const initialState = useAppSelector((state) =>
     state.shoppingCart.items.find((i) => i.id === item.id)
   )

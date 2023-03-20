@@ -19,7 +19,7 @@ import {
 } from '@mui/material'
 
 import { useAppDispatch } from '../redux/hooks'
-import { decreaseQuantity, increaseQuantity, removeItem } from '../redux/shoppingCart'
+import { decreaseQuantity, increaseQuantity, removeItem } from '../redux/reducers/shoppingCart'
 import { Item } from '../types'
 
 function CartItem(item: Item) {
