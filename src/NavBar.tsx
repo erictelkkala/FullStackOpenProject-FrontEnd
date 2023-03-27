@@ -46,15 +46,21 @@ function NavBar() {
             </IconButton>
           </Link>
         )}
-        <IconButton
-          size="large"
-          edge="end"
-          color="inherit"
-          aria-label="user-icon"
-          aria-controls="menu-appbar"
+        <Link
+          to="/login"
+          style={{ textDecoration: 'none', color: 'white' }}
+          aria-label="user-icon-link"
         >
-          <AccountCircleIcon />
-        </IconButton>
+          <IconButton
+            size="large"
+            edge="end"
+            color="inherit"
+            aria-label="user-icon"
+            aria-controls="menu-appbar"
+          >
+            <AccountCircleIcon />
+          </IconButton>
+        </Link>
       </Toolbar>
     </AppBar>
   )
