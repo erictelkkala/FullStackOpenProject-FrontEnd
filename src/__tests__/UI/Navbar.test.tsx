@@ -14,7 +14,7 @@ describe('Navbar', () => {
     expect(within(navbar).getByRole('heading', { name: 'navbar-title-text' })).toHaveTextContent(
       'The marketplace'
     )
-    expect(within(navbar).getByRole('button', { name: 'user-icon' })).toBeVisible()
+    expect(within(navbar).getByRole('button', { name: 'login-button' })).toBeVisible()
 
     // Should be invisible
     expect(
@@ -61,7 +61,7 @@ describe('Navbar', () => {
     expect(within(navbar).getByRole('heading', { name: 'navbar-title-text' })).toHaveTextContent(
       'The marketplace'
     )
-    expect(within(navbar).getByRole('button', { name: 'user-icon' })).toBeVisible()
+    expect(within(navbar).getByRole('button', { name: 'login-button' })).toBeVisible()
     expect(within(navbar).getByRole('button', { name: 'cart-icon-button' })).toBeVisible()
     expect(within(navbar).getByRole('status', { name: 'cart-icon-badge' })).toBeVisible()
     expect(within(navbar).getByRole('status', { name: 'cart-icon-badge' })).not.toHaveTextContent(

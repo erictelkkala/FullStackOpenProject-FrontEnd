@@ -6,8 +6,14 @@ import * as Yup from 'yup'
 import { setCookie } from 'typescript-cookie'
 
 import { User } from '../types'
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../redux/hooks'
+import { setUser } from '../redux/reducers/user'
 
 function Login() {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
       .min(4, 'Username is too short!')
@@ -34,6 +40,10 @@ function Login() {
       const token = JSON.parse(await res.text()).token
       // Set the token cookie, expiry and sameSite
       setCookie('token', token, { expires: 1, sameSite: 'strict' })
+      // Dispatch the token to the redux store
+      dispatch(setUser(token))
+      // Redirect to the home page
+      navigate('/')
     }
   }
 

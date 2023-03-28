@@ -1,15 +1,37 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import Badge from '@mui/material/Badge'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { getCookie, removeCookie } from 'typescript-cookie'
 
-import { useAppSelector } from './redux/hooks'
+import { useAppDispatch, useAppSelector, useUser } from './redux/hooks'
+import { setUser } from './redux/reducers/user'
 import { RootState } from './redux/store'
 
 function NavBar() {
   const selector = useAppSelector((state: RootState) => state.shoppingCart)
   const itemsInCart = selector.items.length
+  const { user } = useUser()
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  // Logout function
+  function logout() {
+    const token = getCookie('token')
+
+    // If the token exists
+    if (token) {
+      // Remove the token cookie
+      removeCookie('token')
+      // Remove the user from the store
+      dispatch(setUser(''))
+      // Redirect to the home page
+      navigate('/')
+    } else {
+      // Redirect to the home page
+      navigate('/')
+    }
+  }
 
   return (
     // The AppBar has some interesting behavior with the padding, making it go on top of the content
@@ -46,21 +68,19 @@ function NavBar() {
             </IconButton>
           </Link>
         )}
-        <Link
-          to="/login"
-          style={{ textDecoration: 'none', color: 'white' }}
-          aria-label="user-icon-link"
-        >
-          <IconButton
-            size="large"
-            edge="end"
-            color="inherit"
-            aria-label="user-icon"
-            aria-controls="menu-appbar"
+        {user.user === '' ? (
+          <Link
+            to="/login"
+            style={{ textDecoration: 'none', color: 'white' }}
+            aria-label="user-icon-link"
           >
-            <AccountCircleIcon />
-          </IconButton>
-        </Link>
+            <Button color="inherit" aria-label="login-button">
+              Login
+            </Button>
+          </Link>
+        ) : (
+          <Button onClick={() => logout()}>Logout</Button>
+        )}
       </Toolbar>
     </AppBar>
   )
