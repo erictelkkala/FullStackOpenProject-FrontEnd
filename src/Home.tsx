@@ -6,6 +6,7 @@ import ItemCard from './Item/ItemCard'
 import { useAppDispatch, useAppSelector } from './redux/hooks'
 import { setItems } from './redux/reducers/items'
 import { Item } from './types'
+import axios from 'axios'
 
 // Get the items from the server
 const url =
@@ -22,10 +23,7 @@ function Home() {
     // Test environment will use mock data
     if (process.env.NODE_ENV !== 'test') {
       const api = async () => {
-        const data = await fetch(url, {
-          method: 'GET'
-        })
-        return await data.json()
+        return (await axios.get(url)).data
       }
 
       try {
