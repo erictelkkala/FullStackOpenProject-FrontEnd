@@ -29,21 +29,21 @@ describe('Navbar', () => {
       items: [
         {
           id: '1',
-          name: 'The react Logo',
-          description: 'This item is very much an item',
-          price: 100,
+          listing_title: 'The react Logo',
+          listing_description: 'This item is very much an item',
+          listing_price: 100,
           quantity: 0,
-          image: 'src\\assets\\react.svg',
-          category: 'Other'
+          listing_image: 'src\\assets\\react.svg',
+          listing_category: 'Other'
         },
         {
           id: '2',
-          name: 'The react Logo number 2',
-          description: 'This item is very much an item as well',
-          price: 99,
+          listing_title: 'The react Logo number 2',
+          listing_description: 'This item is very much an item as well',
+          listing_price: 99,
           quantity: 1,
-          image: 'src\\assets\\react.svg',
-          category: 'Sports'
+          listing_image: 'src\\assets\\react.svg',
+          listing_category: 'Sports'
         }
       ]
     }

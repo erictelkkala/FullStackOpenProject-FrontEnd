@@ -46,17 +46,17 @@ function ItemCard(item: Item) {
       {/* Open the item's page when the car is clicked */}
       <Container>
         <Link to={`/item/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <CardHeader title={item.name} />
-          <CardMedia component="img" width={300} src={item.image} alt="Item image" />
+          <CardHeader title={item.listing_title} />
+          <CardMedia component="img" width={300} src={item.listing_image} alt="Item image" />
         </Link>
       </Container>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {item.description}
+          {item.listing_description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Typography>{item.price || 0} €</Typography>
+        <Typography>{item.listing_price || 0} €</Typography>
         <IconButton
           color="primary"
           aria-label="Add to shopping cart"

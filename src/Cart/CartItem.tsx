@@ -63,13 +63,13 @@ function CartItem(item: Item) {
         <CardMedia
           component="img"
           sx={{ width: 200, height: 200, objectFit: 'contain', marginLeft: 2 }}
-          image={item.image}
+          image={item.listing_image}
           alt="Image of the item"
         />
 
         {/* Title of the item and the quantity below it */}
         <CardContent sx={{ display: 'flex', flexDirection: 'column', marginRight: 'auto' }}>
-          <Typography variant="h5">{item.name}</Typography>
+          <Typography variant="h5">{item.listing_title}</Typography>
           <FormControl sx={{ flexDirection: 'row' }}>
             <IconButton role="button" onClick={handleDecrease} aria-label="item-quantity-decrease">
               <RemoveIcon />
@@ -91,7 +91,7 @@ function CartItem(item: Item) {
         <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
           {/* MarginBottom to make the delete button hit the "floor" of the box */}
           <Box sx={{ display: 'flex', justifyContent: 'end', marginBottom: 'auto' }}>
-            <Typography variant="h5">{item.price} €</Typography>
+            <Typography variant="h5">{item.listing_price} €</Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Button variant="contained" color="error" onClick={handleClickOpen} aria-label="Delete">

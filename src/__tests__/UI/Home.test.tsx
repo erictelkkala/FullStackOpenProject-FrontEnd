@@ -9,11 +9,12 @@ describe('Home', () => {
       items: [
         {
           id: '1',
-          name: 'The react Logo',
-          description: 'This item is very much an item',
-          price: 100,
+          listing_title: 'The react Logo',
+          listing_description: 'This item is very much an item',
+          listing_price: 100,
           quantity: 0,
-          image: 'src\\assets\\react.svg'
+          listing_image: 'src\\assets\\react.svg',
+          listing_category: 'Other'
         }
       ]
     }
