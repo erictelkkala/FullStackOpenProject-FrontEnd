@@ -28,3 +28,5 @@ FullStackOpenProject-BackEnd.code-workspace
 
 # Local Netlify folder
 .netlify
+
+.env
