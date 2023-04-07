@@ -1,5 +1,5 @@
 import LoginIcon from '@mui/icons-material/Login'
-import { Box, Button, Card, CardActions, CardContent, CardHeader } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Stack } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-mui'
 import * as Yup from 'yup'
@@ -91,26 +91,43 @@ function Login() {
                   sx={{ marginTop: 2 }}
                 />
 
-                {/* Only show allow the user to click the submit button if there are no errors and the field are NOT empty */}
-                {errors.name || errors.password || values.password === '' || values.name === '' ? (
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ marginTop: 2, display: 'flex', justifyContent: 'space-between' }}
+                >
                   <Button
                     variant="contained"
-                    disabled
-                    endIcon={<LoginIcon />}
-                    sx={{ width: '100%', marginTop: 2 }}
+                    sx={{ marginRight: 1, width: 125 }}
+                    onClick={() => navigate('/signup')} // Navigate to the signup page
                   >
-                    Login
+                    Signup
                   </Button>
-                ) : (
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    endIcon={<LoginIcon />}
-                    sx={{ width: '100%', marginTop: 2 }}
-                  >
-                    Login
-                  </Button>
-                )}
+
+                  {/* Only show allow the user to click the submit button if there are no errors and the field are NOT empty */}
+                  {errors.name ||
+                  errors.password ||
+                  values.password === '' ||
+                  values.name === '' ? (
+                    <Button
+                      variant="contained"
+                      disabled
+                      endIcon={<LoginIcon />}
+                      sx={{ width: 125 }}
+                    >
+                      Login
+                    </Button>
+                  ) : (
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      endIcon={<LoginIcon />}
+                      sx={{ width: 125 }}
+                    >
+                      Login
+                    </Button>
+                  )}
+                </Stack>
               </Form>
             )}
           </Formik>
