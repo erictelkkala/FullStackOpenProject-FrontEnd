@@ -16,7 +16,6 @@ describe('Login', () => {
     expect(screen.getByLabelText('Password')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /signup/i })).toHaveTextContent('Signup')
     expect(screen.getByRole('button', { name: /login/i })).toHaveTextContent('Login')
-    expect(screen.getByRole('button', { name: /login/i })).toBeDisabled()
   })
   it('renders the Login form with errors', async () => {
     const user = userEvent.setup()
@@ -28,18 +27,22 @@ describe('Login', () => {
     const usernameField = screen.getByLabelText('Username')
     const passwordField = screen.getByLabelText('Password')
 
-    expect(loginButton).toBeDisabled()
     expect(loginButton).toHaveTextContent('Login')
 
     expect(usernameField).toHaveTextContent('')
     expect(passwordField).toHaveTextContent('')
 
+    // Password is missing
     await user.type(usernameField, 'test')
-    expect(loginButton).toBeDisabled()
+    await user.click(loginButton)
+    expect(mockSubmit).not.toHaveBeenCalled()
+    expect(screen.getByText('Password is required!')).toBeInTheDocument()
 
     // Password too short
     await user.type(passwordField, 'tes')
-    expect(loginButton).toBeDisabled()
+    await user.click(loginButton)
+    expect(mockSubmit).not.toHaveBeenCalled()
+    expect(screen.getByText('Password is too short!')).toBeInTheDocument()
 
     // Password too long
     await user.clear(passwordField)
@@ -47,11 +50,13 @@ describe('Login', () => {
       passwordField,
       'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd'
     )
-    expect(loginButton).toBeDisabled()
+    await user.click(loginButton)
+    expect(mockSubmit).not.toHaveBeenCalled()
 
     // Password correct length
     await user.clear(passwordField)
     await user.type(passwordField, 'test')
-    expect(loginButton).toBeEnabled()
+    await user.click(loginButton)
+    expect(mockSubmit).toHaveBeenCalledWith({ name: 'test', password: 'test' })
   })
 })
