@@ -1,7 +1,15 @@
 import LoginIcon from '@mui/icons-material/Login'
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Stack } from '@mui/material'
-import { Field, Form, Formik } from 'formik'
-import { TextField } from 'formik-mui'
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Stack,
+  TextField
+} from '@mui/material'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import { User } from '../types'
@@ -19,11 +27,11 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
     name: Yup.string()
       .min(4, 'Username is too short!')
       .max(20, 'Username is too long!')
-      .required('Required'),
+      .required('Username is required!'),
     password: Yup.string()
       .min(4, 'Password is too short!')
       .max(20, 'Password is too long!')
-      .required('Required')
+      .required('Password is required!')
   })
 
   const handleLogin = async (values: User) => {
@@ -53,6 +61,15 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
     }
   }
 
+  const formik = useFormik({
+    initialValues: { name: '', password: '' },
+    validationSchema: LoginSchema,
+    onSubmit: async (values, { setSubmitting }) => {
+      handleLogin(values)
+      setSubmitting(false)
+    }
+  })
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Card
@@ -68,75 +85,50 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
         <CardHeader title={'Login'} sx={{ textAlign: 'center' }} role={'heading'}></CardHeader>
         <CardContent>Enter your username and password to log in</CardContent>
         <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Formik
-            initialValues={{ name: '', password: '' }}
-            validationSchema={LoginSchema}
-            onSubmit={async (values, { setSubmitting }) => {
-              handleLogin(values)
-              setSubmitting(false)
-            }}
-          >
-            {({ handleSubmit, errors, values }) => (
-              <Form onSubmit={handleSubmit}>
-                <Field
-                  name="name"
-                  label="Username"
-                  type="text"
-                  component={TextField}
-                  variant="filled"
-                  fullWidth
-                />
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              name="name"
+              label="Username"
+              type="text"
+              variant="filled"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+              fullWidth
+            />
 
-                <Field
-                  name="password"
-                  label="Password"
-                  type="password"
-                  component={TextField}
-                  variant="filled"
-                  fullWidth
-                  sx={{ marginTop: 2 }}
-                />
+            <TextField
+              name="password"
+              label="Password"
+              type="password"
+              variant="filled"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+              fullWidth
+              sx={{ marginTop: 2 }}
+            />
 
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  sx={{ marginTop: 2, display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <Button
-                    variant="contained"
-                    sx={{ marginRight: 1, width: 125 }}
-                    onClick={() => navigate('/signup')} // Navigate to the signup page
-                  >
-                    Signup
-                  </Button>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ marginTop: 2, display: 'flex', justifyContent: 'space-between' }}
+            >
+              <Button
+                variant="contained"
+                sx={{ marginRight: 1, width: 125 }}
+                onClick={() => navigate('/signup')} // Navigate to the signup page
+              >
+                Signup
+              </Button>
 
-                  {/* Only show allow the user to click the submit button if there are no errors and the field are NOT empty */}
-                  {errors.name ||
-                  errors.password ||
-                  values.password === '' ||
-                  values.name === '' ? (
-                    <Button
-                      variant="contained"
-                      disabled
-                      endIcon={<LoginIcon />}
-                      sx={{ width: 125 }}
-                    >
-                      Login
-                    </Button>
-                  ) : (
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      endIcon={<LoginIcon />}
-                      sx={{ width: 125 }}
-                    >
-                      Login
-                    </Button>
-                  )}
-                </Stack>
-              </Form>
-            )}
-          </Formik>
+              <Button type="submit" variant="contained" endIcon={<LoginIcon />} sx={{ width: 125 }}>
+                Login
+              </Button>
+            </Stack>
+          </form>
         </CardActions>
       </Card>
     </Box>
