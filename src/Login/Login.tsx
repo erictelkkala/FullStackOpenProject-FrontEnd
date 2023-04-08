@@ -3,14 +3,15 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Stack } from '
 import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-mui'
 import * as Yup from 'yup'
-import { setCookie } from 'typescript-cookie'
 
 import { User } from '../types'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../redux/hooks'
+import { setCookie } from 'typescript-cookie'
 import { setUser } from '../redux/reducers/user'
 
-function Login() {
+// The Login component accepts an optional onSubmit prop
+function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -26,24 +27,29 @@ function Login() {
   })
 
   const handleLogin = async (values: User) => {
-    // Send the username and password to the server
-    const res = await fetch('http://localhost:3001/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(values)
-    })
-    // If the status is 200, set the token cookie
-    if (res.status === 200) {
-      // Parse the token from the body of the response
-      const token = JSON.parse(await res.text()).token
-      // Set the token cookie, expiry and sameSite
-      setCookie('token', token, { expires: 1, sameSite: 'strict' })
-      // Dispatch the token to the redux store
-      dispatch(setUser(token))
-      // Redirect to the home page
-      navigate('/')
+    // If the onSubmit prop is passed, call it instead of the default
+    if (onSubmit) {
+      onSubmit(values)
+    } else {
+      // Send the username and password to the server
+      const res = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+      })
+      // If the status is 200, set the token cookie
+      if (res.status === 200) {
+        // Parse the token from the body of the response
+        const token = JSON.parse(await res.text()).token
+        // Set the token cookie, expiry and sameSite
+        setCookie('token', token, { expires: 1, sameSite: 'strict' })
+        // Dispatch the token to the redux store
+        dispatch(setUser(token))
+        // Redirect to the home page
+        navigate('/')
+      }
     }
   }
 
