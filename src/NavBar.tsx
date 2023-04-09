@@ -57,10 +57,10 @@ function NavBar() {
             style={{ textDecoration: 'none', color: 'white' }}
             aria-label="cart-icon-link"
           >
-            <IconButton size="large" edge="end" color="inherit" aria-label="cart-icon-button">
+            <IconButton size="large" edge="end" aria-label="cart-icon-button">
               <Badge
                 badgeContent={itemsInCart}
-                color="info"
+                color="secondary"
                 role="status"
                 aria-label="cart-icon-badge"
               >
