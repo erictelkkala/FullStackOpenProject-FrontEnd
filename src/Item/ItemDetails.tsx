@@ -1,9 +1,11 @@
+import React, { useEffect } from 'react'
+
+import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-import { Item } from '../types'
 import { Box, Container, Typography } from '@mui/material'
-import axios from 'axios'
-import React, { useEffect } from 'react'
+
+import { Item } from '../types'
 
 function ItemDetails() {
   const { id } = useParams()

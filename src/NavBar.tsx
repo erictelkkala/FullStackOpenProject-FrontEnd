@@ -1,8 +1,9 @@
+import { Link, useNavigate } from 'react-router-dom'
+import { getCookie, removeCookie } from 'typescript-cookie'
+
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import Badge from '@mui/material/Badge'
-import { Link, useNavigate } from 'react-router-dom'
-import { getCookie, removeCookie } from 'typescript-cookie'
 
 import { useAppDispatch, useAppSelector, useUser } from './redux/hooks'
 import { setUser } from './redux/reducers/user'

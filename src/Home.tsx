@@ -1,12 +1,14 @@
+import { useEffect } from 'react'
+
+import axios from 'axios'
+
 import { Container, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid'
-import { useEffect } from 'react'
 
 import ItemCard from './Item/ItemCard'
 import { useAppDispatch, useAppSelector } from './redux/hooks'
 import { setItems } from './redux/reducers/items'
 import { Item } from './types'
-import axios from 'axios'
 
 // Get the items from the server
 const url =

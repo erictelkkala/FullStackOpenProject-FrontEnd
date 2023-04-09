@@ -1,16 +1,16 @@
-import { CssBaseline, ThemeProvider } from '@mui/material'
-
 import { Provider } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
+
+import { CssBaseline, ThemeProvider } from '@mui/material'
 
 import Cart from './Cart/Cart'
 import Home from './Home'
 import ItemDetails from './Item/ItemDetails'
 import Login from './Login/Login'
+import Signup from './Login/Signup'
 import NavBar from './NavBar'
 import { setupStore } from './redux/store'
 import { theme } from './themes/main'
-import Signup from './Login/Signup'
 
 function App() {
   return (

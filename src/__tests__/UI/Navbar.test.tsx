@@ -1,4 +1,5 @@
 import { screen, within } from '@testing-library/react'
+
 import NavBar from '../../NavBar.js'
 import { render } from '../../utils/test-utils.js'
 

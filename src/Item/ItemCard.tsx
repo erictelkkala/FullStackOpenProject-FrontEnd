@@ -1,3 +1,7 @@
+import React from 'react'
+
+import { Link } from 'react-router-dom'
+
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import {
   Card,
@@ -9,9 +13,6 @@ import {
   IconButton,
   Typography
 } from '@mui/material'
-import React from 'react'
-
-import { Link } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { addItem, increaseQuantity } from '../redux/reducers/shoppingCart'
