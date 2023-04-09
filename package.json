@@ -50,6 +50,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^5.10.2",
     "husky": "^8.0.3",
+    "install-peers": "^1.0.4",
     "jsdom": "^21.1.1",
     "prettier": "^2.8.7",
     "typescript": "^5.0.4",
