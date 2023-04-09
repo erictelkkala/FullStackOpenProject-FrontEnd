@@ -79,7 +79,9 @@ function NavBar() {
             </Button>
           </Link>
         ) : (
-          <Button color="inherit" onClick={() => logout()}>Logout</Button>
+          <Button color="inherit" onClick={() => logout()}>
+            Logout
+          </Button>
         )}
       </Toolbar>
     </AppBar>

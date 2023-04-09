@@ -1,11 +1,11 @@
-import LoginIcon from '@mui/icons-material/Login'
-import { Box, Button, Card, CardActions, CardContent, CardHeader } from '@mui/material'
-import { Field, Form, Formik } from 'formik'
-import { TextField } from 'formik-mui'
+import { Field, Form, Formik, useFormik } from 'formik'
+import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
+import LoginIcon from '@mui/icons-material/Login'
+import { Box, Button, Card, CardActions, CardContent, CardHeader, TextField } from '@mui/material'
+
 import { User } from '../types'
-import { useNavigate } from 'react-router-dom'
 
 function Signup() {
   const navigate = useNavigate()
@@ -19,13 +19,11 @@ function Signup() {
       .min(4, 'Password is too short!')
       .max(20, 'Password is too long!')
       .required('Required'),
-    passwordConfirmation: Yup.string().test(
-      'passwords-match',
-      'Passwords must match',
-      function (value) {
+    passwordConfirmation: Yup.string()
+      .test('passwords-match', 'Passwords must match', function (value) {
         return this.parent.password === value
-      }
-    )
+      })
+      .required('Required')
   })
 
   const handleSignup = async (values: User) => {
@@ -43,6 +41,15 @@ function Signup() {
     }
   }
 
+  const formik = useFormik({
+    initialValues: { name: '', password: '', passwordConfirmation: '' },
+    validationSchema: SignupSchema,
+    onSubmit: async (values, { setSubmitting }) => {
+      handleSignup(values)
+      setSubmitting(false)
+    }
+  })
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Card
@@ -58,77 +65,59 @@ function Signup() {
         <CardHeader title={'Signup'} sx={{ textAlign: 'center' }} role={'heading'}></CardHeader>
         <CardContent>Enter your username and password to sign up</CardContent>
         <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Formik
-            initialValues={{ name: '', password: '', passwordConfirmation: '' }}
-            validationSchema={SignupSchema}
-            onSubmit={async (values, { setSubmitting }) => {
-              handleSignup(values)
-              setSubmitting(false)
-            }}
-          >
-            {({ handleSubmit, errors, values }) => (
-              <Form onSubmit={handleSubmit}>
-                <Field
-                  name="name"
-                  label="Username"
-                  type="text"
-                  component={TextField}
-                  variant="filled"
-                  fullWidth
-                />
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              name="name"
+              label="Username"
+              type="text"
+              variant="filled"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+              fullWidth
+            />
 
-                <Field
-                  name="password"
-                  label="Password"
-                  type="password"
-                  component={TextField}
-                  variant="filled"
-                  fullWidth
-                  sx={{ marginTop: 2 }}
-                />
+            <TextField
+              name="password"
+              label="Password"
+              type="password"
+              variant="filled"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+              fullWidth
+              sx={{ marginTop: 2 }}
+            />
 
-                <Field
-                  name="passwordConfirmation"
-                  label="Confirm Password"
-                  type="password"
-                  component={TextField}
-                  variant="filled"
-                  fullWidth
-                  sx={{ marginTop: 2 }}
-                />
+            <TextField
+              name="passwordConfirmation"
+              label="Confirm Password"
+              type="password"
+              variant="filled"
+              value={formik.values.passwordConfirmation}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.passwordConfirmation && Boolean(formik.errors.passwordConfirmation)
+              }
+              helperText={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
+              fullWidth
+              sx={{ marginTop: 2 }}
+            />
 
-                {/*
-                 * Only show allow the user to click the submit button if there are no errors and the fields are NOT empty
-                 * Also check that the password and password confirmation match
-                 */}
-                {errors.name ||
-                errors.password ||
-                errors.passwordConfirmation ||
-                values.password === '' ||
-                values.name === '' ||
-                values.passwordConfirmation === '' ||
-                values.password !== values.passwordConfirmation ? (
-                  <Button
-                    variant="contained"
-                    disabled
-                    endIcon={<LoginIcon />}
-                    sx={{ width: '100%', marginTop: 2 }}
-                  >
-                    Sign up
-                  </Button>
-                ) : (
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    endIcon={<LoginIcon />}
-                    sx={{ width: '100%', marginTop: 2 }}
-                  >
-                    Sign up
-                  </Button>
-                )}
-              </Form>
-            )}
-          </Formik>
+            <Button
+              type="submit"
+              variant="contained"
+              endIcon={<LoginIcon />}
+              sx={{ width: '100%', marginTop: 2 }}
+            >
+              Sign up
+            </Button>
+          </form>
         </CardActions>
       </Card>
     </Box>

@@ -1,3 +1,8 @@
+import { useFormik } from 'formik'
+import { useNavigate } from 'react-router-dom'
+import { setCookie } from 'typescript-cookie'
+import * as Yup from 'yup'
+
 import LoginIcon from '@mui/icons-material/Login'
 import {
   Box,
@@ -9,21 +14,17 @@ import {
   Stack,
   TextField
 } from '@mui/material'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
 
-import { User } from '../types'
-import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../redux/hooks'
-import { setCookie } from 'typescript-cookie'
 import { setUser } from '../redux/reducers/user'
+import { User } from '../types'
 
 // The Login component accepts an optional onSubmit prop
 function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const LoginSchema = Yup.object().shape({
+  const LoginSchema: Yup.AnyObject = Yup.object().shape({
     name: Yup.string()
       .min(4, 'Username is too short!')
       .max(20, 'Username is too long!')
@@ -93,6 +94,7 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
               variant="filled"
               value={formik.values.name}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
               fullWidth
@@ -105,6 +107,7 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
               variant="filled"
               value={formik.values.password}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
               fullWidth
