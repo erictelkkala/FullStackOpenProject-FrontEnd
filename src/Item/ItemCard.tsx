@@ -43,12 +43,18 @@ function ItemCard(item: Item) {
   }
 
   return (
-    <Card raised sx={{ maxWidth: 400, minWidth: 300 }}>
+    <Card raised sx={{ maxWidth: 400, minWidth: 300, borderRadius: 2 }}>
       {/* Open the item's page when the car is clicked */}
       <Container>
         <Link to={`/item/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <CardHeader title={item.listing_title} />
-          <CardMedia component="img" width={300} src={item.listing_image} alt="Item image" />
+          <CardMedia
+            component="img"
+            width={300}
+            src={item.listing_image}
+            alt="Item image"
+            sx={{ borderRadius: 2 }}
+          />
         </Link>
       </Container>
       <CardContent>
