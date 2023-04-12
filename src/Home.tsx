@@ -28,11 +28,9 @@ function Home() {
         return (await axios.get(url)).data
       }
 
-      try {
-        api().then((r) => dispatch(setItems(r)))
-      } catch (e) {
-        console.error(e)
-      }
+      api()
+        .then((r) => dispatch(setItems(r as Item[])))
+        .catch((e: Error) => console.error(e.message))
     }
   }, [dispatch])
 
