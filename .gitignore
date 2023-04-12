@@ -30,3 +30,4 @@ FullStackOpenProject-BackEnd.code-workspace
 .netlify
 
 .env
+.yarn/
