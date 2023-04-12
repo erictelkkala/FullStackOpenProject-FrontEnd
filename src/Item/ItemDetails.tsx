@@ -31,7 +31,13 @@ function ItemDetails() {
   return (
     <Container>
       {item ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex' }}>
+          <Box
+            component={'img'}
+            src={item.listing_image}
+            alt={item.listing_title}
+            sx={{ borderRadius: 2 }}
+          />
           <Typography variant="body1"> Name: {item.listing_title} </Typography>
           <Typography variant="body1"> Price: {item.listing_price} </Typography>
         </Box>
