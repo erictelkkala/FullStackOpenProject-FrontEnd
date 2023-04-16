@@ -1,3 +1,5 @@
+import { describe, it } from 'vitest'
+
 import { screen, within } from '@testing-library/react'
 
 import NavBar from '../../NavBar.js'
@@ -46,6 +48,10 @@ describe('Navbar', () => {
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Sports'
         }
+      ],
+      quantity: [
+        { id: '1', quantity: 1 },
+        { id: '2', quantity: 1 }
       ]
     }
     render(<NavBar />, {

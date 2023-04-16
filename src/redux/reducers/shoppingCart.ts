@@ -17,8 +17,20 @@ export const shoppingCartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state: ShoppingCartState, action) => {
-      state.items.push(action.payload)
-      state.quantity.push({ id: action.payload.id, quantity: 1 })
+      // For each item in the payload
+      action.payload.forEach((item: Item) => {
+        // check if it is already in the cart
+        if (!state.items.find((cartItem) => cartItem.id === item.id)) {
+          state.items.push(item)
+          state.quantity.push({ id: item.id, quantity: 1 })
+          // Else increase the quantity of the item
+        } else {
+          const cartItem = state.quantity.find((cartItem) => cartItem.id === item.id)
+          if (cartItem) {
+            cartItem.quantity += 1
+          }
+        }
+      })
     },
     removeItem: (state: ShoppingCartState, action: PayloadAction<Item['id']>) => {
       state.items = state.items.filter((item) => item.id !== action.payload)

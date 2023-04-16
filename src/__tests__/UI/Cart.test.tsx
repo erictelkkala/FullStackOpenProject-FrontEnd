@@ -1,3 +1,5 @@
+import { describe, it } from 'vitest'
+
 import { fireEvent, screen, within } from '@testing-library/react'
 
 import Cart from '../../Cart/Cart.js'

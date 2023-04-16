@@ -1,4 +1,4 @@
-import { vi } from 'vitest'
+import { describe, vi } from 'vitest'
 
 import { screen, waitFor } from '@testing-library/react'
 
