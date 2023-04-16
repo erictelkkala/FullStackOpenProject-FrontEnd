@@ -69,7 +69,7 @@ function NavBar() {
             </IconButton>
           </Link>
         )}
-        {user.user === '' ? (
+        {user === '' ? (
           <Link
             to="/login"
             style={{ textDecoration: 'none', color: 'white' }}
