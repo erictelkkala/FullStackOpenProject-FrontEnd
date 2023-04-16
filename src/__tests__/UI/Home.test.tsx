@@ -1,10 +1,13 @@
-import { screen } from '@testing-library/react'
+import { vi } from 'vitest'
+
+import { screen, waitFor } from '@testing-library/react'
 
 import Home from '../../Home.js'
 import { render } from '../../utils/test-utils.js'
 
-describe('Home', () => {
-  it('renders the home page', () => {
+describe('Home', async () => {
+  it('renders the home page', async () => {
+    const console = vi.spyOn(global.console, 'error')
     const mockItems = {
       items: [
         {
@@ -18,13 +21,25 @@ describe('Home', () => {
         }
       ]
     }
+
+    // Render with mock data
     render(<Home />, { preloadedState: { allItems: mockItems } })
-    expect(screen.getByText('The react Logo')).toBeInTheDocument()
-    expect(screen.getByText('This item is very much an item')).toBeInTheDocument()
-    expect(screen.getByText('100 €')).toBeInTheDocument()
+
+    const logo = await screen.findByText('The react Logo')
+    const description = await screen.findByText('This item is very much an item')
+    const price = await screen.findByText('100 €')
+
+    await waitFor(() => expect(logo).toBeInTheDocument())
+    await waitFor(() => expect(description).toBeInTheDocument())
+    await waitFor(() => expect(price).toBeInTheDocument())
+
+    // Expect an error to be called from Axios
+    expect(console).toHaveBeenCalled()
   })
-  it('should render a message if there are no items', () => {
+
+  it('should render a message if there are no items', async () => {
     render(<Home />)
-    expect(screen.getByText('No items to display')).toBeInTheDocument()
+    const message = await screen.findByText('No items to show')
+    expect(message).toBeInTheDocument()
   })
 })
