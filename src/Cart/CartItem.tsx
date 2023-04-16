@@ -59,10 +59,10 @@ function CartItem(item: Item) {
 
   return (
     <Box>
-      <Card raised sx={{ display: 'flex' }} aria-label="cart-item" role="listitem">
+      <Card raised sx={{ display: 'flex', borderRadius: 2 }} aria-label="cart-item" role="listitem">
         <CardMedia
           component="img"
-          sx={{ width: 200, height: 200, objectFit: 'contain', marginLeft: 2 }}
+          sx={{ width: 100, height: 100, objectFit: 'contain', margin: 2, borderRadius: 2 }}
           image={item.listing_image}
           alt="Image of the item"
         />
@@ -76,7 +76,7 @@ function CartItem(item: Item) {
             </IconButton>
             <Typography
               variant="subtitle1"
-              sx={{ alignSelf: 'center' }}
+              sx={{ alignSelf: 'center', padding: 1 }}
               aria-label="item-quantity-count"
             >
               {item.quantity}
