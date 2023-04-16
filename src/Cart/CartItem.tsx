@@ -18,13 +18,15 @@ import {
   Typography
 } from '@mui/material'
 
-import { useAppDispatch } from '../redux/hooks'
+import { useAppDispatch, useCartQuantity } from '../redux/hooks'
 import { decreaseQuantity, increaseQuantity, removeItem } from '../redux/reducers/shoppingCart'
 import { Item } from '../types'
 
 function CartItem(item: Item) {
   const [open, setOpen] = React.useState(false)
   const dispatch = useAppDispatch()
+  // Get the quantity of the item from the cart
+  const itemQuantity = useCartQuantity().find((i) => i.id === item.id) || { quantity: 0 }
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -36,22 +38,19 @@ function CartItem(item: Item) {
 
   const handleDelete = () => {
     // console.log('Delete item from cart')
-
     dispatch(removeItem(item.id))
     setOpen(false)
   }
 
   const handleIncrease = () => {
     // console.log('Increase quantity')
-
     dispatch(increaseQuantity(item.id))
   }
 
   const handleDecrease = () => {
     // console.log('Decrease quantity')
-
     // If the quantity is 1, open the dialog to delete the item
-    if (item.quantity === 1) {
+    if (itemQuantity.quantity === 1) {
       return handleClickOpen()
     }
     dispatch(decreaseQuantity(item.id))
@@ -79,7 +78,7 @@ function CartItem(item: Item) {
               sx={{ alignSelf: 'center', padding: 1 }}
               aria-label="item-quantity-count"
             >
-              {item.quantity}
+              {itemQuantity.quantity}
             </Typography>
             <IconButton role="button" onClick={handleIncrease} aria-label="item-quantity-increase">
               <AddIcon />

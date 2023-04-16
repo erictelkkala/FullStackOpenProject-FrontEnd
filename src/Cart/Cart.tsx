@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { Chip, Container, Divider, Stack, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
-import { useCart } from '../redux/hooks'
+import { useCartItems } from '../redux/hooks'
 import CartItem from './CartItem'
 
 function Cart() {
-  const { cart } = useCart()
+  const items = useCartItems()
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -17,8 +17,8 @@ function Cart() {
   return (
     <Container>
       <Stack direction="column" justifyContent="center" spacing={2}>
-        {cart.length ? (
-          cart.map((item) => <CartItem key={item.id} {...item} />)
+        {items.length ? (
+          items.map((item) => <CartItem key={item.id} {...item} />)
         ) : (
           <>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>

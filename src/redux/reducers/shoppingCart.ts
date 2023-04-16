@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { Item } from '../../types'
+import { CartQuantity, Item } from '../../types'
 
 export interface ShoppingCartState {
   items: Item[]
+  quantity: CartQuantity[]
 }
 
 const initialState: ShoppingCartState = {
-  items: []
+  items: [],
+  quantity: []
 } as ShoppingCartState
 
 export const shoppingCartSlice = createSlice({
@@ -16,18 +18,20 @@ export const shoppingCartSlice = createSlice({
   reducers: {
     addItem: (state: ShoppingCartState, action) => {
       state.items.push(action.payload)
+      state.quantity.push({ id: action.payload.id, quantity: 1 })
     },
     removeItem: (state: ShoppingCartState, action: PayloadAction<Item['id']>) => {
       state.items = state.items.filter((item) => item.id !== action.payload)
+      state.quantity = state.quantity.filter((item) => item.id !== action.payload)
     },
     increaseQuantity: (state: ShoppingCartState, action: PayloadAction<Item['id']>) => {
-      const item = state.items.find((item) => item.id === action.payload)
+      const item = state.quantity.find((item) => item.id === action.payload)
       if (item) {
         item.quantity += 1
       }
     },
     decreaseQuantity: (state: ShoppingCartState, action: PayloadAction<Item['id']>) => {
-      const item = state.items.find((item) => item.id === action.payload)
+      const item = state.quantity.find((item) => item.id === action.payload)
       if (item) {
         item.quantity -= 1
       }

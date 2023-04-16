@@ -1,6 +1,7 @@
 import { fireEvent, screen, within } from '@testing-library/react'
 
 import Cart from '../../Cart/Cart.js'
+import { ShoppingCartState } from '../../redux/reducers/shoppingCart.js'
 import { render } from '../../utils/test-utils.js'
 
 describe('Cart', () => {
@@ -10,7 +11,7 @@ describe('Cart', () => {
   })
 
   it('renders the cart page with an item', () => {
-    const initialCart = {
+    const initialCart: ShoppingCartState = {
       items: [
         {
           id: '1',
@@ -21,7 +22,8 @@ describe('Cart', () => {
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }
-      ]
+      ],
+      quantity: [{ id: '1', quantity: 1 }]
     }
     render(<Cart />, {
       preloadedState: {
@@ -32,7 +34,7 @@ describe('Cart', () => {
   })
 
   it('renders the cart page with multiple items', () => {
-    const initialCart = {
+    const initialCart: ShoppingCartState = {
       items: [
         {
           id: '1',
@@ -52,6 +54,10 @@ describe('Cart', () => {
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Sports'
         }
+      ],
+      quantity: [
+        { id: '1', quantity: 1 },
+        { id: '2', quantity: 1 }
       ]
     }
     render(<Cart />, {
@@ -64,7 +70,7 @@ describe('Cart', () => {
   })
 
   it('renders the cart page with multiple items and removes one', () => {
-    const initialCart = {
+    const initialCart: ShoppingCartState = {
       items: [
         {
           id: '1',
@@ -84,6 +90,10 @@ describe('Cart', () => {
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Sports'
         }
+      ],
+      quantity: [
+        { id: '1', quantity: 1 },
+        { id: '2', quantity: 1 }
       ]
     }
     render(<Cart />, {
@@ -107,7 +117,7 @@ describe('Cart', () => {
   })
 
   it('renders the cart page with multiple items and removes one and cancels', () => {
-    const initialCart = {
+    const initialCart: ShoppingCartState = {
       items: [
         {
           id: '1',
@@ -127,6 +137,10 @@ describe('Cart', () => {
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Sports'
         }
+      ],
+      quantity: [
+        { id: '1', quantity: 1 },
+        { id: '2', quantity: 1 }
       ]
     }
     render(<Cart />, {
@@ -150,7 +164,7 @@ describe('Cart', () => {
   })
 
   it('renders the cart page with an item and increments and decrements it', () => {
-    const initialCart = {
+    const initialCart: ShoppingCartState = {
       items: [
         {
           id: '1',
@@ -161,7 +175,8 @@ describe('Cart', () => {
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }
-      ]
+      ],
+      quantity: [{ id: '1', quantity: 1 }]
     }
     render(<Cart />, {
       preloadedState: {
@@ -174,21 +189,25 @@ describe('Cart', () => {
     const decrementButton = screen.getByRole('button', { name: 'item-quantity-decrease' })
     expect(decrementButton).toBeInTheDocument()
 
+    // Initial quantity is 1
     const initialQuantity = screen.getByRole('heading', { name: 'item-quantity-count' })
     expect(within(initialQuantity).getByText('1')).toBeVisible()
 
+    // Increment quantity to 2
     fireEvent.click(incrementButton)
     const incrementedQuantity = screen.getByRole('heading', {
       name: 'item-quantity-count'
     })
     expect(within(incrementedQuantity).getByText('2')).toBeVisible()
 
+    // Decrement quantity to 1
     fireEvent.click(decrementButton)
     const decrementedQuantity = screen.getByRole('heading', { name: 'item-quantity-count' })
     expect(within(decrementedQuantity).getByText('1')).toBeVisible()
   })
+
   it('renders the delete dialog when decremented from quantity of 1', () => {
-    const initialCart = {
+    const initialCart: ShoppingCartState = {
       items: [
         {
           id: '1',
@@ -199,7 +218,8 @@ describe('Cart', () => {
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }
-      ]
+      ],
+      quantity: [{ id: '1', quantity: 1 }]
     }
 
     render(<Cart />, {

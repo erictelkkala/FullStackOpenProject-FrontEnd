@@ -8,6 +8,11 @@ export interface Item {
   listing_category?: string
 }
 
+export interface CartQuantity {
+  id: string
+  quantity: number
+}
+
 export interface User {
   name: string
   password: string

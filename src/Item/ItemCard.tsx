@@ -22,16 +22,15 @@ function ItemCard(item: Item) {
   const dispatch = useAppDispatch()
   // Check if the item is already in the cart to get the quantity
   const initialState = useAppSelector((state) =>
-    state.shoppingCart.items.find((i) => i.id === item.id)
+    state.shoppingCart.quantity.find((i) => i.id === item.id)
   )
   const [quantity, setQuantity] = React.useState(initialState ? initialState.quantity : 0)
 
   const addItemToCart = (item: Item) => {
     console.log('Add item to cart', item)
     if (item && quantity == 0) {
-      const itemWithQuantity: Item = { ...item, quantity: 1 }
       // Add the item to the cart
-      dispatch(addItem(itemWithQuantity))
+      dispatch(addItem(item))
       setQuantity(quantity + 1)
     } else if (item && quantity > 0) {
       // Increase the quantity of the item in the cart
