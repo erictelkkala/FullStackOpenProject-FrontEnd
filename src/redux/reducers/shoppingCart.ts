@@ -7,6 +7,11 @@ export interface ShoppingCartState {
   quantity: CartQuantity[]
 }
 
+interface AddItemAction {
+  type: string
+  payload: Item[]
+}
+
 const initialState: ShoppingCartState = {
   items: [],
   quantity: []
@@ -16,7 +21,7 @@ export const shoppingCartSlice = createSlice({
   name: 'shoppingCart',
   initialState,
   reducers: {
-    addItem: (state: ShoppingCartState, action) => {
+    addItem: (state: ShoppingCartState, action: AddItemAction) => {
       // For each item in the payload
       action.payload.forEach((item: Item) => {
         // check if it is already in the cart
