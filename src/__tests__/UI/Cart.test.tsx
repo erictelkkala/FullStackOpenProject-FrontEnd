@@ -20,7 +20,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 0,
+          listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }
@@ -43,7 +43,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 0,
+          listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         },
@@ -52,7 +52,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo number 2',
           listing_description: 'This item is very much an item as well',
           listing_price: 99,
-          quantity: 1,
+          listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Sports'
         }
@@ -79,7 +79,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 0,
+          listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         },
@@ -88,7 +88,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo number 2',
           listing_description: 'This item is very much an item as well',
           listing_price: 99,
-          quantity: 1,
+          listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Sports'
         }
@@ -126,7 +126,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 0,
+          listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         },
@@ -135,7 +135,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo number 2',
           listing_description: 'This item is very much an item as well',
           listing_price: 99,
-          quantity: 1,
+          listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Sports'
         }
@@ -173,7 +173,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 1,
+          listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }
@@ -216,7 +216,7 @@ describe('Cart', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 1,
+          listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }
