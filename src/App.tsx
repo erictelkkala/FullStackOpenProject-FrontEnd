@@ -11,6 +11,7 @@ import Signup from './Login/Signup'
 import NavBar from './NavBar'
 import { setupStore } from './redux/store'
 import { theme } from './themes/main'
+import PageNotFound from './utils/PageNotFound'
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="*" element={<h1>404: Not Found</h1>} />
+            <Route path="/checkout" />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Provider>
       </ThemeProvider>
