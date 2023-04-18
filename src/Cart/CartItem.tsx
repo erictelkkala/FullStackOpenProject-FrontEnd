@@ -61,13 +61,13 @@ function CartItem(item: Item) {
       <Card raised sx={{ display: 'flex', borderRadius: 2 }} aria-label="cart-item" role="listitem">
         <CardMedia
           component="img"
-          sx={{ width: 100, height: 100, objectFit: 'contain', margin: 2, borderRadius: 2 }}
+          sx={{ width: 100, height: 100, objectFit: 'contain', m: 2, borderRadius: 2 }}
           image={item.listing_image}
           alt="Image of the item"
         />
 
         {/* Title of the item and the quantity below it */}
-        <CardContent sx={{ display: 'flex', flexDirection: 'column', marginRight: 'auto' }}>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', mr: 'auto' }}>
           <Typography variant="h5">{item.listing_title}</Typography>
           <FormControl sx={{ flexDirection: 'row' }}>
             <IconButton role="button" onClick={handleDecrease} aria-label="item-quantity-decrease">
@@ -75,7 +75,7 @@ function CartItem(item: Item) {
             </IconButton>
             <Typography
               variant="subtitle1"
-              sx={{ alignSelf: 'center', padding: 1 }}
+              sx={{ alignSelf: 'center', p: 1 }}
               aria-label="item-quantity-count"
             >
               {itemQuantity.quantity}
@@ -88,8 +88,8 @@ function CartItem(item: Item) {
 
         {/* Price of the item and the delete button */}
         <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
-          {/* MarginBottom to make the delete button hit the "floor" of the box */}
-          <Box sx={{ display: 'flex', justifyContent: 'end', marginBottom: 'auto' }}>
+          {/* mb to make the delete button hit the "floor" of the box */}
+          <Box sx={{ display: 'flex', justifyContent: 'end', mb: 'auto' }}>
             <Typography variant="h5">{item.listing_price} €</Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>

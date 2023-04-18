@@ -35,8 +35,8 @@ function NavBar() {
   }
 
   return (
-    // The AppBar has some interesting behavior with the padding, making it go on top of the content
-    <AppBar position="sticky" sx={{ marginBottom: 10 }} aria-label="navbar">
+    // The AppBar has some interesting behavior with the p, making it go on top of the content
+    <AppBar position="sticky" sx={{ bottom: 'auto', top: 0, mb: 10 }} aria-label="navbar">
       <Toolbar>
         <Link
           to="/"

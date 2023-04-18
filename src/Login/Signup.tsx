@@ -59,7 +59,7 @@ function Signup() {
           minWidth: 300,
           display: 'flex',
           flexDirection: 'column',
-          marginBottom: 6
+          mb: 6
         }}
       >
         <CardHeader title={'Signup'} sx={{ textAlign: 'center' }} role={'heading'}></CardHeader>
@@ -90,7 +90,7 @@ function Signup() {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
               fullWidth
-              sx={{ marginTop: 2 }}
+              sx={{ mt: 2 }}
             />
 
             <TextField
@@ -106,14 +106,14 @@ function Signup() {
               }
               helperText={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
               fullWidth
-              sx={{ marginTop: 2 }}
+              sx={{ mt: 2 }}
             />
 
             <Button
               type="submit"
               variant="contained"
               endIcon={<LoginIcon />}
-              sx={{ width: '100%', marginTop: 2 }}
+              sx={{ width: '100%', mt: 2 }}
             >
               Sign up
             </Button>

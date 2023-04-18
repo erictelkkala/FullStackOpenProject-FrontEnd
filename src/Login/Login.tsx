@@ -80,7 +80,7 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
           minWidth: 300,
           display: 'flex',
           flexDirection: 'column',
-          marginBottom: 6
+          mb: 6
         }}
       >
         <CardHeader title={'Login'} sx={{ textAlign: 'center' }} role={'heading'}></CardHeader>
@@ -111,17 +111,17 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
               fullWidth
-              sx={{ marginTop: 2 }}
+              sx={{ mt: 2 }}
             />
 
             <Stack
               direction="row"
               spacing={2}
-              sx={{ marginTop: 2, display: 'flex', justifyContent: 'space-between' }}
+              sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}
             >
               <Button
                 variant="contained"
-                sx={{ marginRight: 1, width: 125 }}
+                sx={{ mr: 1, width: 125 }}
                 onClick={() => navigate('/signup')} // Navigate to the signup page
               >
                 Signup

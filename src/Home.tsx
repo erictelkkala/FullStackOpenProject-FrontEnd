@@ -53,7 +53,7 @@ function Home() {
   if (loading && items.length < 1) {
     return (
       <Container>
-        <Grid container spacing={6} rowSpacing={6} justifyContent={'center'} paddingBottom={6}>
+        <Grid container spacing={6} rowSpacing={6} justifyContent={'center'} pb={6}>
           <Grid item>
             <Skeleton variant="rounded">
               <ItemCard {...items[0]} />
@@ -77,7 +77,7 @@ function Home() {
   } else if (!loading && items.length > 0) {
     return (
       <Container>
-        <Grid container spacing={6} rowSpacing={6} justifyContent={'center'} paddingBottom={6}>
+        <Grid container spacing={6} rowSpacing={6} justifyContent={'center'} pb={6}>
           {items.map((item) => (
             <Grid item key={item.id}>
               <ItemCard {...item} />

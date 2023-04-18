@@ -66,7 +66,7 @@ function ItemCard(item: Item) {
         <IconButton
           color="primary"
           aria-label="Add to shopping cart"
-          sx={{ marginLeft: 'auto' }} // Align to the right
+          sx={{ ml: 'auto' }} // Align to the right
           onClick={() => addItemToCart(item)}
         >
           {/* Show the add to cart button */}
