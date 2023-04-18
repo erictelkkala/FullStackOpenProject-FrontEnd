@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -93,9 +94,14 @@ function CartItem(item: Item) {
             <Typography variant="h5">{item.listing_price} €</Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Button variant="contained" color="error" onClick={handleClickOpen} aria-label="Delete">
-              Delete
-            </Button>
+            <Chip
+              label="Delete"
+              variant="filled"
+              color="error"
+              sx={{ color: 'white', alignSelf: 'end' }}
+              onClick={handleClickOpen}
+              aria-label="Delete"
+            />
           </Box>
         </CardContent>
       </Card>
