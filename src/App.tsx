@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 
 import Cart from './Cart/Cart'
+import Checkout from './Checkout/Checkout'
 import Home from './Home'
 import ItemDetails from './Item/ItemDetails'
 import Login from './Login/Login'
@@ -26,7 +27,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/checkout" />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Provider>
