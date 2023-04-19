@@ -1,34 +1,240 @@
+import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
 
-import { Box, Chip, Container, Divider, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Chip,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Stack,
+  TextField,
+  Typography
+} from '@mui/material'
 
 import { useCartItems } from '../redux/hooks'
+import { NewOrderValues } from '../types'
 import CheckoutItem from './CheckoutItem'
 
 function Checkout() {
   const items = useCartItems()
   const navigate = useNavigate()
 
+  const OrderSchema: Yup.AnyObject = Yup.object().shape({
+    orderItems: Yup.array()
+      .of(
+        Yup.object().shape({
+          id: Yup.string().required('Required'),
+          listing_title: Yup.string().required('Required'),
+          listing_price: Yup.number().min(0).max(1000000).required('Required'),
+          listing_quantity: Yup.number().required('Required'),
+          quantity: Yup.number().required('Required')
+        })
+      )
+      .required('Required'),
+    shippingAddress: Yup.object()
+      .shape({
+        address: Yup.string().required('Required'),
+        city: Yup.string().required('Required'),
+        postalCode: Yup.string().required('Required'),
+        country: Yup.string().required('Required')
+      })
+      .required('Required'),
+    paymentMethod: Yup.string().required('Required'),
+    totalPrice: Yup.number().min(0).max(1000000).required('Required')
+  })
+
+  const handleOrderSubmit = async (values: NewOrderValues) => {
+    // Send the username and password to the server
+    const res = await fetch('http://localhost:3001/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+    // If the status is 200, redirect to login
+    if (res.status === 200) {
+      navigate('/login')
+    }
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      orderItems: items,
+      shippingAddress: { address: '', city: '', postalCode: '', country: '' },
+      paymentMethod: '',
+      totalPrice: 0
+    },
+    validationSchema: OrderSchema,
+    onSubmit: async (values, { setSubmitting }) => {
+      handleOrderSubmit(values)
+      setSubmitting(false)
+    }
+  })
+
   return (
-    <Container>
+    <Box sx={{ mx: 20 }}>
       <Stack direction="column" justifyContent="center" spacing={2}>
         {items.length > 0 ? (
-          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', width: '75%' }}>
             {/* Input the payment details to the left side of the screen */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', flexGrow: 3 }}>
+            <Box
+              sx={{
+                justifyContent: 'center',
+                flexDirection: 'column'
+              }}
+            >
               <Typography variant="h4" sx={{ textAlign: 'center' }}>
                 Payment Details
               </Typography>
 
-              {/* TODO: Add the form for payments using Formik */}
+              <form onSubmit={formik.handleSubmit} aria-label="Payment detail form">
+                <TextField
+                  name="address"
+                  label="Address"
+                  aria-label="Address section"
+                  type="text"
+                  variant="filled"
+                  value={formik.values.shippingAddress.address}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.shippingAddress?.address &&
+                    Boolean(formik.errors.shippingAddress?.address)
+                  }
+                  helperText={
+                    formik.touched.shippingAddress?.address &&
+                    formik.errors.shippingAddress?.address
+                  }
+                  fullWidth
+                />
+
+                <TextField
+                  name="city"
+                  label="City"
+                  aria-label="City section"
+                  type="text"
+                  variant="filled"
+                  value={formik.values.shippingAddress.city}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.shippingAddress?.city &&
+                    Boolean(formik.errors.shippingAddress?.city)
+                  }
+                  helperText={
+                    formik.touched.shippingAddress?.city && formik.errors.shippingAddress?.city
+                  }
+                  fullWidth
+                  sx={{ mt: 2 }}
+                />
+
+                <TextField
+                  name="postalCode"
+                  label="Postal Code"
+                  aria-label="Postal code section"
+                  type="text"
+                  variant="filled"
+                  value={formik.values.shippingAddress.postalCode}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.shippingAddress?.postalCode &&
+                    Boolean(formik.errors.shippingAddress?.postalCode)
+                  }
+                  helperText={
+                    formik.touched.shippingAddress?.postalCode &&
+                    formik.errors.shippingAddress?.postalCode
+                  }
+                  fullWidth
+                  sx={{ mt: 2 }}
+                />
+
+                <TextField
+                  name="country"
+                  label="Country"
+                  aria-label="Country section"
+                  type="text"
+                  variant="filled"
+                  value={formik.values.shippingAddress.country}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.shippingAddress?.country &&
+                    Boolean(formik.errors.shippingAddress?.country)
+                  }
+                  helperText={
+                    formik.touched.shippingAddress?.country &&
+                    formik.errors.shippingAddress?.country
+                  }
+                  fullWidth
+                  sx={{ mt: 2 }}
+                />
+
+                <FormControl aria-label="Payment method section" sx={{ mt: 2 }}>
+                  <FormLabel>Payment Method</FormLabel>
+                  <RadioGroup
+                    row
+                    name="paymentMethod"
+                    aria-label="Payment method selection"
+                    value={formik.values.paymentMethod}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <FormControlLabel
+                      value="PayPal"
+                      control={<Radio />}
+                      label="PayPal"
+                      aria-label="PayPal"
+                    />
+                    <FormControlLabel
+                      value="Stripe"
+                      control={<Radio />}
+                      label="Stripe"
+                      aria-label="Stripe"
+                    />
+                    <FormControlLabel
+                      value="Credit/Debit Card"
+                      control={<Radio />}
+                      label="CreditDebit"
+                      aria-label="Credit or debit card"
+                    />
+                    <FormControlLabel
+                      value="Klarna"
+                      control={<Radio />}
+                      label="Klarna"
+                      aria-label="Klarna"
+                    />
+                  </RadioGroup>
+                </FormControl>
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ width: '100%', mt: 2 }}
+                  aria-label="Button to submit an order"
+                >
+                  Complete order
+                </Button>
+              </form>
             </Box>
+
             {/* Fill the gap between the form and the cart preview */}
-            <Box sx={{ flexGrow: 2 }} />
+
+            <Divider orientation="vertical" flexItem sx={{ mx: 10 }} aria-label="Divider" />
 
             {/* Map the items to the preview */}
-            {items.map((item) => (
-              <CheckoutItem key={item.id} {...item} />
-            ))}
+            <Box aria-label="Summary of the items you are about to order">
+              {items.map((item) => (
+                <CheckoutItem key={item.id} {...item} />
+              ))}
+            </Box>
           </Box>
         ) : (
           <>
@@ -38,6 +244,7 @@ function Checkout() {
             <Divider sx={{ pt: 5 }}>
               <Chip
                 label="Return to Home"
+                aria-label="Return to Home"
                 color="primary"
                 variant="filled"
                 onClick={() => navigate('/')}
@@ -46,7 +253,7 @@ function Checkout() {
           </>
         )}
       </Stack>
-    </Container>
+    </Box>
   )
 }
 

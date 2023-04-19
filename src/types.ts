@@ -19,8 +19,7 @@ export interface User {
 }
 
 export interface Order {
-  id: string
-  user: string
+  user: User['name']
   orderItems: Item[]
   shippingAddress: {
     address: string
@@ -34,5 +33,17 @@ export interface Order {
     paymentStatus: string
     paymentTime: string
   }
+  totalPrice: number
+}
+
+export interface NewOrderValues {
+  orderItems: Item[]
+  shippingAddress: {
+    address: string
+    city: string
+    postalCode: string
+    country: string
+  }
+  paymentMethod: string
   totalPrice: number
 }
