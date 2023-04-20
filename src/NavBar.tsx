@@ -34,35 +34,40 @@ function NavBar() {
     }
   }
 
+  // Return a string with the amount of items in the cart
+  function accessibleAmount(amount: number) {
+    return amount === 1 ? '1 item in the cart' : `${amount} items in the cart`
+  }
+
   return (
     // The AppBar has some interesting behavior with the p, making it go on top of the content
-    <AppBar position="sticky" sx={{ bottom: 'auto', top: 0, mb: 10 }} aria-label="navbar">
+    <AppBar position="sticky" sx={{ bottom: 'auto', top: 0, mb: 10 }} aria-label="Navigation bar">
       <Toolbar>
         <Link
           to="/"
           style={{ textDecoration: 'none', color: 'white' }}
-          aria-label="navbar-title-link"
+          aria-label="Navigation bar title link"
         >
-          <Typography variant="h4" color="inherit" aria-label="navbar-title-text">
+          <Typography variant="h4" color="inherit" aria-label="Title of the website">
             The marketplace
           </Typography>
         </Link>
 
         {/* Empty box to not make the whole navbar a link */}
-        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ flexGrow: 1 }} aria-hidden />
 
         {itemsInCart > 0 && (
           <Link
             to="/cart"
             style={{ textDecoration: 'none', color: 'white' }}
-            aria-label="cart-icon-link"
+            aria-label="Link to the cart"
           >
-            <IconButton size="large" edge="end" aria-label="cart-icon-button">
+            <IconButton size="large" edge="end">
               <Badge
                 badgeContent={itemsInCart}
                 color="secondary"
                 role="status"
-                aria-label="cart-icon-badge"
+                aria-label={accessibleAmount(itemsInCart)}
               >
                 <ShoppingCartIcon />
               </Badge>
@@ -73,14 +78,12 @@ function NavBar() {
           <Link
             to="/login"
             style={{ textDecoration: 'none', color: 'white' }}
-            aria-label="user-icon-link"
+            aria-label="Link to the login page"
           >
-            <Button color="inherit" aria-label="login-button">
-              Login
-            </Button>
+            <Button color="inherit">Login</Button>
           </Link>
         ) : (
-          <Button color="inherit" onClick={() => logout()}>
+          <Button color="inherit" onClick={() => logout()} aria-label="Button to log out">
             Logout
           </Button>
         )}

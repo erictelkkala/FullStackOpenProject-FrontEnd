@@ -9,22 +9,22 @@ describe('Navbar', () => {
   it('renders all the buttons when no items in cart', () => {
     render(<NavBar />)
 
-    const navbar = screen.getByRole('banner', { name: 'navbar' })
+    const navbar = screen.getByRole('banner', { name: 'Navigation bar' })
 
     expect(navbar).toBeInTheDocument()
-    expect(within(navbar).getByRole('link', { name: 'navbar-title-link' })).toBeInTheDocument()
-    expect(within(navbar).getByRole('heading', { name: 'navbar-title-text' })).toBeVisible()
-    expect(within(navbar).getByRole('heading', { name: 'navbar-title-text' })).toHaveTextContent(
+    expect(
+      within(navbar).getByRole('link', { name: 'Navigation bar title link' })
+    ).toBeInTheDocument()
+    expect(within(navbar).getByRole('heading', { name: 'Title of the website' })).toBeVisible()
+    expect(within(navbar).getByRole('heading', { name: 'Title of the website' })).toHaveTextContent(
       'The marketplace'
     )
-    expect(within(navbar).getByRole('button', { name: 'login-button' })).toBeVisible()
+    expect(within(navbar).getByRole('link', { name: 'Link to the login page' })).toBeVisible()
 
     // Should be invisible
+    expect(within(navbar).queryByRole('link', { name: 'Link to the cart' })).not.toBeInTheDocument()
     expect(
-      within(navbar).queryByRole('button', { name: 'cart-icon-button' })
-    ).not.toBeInTheDocument()
-    expect(
-      within(navbar).queryByRole('status', { name: 'cart-icon-badge' })
+      within(navbar).queryByRole('status', { name: '0 items in the cart' })
     ).not.toBeInTheDocument()
   })
   it('renders all the buttons when there are items in cart', () => {
@@ -60,20 +60,24 @@ describe('Navbar', () => {
       }
     })
 
-    const navbar = screen.getByRole('banner', { name: 'navbar' })
+    const navbar = screen.getByRole('banner', { name: 'Navigation bar' })
 
     expect(navbar).toBeInTheDocument()
-    expect(within(navbar).getByRole('link', { name: 'navbar-title-link' })).toBeInTheDocument()
-    expect(within(navbar).getByRole('heading', { name: 'navbar-title-text' })).toBeVisible()
-    expect(within(navbar).getByRole('heading', { name: 'navbar-title-text' })).toHaveTextContent(
+    expect(
+      within(navbar).getByRole('link', { name: 'Navigation bar title link' })
+    ).toBeInTheDocument()
+    expect(within(navbar).getByRole('heading', { name: 'Title of the website' })).toBeVisible()
+    expect(within(navbar).getByRole('heading', { name: 'Title of the website' })).toHaveTextContent(
       'The marketplace'
     )
-    expect(within(navbar).getByRole('button', { name: 'login-button' })).toBeVisible()
-    expect(within(navbar).getByRole('button', { name: 'cart-icon-button' })).toBeVisible()
-    expect(within(navbar).getByRole('status', { name: 'cart-icon-badge' })).toBeVisible()
-    expect(within(navbar).getByRole('status', { name: 'cart-icon-badge' })).not.toHaveTextContent(
-      '1'
+    expect(within(navbar).getByRole('link', { name: 'Link to the login page' })).toBeInTheDocument()
+    expect(within(navbar).getByRole('link', { name: 'Link to the cart' })).toBeInTheDocument()
+    expect(within(navbar).getByRole('status', { name: '2 items in the cart' })).toBeVisible()
+    expect(
+      within(navbar).getByRole('status', { name: '2 items in the cart' })
+    ).not.toHaveTextContent('1')
+    expect(within(navbar).getByRole('status', { name: '2 items in the cart' })).toHaveTextContent(
+      '2'
     )
-    expect(within(navbar).getByRole('status', { name: 'cart-icon-badge' })).toHaveTextContent('2')
   })
 })
