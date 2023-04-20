@@ -59,29 +59,48 @@ function CartItem(item: Item) {
 
   return (
     <Box>
-      <Card raised sx={{ display: 'flex', borderRadius: 2 }} aria-label="cart-item" role="listitem">
+      <Card
+        raised
+        sx={{ display: 'flex', borderRadius: 2 }}
+        aria-label="A card element for an item"
+        role="listitem"
+      >
         <CardMedia
           component="img"
           sx={{ width: 100, height: 100, objectFit: 'contain', m: 2, borderRadius: 2 }}
           image={item.listing_image}
           alt="Image of the item"
+          aria-label="Image of the item"
         />
 
         {/* Title of the item and the quantity below it */}
         <CardContent sx={{ display: 'flex', flexDirection: 'column', mr: 'auto' }}>
-          <Typography variant="h5">{item.listing_title}</Typography>
-          <FormControl sx={{ flexDirection: 'row' }}>
-            <IconButton role="button" onClick={handleDecrease} aria-label="item-quantity-decrease">
+          <Typography variant="h5" aria-label="Name of the item">
+            {item.listing_title}
+          </Typography>
+          <FormControl
+            sx={{ flexDirection: 'row' }}
+            aria-label="Section to see, increase or decrease the quantity of the item in the cart"
+          >
+            <IconButton
+              role="button"
+              onClick={handleDecrease}
+              aria-label="Decrease the quantity of the item in the cart"
+            >
               <RemoveIcon />
             </IconButton>
             <Typography
               variant="subtitle1"
               sx={{ alignSelf: 'center', p: 1 }}
-              aria-label="item-quantity-count"
+              aria-label="Quantity of the item in the cart"
             >
               {itemQuantity.quantity}
             </Typography>
-            <IconButton role="button" onClick={handleIncrease} aria-label="item-quantity-increase">
+            <IconButton
+              role="button"
+              onClick={handleIncrease}
+              aria-label="Increase the quantity of the item in the cart"
+            >
               <AddIcon />
             </IconButton>
           </FormControl>
@@ -91,7 +110,10 @@ function CartItem(item: Item) {
         <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
           {/* mb to make the delete button hit the "floor" of the box */}
           <Box sx={{ display: 'flex', justifyContent: 'end', mb: 'auto' }}>
-            <Typography variant="h5">{item.listing_price} €</Typography>
+            <Typography
+              variant="h5"
+              aria-label="Price of the item"
+            >{`${item.listing_price} €`}</Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Chip

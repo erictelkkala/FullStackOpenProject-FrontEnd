@@ -105,7 +105,10 @@ describe('Cart', () => {
     })
 
     // Use queryAllByRole, since the item containers are hidden
-    const items = screen.queryAllByRole('listitem', { name: 'cart-item' })
+    const items = screen.queryAllByRole('listitem', {
+      name: 'A card element for an item'
+    })
+    console.log(items.length)
     expect(items.length).toBe(2)
 
     const removeButtons = screen.getAllByRole('button', { name: 'Delete' })
@@ -152,7 +155,9 @@ describe('Cart', () => {
     })
 
     // Use queryAllByRole, since the item containers are hidden
-    const items = screen.queryAllByRole('listitem', { name: 'cart-item' })
+    const items = screen.queryAllByRole('listitem', {
+      name: 'A card element for an item'
+    })
     expect(items.length).toBe(2)
 
     const removeButtons = screen.getAllByRole('button', { name: 'Delete' })
@@ -186,25 +191,33 @@ describe('Cart', () => {
       }
     })
 
-    const incrementButton = screen.getByRole('button', { name: 'item-quantity-increase' })
+    const incrementButton = screen.getByRole('button', {
+      name: 'Increase the quantity of the item in the cart'
+    })
     expect(incrementButton).toBeInTheDocument()
-    const decrementButton = screen.getByRole('button', { name: 'item-quantity-decrease' })
+    const decrementButton = screen.getByRole('button', {
+      name: 'Decrease the quantity of the item in the cart'
+    })
     expect(decrementButton).toBeInTheDocument()
 
     // Initial quantity is 1
-    const initialQuantity = screen.getByRole('heading', { name: 'item-quantity-count' })
+    const initialQuantity = screen.getByRole('heading', {
+      name: 'Quantity of the item in the cart'
+    })
     expect(within(initialQuantity).getByText('1')).toBeVisible()
 
     // Increment quantity to 2
     fireEvent.click(incrementButton)
     const incrementedQuantity = screen.getByRole('heading', {
-      name: 'item-quantity-count'
+      name: 'Quantity of the item in the cart'
     })
     expect(within(incrementedQuantity).getByText('2')).toBeVisible()
 
     // Decrement quantity to 1
     fireEvent.click(decrementButton)
-    const decrementedQuantity = screen.getByRole('heading', { name: 'item-quantity-count' })
+    const decrementedQuantity = screen.getByRole('heading', {
+      name: 'Quantity of the item in the cart'
+    })
     expect(within(decrementedQuantity).getByText('1')).toBeVisible()
   })
 
@@ -230,7 +243,9 @@ describe('Cart', () => {
       }
     })
 
-    const decrementButton = screen.getByRole('button', { name: 'item-quantity-decrease' })
+    const decrementButton = screen.getByRole('button', {
+      name: 'Decrease the quantity of the item in the cart'
+    })
     expect(decrementButton).toBeInTheDocument()
 
     fireEvent.click(decrementButton)
