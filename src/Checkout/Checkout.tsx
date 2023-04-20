@@ -80,7 +80,7 @@ function Checkout() {
 
   return (
     <Box sx={{ mx: 20 }}>
-      <Stack direction="column" justifyContent="center" spacing={2}>
+      <Stack direction="column" justifyContent="center" spacing={2} aria-label="Checkout section">
         {items.length > 0 ? (
           <Box sx={{ display: 'flex', flexDirection: 'row', width: '75%' }}>
             {/* Input the payment details to the left side of the screen */}
