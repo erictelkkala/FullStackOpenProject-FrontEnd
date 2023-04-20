@@ -40,12 +40,17 @@ function ItemDetails() {
   return (
     <Container maxWidth="xl">
       {item ? (
-        <Card raised sx={{ display: 'flex', p: 2, borderRadius: 2 }}>
+        <Card
+          raised
+          sx={{ display: 'flex', p: 2, borderRadius: 2 }}
+          aria-label="A card element for the item"
+        >
           <CardMedia
             component={'img'}
             src={item.listing_image}
             alt={item.listing_title}
             sx={{ borderRadius: 2, width: 200, height: 200 }}
+            aria-label="Image of the item"
           />
 
           <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
@@ -57,27 +62,27 @@ function ItemDetails() {
                 justifyContent: 'space-between'
               }}
             >
-              <Typography variant="h4" sx={{ p: 2 }}>
+              <Typography variant="h4" sx={{ p: 2 }} aria-label="Name of the item">
                 {item.listing_title}
               </Typography>
-              <Typography variant="h5" sx={{ p: 2, ml: 'auto' }}>
+              <Typography variant="h5" sx={{ p: 2, ml: 'auto' }} aria-label="Price of the item">
                 {item.listing_price} €
               </Typography>
             </Box>
 
             {item.listing_quantity > 0 ? (
-              <Button variant="contained" sx={{ ml: 'auto' }}>
+              <Button variant="contained" sx={{ ml: 'auto' }} aria-label="Buy the item">
                 Buy
               </Button>
             ) : (
-              <Button variant="contained" sx={{ ml: 'auto' }} disabled>
+              <Button variant="contained" sx={{ ml: 'auto' }} disabled aria-disabled>
                 Out of stock
               </Button>
             )}
           </Box>
         </Card>
       ) : (
-        <Typography>No items to display</Typography>
+        <Typography aria-label="No items in the cart">No items to display</Typography>
       )}
     </Container>
   )
