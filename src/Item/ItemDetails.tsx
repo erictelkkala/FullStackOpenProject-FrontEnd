@@ -3,23 +3,44 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-import { Button, Card, CardMedia, Container, Typography } from '@mui/material'
+import { Badge, Card, CardMedia, Chip, Container, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
-import { useAppSelector } from '../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { addItem, increaseQuantity } from '../redux/reducers/shoppingCart'
 import { Item } from '../types'
 
 function ItemDetails() {
   const { id } = useParams()
+  const dispatch = useAppDispatch()
+  // Check if the item is already in the cart to get the quantity
+  const initialState = useAppSelector((state) =>
+    state.shoppingCart.quantity.find((i) => i.id === id)
+  )
   const [item, setItem] = React.useState<Item | null>(null)
   // Do not ONLY use the store to fetch the item data, since that requires setting the store in Home.tsx
   // Use the /api/items/:id endpoint to fetch the item data if the item is not in the store
   const itemInStore = useAppSelector((state) => state.allItems.items.find((i) => i.id === id))
+  const [quantity, setQuantity] = React.useState(initialState ? initialState.quantity : 0)
 
   const url =
     process.env.NODE_ENV !== 'production'
       ? 'http://localhost:3001/api/items'
       : 'https://withered-dawn-3663.fly.dev/api/items'
+
+  const handleBuy = (item: Item) => {
+    if (item && quantity == 0) {
+      // Add the item to the cart as an array
+      dispatch(addItem([item]))
+      setQuantity(quantity + 1)
+    } else if (item && quantity > 0) {
+      // Increase the quantity of the item in the cart
+      dispatch(increaseQuantity(item.id))
+      setQuantity(quantity + 1)
+    } else {
+      console.log('Error adding item to cart')
+    }
+  }
 
   useEffect(() => {
     // If the item is in the store, set the item state to the item in the store
@@ -71,13 +92,28 @@ function ItemDetails() {
             </Box>
 
             {item.listing_quantity > 0 ? (
-              <Button variant="contained" sx={{ ml: 'auto' }} aria-label="Buy the item">
-                Buy
-              </Button>
+              <Badge
+                badgeContent={quantity}
+                color="secondary"
+                aria-label={`Amount of this item in the cart: ${quantity}`}
+              >
+                <Chip
+                  variant="filled"
+                  color="primary"
+                  label="Buy"
+                  sx={{ ml: 'auto' }}
+                  aria-label="Buy the item"
+                  onClick={() => handleBuy(item)}
+                ></Chip>
+              </Badge>
             ) : (
-              <Button variant="contained" sx={{ ml: 'auto' }} disabled aria-disabled>
-                Out of stock
-              </Button>
+              <Chip
+                variant="filled"
+                label="Out of stock"
+                sx={{ ml: 'auto' }}
+                disabled
+                aria-disabled
+              ></Chip>
             )}
           </Box>
         </Card>
