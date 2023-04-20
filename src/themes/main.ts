@@ -40,7 +40,7 @@ export const theme = createTheme({
       dark: '#3d4967'
     },
     secondary: {
-      main: '#ffafd8'
+      main: '#e3a5f7'
     },
     neutral: {
       main: '#978e91',
