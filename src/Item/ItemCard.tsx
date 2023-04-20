@@ -9,7 +9,6 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Container,
   IconButton,
   Typography
 } from '@mui/material'
@@ -42,30 +41,44 @@ function ItemCard(item: Item) {
   }
 
   return (
-    <Card raised sx={{ maxWidth: 400, minWidth: 300, borderRadius: 2 }}>
+    <Card
+      raised
+      sx={{ maxWidth: 400, minWidth: 300, borderRadius: 2 }}
+      aria-label={`A card for an item called ${item.listing_title}`}
+    >
       {/* Open the item's page when the car is clicked */}
-      <Container>
-        <Link to={`/item/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <CardHeader title={item.listing_title} />
-          <CardMedia
-            component="img"
-            width={300}
-            src={item.listing_image}
-            alt="Item image"
-            sx={{ borderRadius: 2 }}
-          />
-        </Link>
-      </Container>
+
+      <Link
+        to={`/item/${item.id}`}
+        style={{ textDecoration: 'none', color: 'inherit' }}
+        aria-label={`A link to open details for ${item.listing_title}`}
+      >
+        <CardHeader title={item.listing_title} aria-label={`Header for ${item.listing_title}`} />
+        <CardMedia
+          component="img"
+          aria-label={`Image of ${item.listing_title}`}
+          width={300}
+          src={item.listing_image}
+          alt="Item image"
+        />
+      </Link>
+
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          aria-label={`Description for for ${item.listing_title}`}
+        >
           {item.listing_description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Typography>{item.listing_price || 0} €</Typography>
+        <Typography aria-label={`Price for ${item.listing_title}`}>
+          {item.listing_price || 0} €
+        </Typography>
         <IconButton
           color="primary"
-          aria-label="Add to shopping cart"
+          aria-label={`Add ${item.listing_title} to the shopping cart`}
           sx={{ ml: 'auto' }} // Align to the right
           onClick={() => addItemToCart(item)}
         >
