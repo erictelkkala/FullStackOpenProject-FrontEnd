@@ -16,23 +16,21 @@ import PageNotFound from './utils/PageNotFound'
 
 function App() {
   return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Provider store={setupStore()}>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/item/:id" element={<ItemDetails />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </Provider>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={setupStore()}>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/item/:id" element={<ItemDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </Provider>
+    </ThemeProvider>
   )
 }
 
