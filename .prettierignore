@@ -10,3 +10,4 @@ netlify.toml
 package-lock.json
 package.json
 *.md
+.yarn

@@ -30,4 +30,12 @@ FullStackOpenProject-BackEnd.code-workspace
 .netlify
 
 .env
-.yarn/
+
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
