@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { allItemsReducer, AllItemsState, setItems } from '../../redux/reducers/items.js'
 import { setupStore } from '../../redux/store.js'

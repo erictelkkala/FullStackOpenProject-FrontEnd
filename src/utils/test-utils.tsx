@@ -2,6 +2,7 @@ import { PropsWithChildren, ReactElement } from 'react'
 
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
+import { afterEach } from 'vitest'
 
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { PreloadedState } from '@reduxjs/toolkit'

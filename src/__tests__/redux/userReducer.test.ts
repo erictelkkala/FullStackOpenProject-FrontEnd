@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { setUser, userReducer, UserState } from '../../redux/reducers/user'
 import { setupStore } from '../../redux/store'

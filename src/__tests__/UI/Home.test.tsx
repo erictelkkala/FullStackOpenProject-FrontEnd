@@ -1,4 +1,5 @@
-import { describe, vi } from 'vitest'
+import axios, { AxiosError } from 'axios'
+import { describe, expect, it, vi } from 'vitest'
 
 import { screen, waitFor } from '@testing-library/react'
 
@@ -6,8 +7,9 @@ import Home from '../../Home.js'
 import { render } from '../../utils/test-utils.js'
 
 describe('Home', async () => {
+  const mockAxios = vi.spyOn(axios, 'get').mockRejectedValue(new AxiosError('Error'))
+
   it('renders the home page', async () => {
-    const console = vi.spyOn(global.console, 'error')
     const mockItems = {
       items: [
         {
@@ -29,12 +31,11 @@ describe('Home', async () => {
     const description = await screen.findByText('This item is very much an item')
     const price = await screen.findByText('100 €')
 
+    expect(mockAxios).toHaveBeenCalled()
+
     await waitFor(() => expect(logo).toBeInTheDocument())
     await waitFor(() => expect(description).toBeInTheDocument())
     await waitFor(() => expect(price).toBeInTheDocument())
-
-    // Expect an error to be called from Axios
-    expect(console).toHaveBeenCalled()
   })
 
   it('should render a message if there are no items', async () => {
