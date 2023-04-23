@@ -15,7 +15,7 @@ describe('Home', async () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 0,
+          listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }

@@ -17,7 +17,7 @@ describe('ItemReducer', () => {
       listing_title: 'The react Logo',
       listing_description: 'This item is very much an item',
       listing_price: 100,
-      quantity: 0,
+      listing_quantity: 0,
       listing_image: 'src\\assets\\react.svg',
       listing_category: 'Other'
     }
@@ -33,7 +33,7 @@ describe('ItemReducer', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 0,
+          listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }
@@ -51,7 +51,7 @@ describe('ItemReducer', () => {
         listing_title: 'The react Logo',
         listing_description: 'This item is very much an item',
         listing_price: 100,
-        quantity: 0,
+        listing_quantity: 0,
         listing_image: 'src\\assets\\react.svg',
         listing_category: 'Other'
       },
@@ -60,7 +60,7 @@ describe('ItemReducer', () => {
         listing_title: 'The react Logo',
         listing_description: 'This item is very much an item',
         listing_price: 100,
-        quantity: 1,
+        listing_quantity: 1,
         listing_image: 'src\\assets\\react.svg',
         listing_category: 'Other'
       }
@@ -75,7 +75,7 @@ describe('ItemReducer', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 0,
+          listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         },
@@ -84,7 +84,7 @@ describe('ItemReducer', () => {
           listing_title: 'The react Logo',
           listing_description: 'This item is very much an item',
           listing_price: 100,
-          quantity: 1,
+          listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
           listing_category: 'Other'
         }
