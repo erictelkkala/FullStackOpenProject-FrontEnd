@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const GET_ITEMS = gql`
   query allItems {
-    items {
+    allItems {
       id
       listing_title
       listing_description

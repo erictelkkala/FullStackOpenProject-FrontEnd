@@ -17,10 +17,10 @@ const authLink = setContext((_, { headers }) => {
 let url: string
 switch (process.env.NODE_ENV) {
   case 'development':
-    url = 'http://localhost:3001/api/items'
+    url = 'http://localhost:3001/'
     break
   case 'production':
-    url = 'https://withered-dawn-3663.fly.dev/api/items'
+    url = 'https://withered-dawn-3663.fly.dev/'
     break
   default:
     url = ''
