@@ -2,13 +2,25 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
+import { useMutation } from '@apollo/client'
 import LoginIcon from '@mui/icons-material/Login'
-import { Box, Button, Card, CardActions, CardContent, CardHeader, TextField } from '@mui/material'
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Skeleton,
+  TextField
+} from '@mui/material'
 
+import { ADD_USER } from '../graphql/userQueries'
 import { User } from '../types'
 
 function Signup() {
   const navigate = useNavigate()
+  const [addUser, { loading, error, data }] = useMutation(ADD_USER)
 
   const SignupSchema: Yup.AnyObject = Yup.object().shape({
     name: Yup.string()
@@ -28,17 +40,19 @@ function Signup() {
 
   const handleSignup = async (values: User) => {
     // Send the username and password to the server
-    const res = await fetch('http://localhost:3001/api/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(values)
+    await addUser({
+      variables: {
+        name: values.name,
+        password: values.password
+      }
     })
-    // If the status is 200, redirect to login
-    if (res.status === 200) {
-      navigate('/login')
-    }
+      .catch(() => {
+        console.log(error)
+      })
+      .then(() => {
+        console.log(data)
+        navigate('/')
+      })
   }
 
   const formik = useFormik({
@@ -109,14 +123,18 @@ function Signup() {
               sx={{ mt: 2 }}
             />
 
-            <Button
-              type="submit"
-              variant="contained"
-              endIcon={<LoginIcon />}
-              sx={{ width: '100%', mt: 2 }}
-            >
-              Sign up
-            </Button>
+            {!loading ? (
+              <Button
+                type="submit"
+                variant="contained"
+                endIcon={<LoginIcon />}
+                sx={{ width: '100%', mt: 2 }}
+              >
+                Sign up
+              </Button>
+            ) : (
+              <Skeleton variant="rectangular" height={50} sx={{ width: '100%', mt: 2 }} />
+            )}
           </form>
         </CardActions>
       </Card>
