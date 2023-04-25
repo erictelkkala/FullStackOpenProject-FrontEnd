@@ -5,27 +5,22 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import Badge from '@mui/material/Badge'
 
-import { useAppDispatch, useAppSelector, useUser } from './redux/hooks'
-import { setUser } from './redux/reducers/user'
+import { useAppSelector } from './redux/hooks'
 import { RootState } from './redux/store'
 
 function NavBar() {
   const selector = useAppSelector((state: RootState) => state.shoppingCart)
   const itemsInCart = selector.items.length
-  const { user } = useUser()
-  const dispatch = useAppDispatch()
+  const token = getCookie('token')
+
   const navigate = useNavigate()
 
   // Logout function
   function logout() {
-    const token = getCookie('token')
-
     // If the token exists
     if (token) {
       // Remove the token cookie
       removeCookie('token')
-      // Remove the user from the store
-      dispatch(setUser(''))
       // Redirect to the home page
       navigate('/')
     } else {
@@ -74,7 +69,7 @@ function NavBar() {
             </IconButton>
           </Link>
         )}
-        {user === '' ? (
+        {!token ? (
           <Link
             to="/login"
             style={{ textDecoration: 'none', color: 'white' }}

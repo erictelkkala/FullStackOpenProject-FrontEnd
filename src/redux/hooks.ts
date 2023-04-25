@@ -12,7 +12,3 @@ export const useCartItems = () => {
 export const useCartQuantity = () => {
   return useAppSelector((state) => state.shoppingCart.quantity)
 }
-
-export const useUser = () => {
-  return useAppSelector((state) => state.user)
-}

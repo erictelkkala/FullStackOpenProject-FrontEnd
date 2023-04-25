@@ -18,8 +18,10 @@ function Home() {
   useEffect(() => {
     if (data) {
       dispatch(setItems(data.allItems))
+    } else if (error) {
+      console.log(error)
     }
-  }, [data, dispatch])
+  }, [data, dispatch, error])
 
   const items: Item[] = useAppSelector((state) => state.allItems.items)
 
