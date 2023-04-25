@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-import { MockedProvider } from '@apollo/client/testing'
 import { screen, waitFor } from '@testing-library/react'
 
 import { GET_ITEMS } from '../../graphql/itemQueries.js'
@@ -31,11 +30,7 @@ describe('Home', async () => {
     ]
 
     // Render with mock data
-    render(
-      <MockedProvider mocks={mockItems} addTypename={false}>
-        <Home />
-      </MockedProvider>
-    )
+    render(<Home />, { mocks: mockItems })
 
     const logo = await screen.findByText('The react Logo')
     const description = await screen.findByText('This item is very much an item')
@@ -58,11 +53,7 @@ describe('Home', async () => {
       }
     ]
 
-    render(
-      <MockedProvider mocks={mockItems} addTypename={false}>
-        <Home />
-      </MockedProvider>
-    )
+    render(<Home />, { mocks: mockItems })
     const message = await screen.findByText('No items to show')
     expect(message).toBeInTheDocument()
   })

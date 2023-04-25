@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
 import { afterEach } from 'vitest'
 
+import { MockedProvider, MockedResponse } from '@apollo/client/testing'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { PreloadedState } from '@reduxjs/toolkit'
 import { cleanup, render, RenderOptions } from '@testing-library/react'
@@ -20,6 +21,7 @@ afterEach(() => {
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
   store?: AppStore
+  mocks?: MockedResponse[]
 }
 
 function renderWithProviders(
@@ -27,6 +29,7 @@ function renderWithProviders(
   {
     preloadedState = {},
     store = setupStore(preloadedState),
+    mocks = [],
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
@@ -36,7 +39,9 @@ function renderWithProviders(
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+          <MemoryRouter initialEntries={initialEntries}>
+            <MockedProvider mocks={mocks}>{children}</MockedProvider>
+          </MemoryRouter>
         </ThemeProvider>
       </Provider>
     )

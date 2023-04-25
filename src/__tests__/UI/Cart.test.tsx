@@ -108,7 +108,6 @@ describe('Cart', () => {
     const items = screen.queryAllByRole('listitem', {
       name: 'A card element for an item'
     })
-    console.log(items.length)
     expect(items.length).toBe(2)
 
     const removeButtons = screen.getAllByRole('button', { name: 'Delete' })
