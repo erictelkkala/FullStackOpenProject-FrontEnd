@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { setCookie } from 'typescript-cookie'
 import * as Yup from 'yup'
 
+import { useMutation } from '@apollo/client'
 import LoginIcon from '@mui/icons-material/Login'
 import {
   Box,
@@ -11,18 +12,18 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Skeleton,
   Stack,
   TextField
 } from '@mui/material'
 
-import { useAppDispatch } from '../redux/hooks'
-import { setUser } from '../redux/reducers/user'
+import { LOGIN_USER } from '../graphql/userQueries'
 import { User } from '../types'
 
 // The Login component accepts an optional onSubmit prop
 function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
+  const [login, { loading, error, data }] = useMutation(LOGIN_USER)
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
 
   const LoginSchema: Yup.AnyObject = Yup.object().shape({
     name: Yup.string()
@@ -41,24 +42,22 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
       onSubmit(values)
     } else {
       // Send the username and password to the server
-      const res = await fetch('http://localhost:3001/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(values)
+      await login({
+        variables: {
+          name: values.name,
+          password: values.password
+        }
       })
-      // If the status is 200, set the token cookie
-      if (res.status === 200) {
-        // Parse the token from the body of the response
-        const token = JSON.parse(await res.text()).token
-        // Set the token cookie, expiry and sameSite
-        setCookie('token', token, { expires: 1, sameSite: 'strict' })
-        // Dispatch the token to the redux store
-        dispatch(setUser(token))
-        // Redirect to the home page
-        navigate('/')
-      }
+        .catch(() => {
+          console.log(error)
+        })
+        .then(() => {
+          if (data) {
+            const token = data?.loginUser.token
+            setCookie('token', token)
+          }
+          navigate('/')
+        })
     }
   }
 
@@ -127,9 +126,18 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
                 Signup
               </Button>
 
-              <Button type="submit" variant="contained" endIcon={<LoginIcon />} sx={{ width: 125 }}>
-                Login
-              </Button>
+              {!loading ? (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  endIcon={<LoginIcon />}
+                  sx={{ width: 125 }}
+                >
+                  Login
+                </Button>
+              ) : (
+                <Skeleton variant="rectangular" width={125} height={40} />
+              )}
             </Stack>
           </form>
         </CardActions>
