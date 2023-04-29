@@ -3,30 +3,30 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
+import { useQuery } from '@apollo/client'
 import { Badge, Card, CardMedia, Chip, Container, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
+import { GET_ITEM } from '../graphql/itemQueries'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { setError } from '../redux/reducers/errors'
 import { addItem, increaseQuantity } from '../redux/reducers/shoppingCart'
 import { Item } from '../types'
 
 function ItemDetails() {
   const { id } = useParams()
+  const { loading, error, data } = useQuery(GET_ITEM, { variables: { id } })
   const dispatch = useAppDispatch()
   // Check if the item is already in the cart to get the quantity
   const initialState = useAppSelector((state) =>
     state.shoppingCart.quantity.find((i) => i.id === id)
   )
-  const [item, setItem] = React.useState<Item | null>(null)
-  // Do not ONLY use the store to fetch the item data, since that requires setting the store in Home.tsx
-  // Use the /api/items/:id endpoint to fetch the item data if the item is not in the store
-  const itemInStore = useAppSelector((state) => state.allItems.items.find((i) => i.id === id))
   const [quantity, setQuantity] = React.useState(initialState ? initialState.quantity : 0)
 
-  const url =
-    process.env.NODE_ENV !== 'production'
-      ? 'http://localhost:3001/api/items'
-      : 'https://withered-dawn-3663.fly.dev/api/items'
+  const [item, setItem] = React.useState<Item | null>(null)
+  // Do not ONLY use the store to fetch the item data, since that requires setting the store in Home.tsx
+  // Use the query to fetch the item data if the item is not in the store
+  const itemInStore = useAppSelector((state) => state.allItems.items.find((i) => i.id === id))
 
   const handleBuy = (item: Item) => {
     if (item && quantity == 0) {
@@ -46,17 +46,13 @@ function ItemDetails() {
     // If the item is in the store, set the item state to the item in the store
     if (itemInStore) {
       setItem(itemInStore)
-      // Else fetch the item from the /api/items/:id endpoint
-    } else {
-      const fetchItem = async () => {
-        await axios
-          .get(`${url}/${id}`)
-          .then((r) => setItem(r.data))
-          .catch((e) => console.error(e))
-      }
-      fetchItem()
+      // Else fetch the item with a query
+    } else if (data) {
+      setItem(data.item)
+    } else if (error) {
+      dispatch(setError(error.message))
     }
-  }, [id, itemInStore, url])
+  }, [id, itemInStore, data, error])
 
   return (
     <Container maxWidth="xl">

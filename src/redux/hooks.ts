@@ -12,3 +12,7 @@ export const useCartItems = () => {
 export const useCartQuantity = () => {
   return useAppSelector((state) => state.shoppingCart.quantity)
 }
+
+export const useError = () => {
+  return useAppSelector((state) => state.error.errorMessage)
+}

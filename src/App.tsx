@@ -13,22 +13,25 @@ import NavBar from './NavBar'
 import { setupStore } from './redux/store'
 import { theme } from './themes/main'
 import PageNotFound from './utils/PageNotFound'
+import ErrorSnackbar from './utils/ErrorSnackbar'
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Provider store={setupStore()}>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/item/:id" element={<ItemDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+        <ErrorSnackbar>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/item/:id" element={<ItemDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </ErrorSnackbar>
       </Provider>
     </ThemeProvider>
   )

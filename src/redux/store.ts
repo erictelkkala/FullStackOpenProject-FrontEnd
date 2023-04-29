@@ -1,5 +1,6 @@
 import { combineReducers, configureStore, PreloadedState } from '@reduxjs/toolkit'
 
+import { errorReducer } from './reducers/errors'
 import { allItemsReducer } from './reducers/items'
 import { shoppingCartReducer } from './reducers/shoppingCart'
 import { userReducer } from './reducers/user'
@@ -8,7 +9,8 @@ import { userReducer } from './reducers/user'
 const rootReducer = combineReducers({
   shoppingCart: shoppingCartReducer,
   allItems: allItemsReducer,
-  user: userReducer
+  user: userReducer,
+  error: errorReducer
 })
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
