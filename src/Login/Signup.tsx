@@ -18,7 +18,7 @@ import {
 import { ADD_USER } from '../graphql/userQueries'
 import { User } from '../types'
 
-function Signup() {
+function Signup({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const navigate = useNavigate()
   const [addUser, { loading, error, data }] = useMutation(ADD_USER)
 
@@ -26,19 +26,24 @@ function Signup() {
     name: Yup.string()
       .min(4, 'Username is too short!')
       .max(20, 'Username is too long!')
-      .required('Required'),
+      .required('Username is required!'),
     password: Yup.string()
       .min(4, 'Password is too short!')
       .max(20, 'Password is too long!')
-      .required('Required'),
+      .required('Password is required!'),
     passwordConfirmation: Yup.string()
-      .test('passwords-match', 'Passwords must match', function (value) {
+      .min(4, 'Password confirmation is too short!')
+      .max(20, 'Password confirmation is too long!')
+      .test('passwords-match', 'Passwords do not match!', function (value) {
         return this.parent.password === value
       })
-      .required('Required')
+      .required('Password confirmation is required!')
   })
 
   const handleSignup = async (values: User) => {
+    if (onSubmit) {
+      onSubmit(values)
+    }
     // Send the username and password to the server
     await addUser({
       variables: {
@@ -129,6 +134,7 @@ function Signup() {
                 variant="contained"
                 endIcon={<LoginIcon />}
                 sx={{ width: '100%', mt: 2 }}
+                aria-label="Sign up"
               >
                 Sign up
               </Button>
