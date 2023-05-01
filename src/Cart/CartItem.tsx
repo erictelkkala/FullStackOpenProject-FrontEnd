@@ -122,7 +122,7 @@ function CartItem(item: Item) {
               color="error"
               sx={{ color: 'white', alignSelf: 'end' }}
               onClick={handleClickOpen}
-              aria-label="Delete"
+              aria-label="Delete item from the cart"
             />
           </Box>
         </CardContent>
@@ -133,21 +133,21 @@ function CartItem(item: Item) {
         open={open}
         onClose={handleClose}
         aria-hidden={open ? 'false' : 'true'}
-        aria-label="alert-dialog-title"
+        aria-label="Alert dialog"
         role="dialog"
         className="Confirm"
       >
-        <DialogTitle id="alert-dialog-title">{'Delete item?'}</DialogTitle>
+        <DialogTitle id="Alert dialog">{'Delete item?'}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id="Alert dialog description">
             Are you sure that you want to delete this item?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} autoFocus aria-label="item-delete-button-cancel">
+          <Button onClick={handleClose} autoFocus aria-label="Cancel button for deletion">
             No
           </Button>
-          <Button onClick={handleDelete} aria-label="item-delete-button-confirm">
+          <Button onClick={handleDelete} aria-label="Confirm button for deletion">
             Yes
           </Button>
         </DialogActions>

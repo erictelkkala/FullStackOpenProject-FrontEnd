@@ -110,12 +110,12 @@ describe('Cart', () => {
     })
     expect(items.length).toBe(2)
 
-    const removeButtons = screen.getAllByRole('button', { name: 'Delete' })
+    const removeButtons = screen.getAllByRole('button', { name: 'Delete item from the cart' })
 
     fireEvent.click(removeButtons[0])
 
     expect(screen.getByText('Are you sure that you want to delete this item?')).toBeVisible()
-    fireEvent.click(screen.getByRole('button', { name: 'item-delete-button-confirm' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Confirm button for deletion' }))
 
     expect(screen.queryByText('The react Logo')).not.toBeInTheDocument()
   })
@@ -159,12 +159,12 @@ describe('Cart', () => {
     })
     expect(items.length).toBe(2)
 
-    const removeButtons = screen.getAllByRole('button', { name: 'Delete' })
+    const removeButtons = screen.getAllByRole('button', { name: 'Delete item from the cart' })
 
     fireEvent.click(removeButtons[0])
 
     expect(screen.getByText('Are you sure that you want to delete this item?')).toBeVisible()
-    fireEvent.click(screen.getByRole('button', { name: 'item-delete-button-cancel' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel button for deletion' }))
 
     expect(screen.getByText('The react Logo')).toBeInTheDocument()
   })
