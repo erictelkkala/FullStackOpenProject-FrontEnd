@@ -26,7 +26,6 @@ function ItemCard(item: Item) {
   const [quantity, setQuantity] = React.useState(initialState ? initialState.quantity : 0)
 
   const addItemToCart = (item: Item) => {
-    console.log('Add item to cart', item)
     if (item && quantity == 0) {
       // Add the item to the cart as an array
       dispatch(addItem([item]))
@@ -36,7 +35,7 @@ function ItemCard(item: Item) {
       dispatch(increaseQuantity(item.id))
       setQuantity(quantity + 1)
     } else {
-      console.log('Error adding item to cart')
+      console.error('Error adding item to cart')
     }
   }
 
