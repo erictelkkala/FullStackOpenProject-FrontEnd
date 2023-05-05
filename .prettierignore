@@ -1,0 +1,13 @@
+.eslintrc.json
+.prettierignore
+.gitignore
+.prettierrc
+.idea
+.netlify
+dist
+node_modules
+netlify.toml
+package-lock.json
+package.json
+*.md
+.yarn

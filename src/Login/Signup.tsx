@@ -1,6 +1,5 @@
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
-import { setCookie } from 'typescript-cookie'
 import * as Yup from 'yup'
 
 import { useMutation } from '@apollo/client'
@@ -13,19 +12,17 @@ import {
   CardContent,
   CardHeader,
   Skeleton,
-  Stack,
   TextField
 } from '@mui/material'
 
-import { LOGIN_USER } from '../graphql/userQueries'
+import { ADD_USER } from '../graphql/userQueries'
 import { User } from '../types'
 
-// The Login component accepts an optional onSubmit prop
-function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
-  const [login, { loading, error, data }] = useMutation(LOGIN_USER)
+function Signup({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const navigate = useNavigate()
+  const [addUser, { loading, error, data }] = useMutation(ADD_USER)
 
-  const LoginSchema: Yup.AnyObject = Yup.object().shape({
+  const SignupSchema: Yup.AnyObject = Yup.object().shape({
     name: Yup.string()
       .min(4, 'Username is too short!')
       .max(20, 'Username is too long!')
@@ -33,39 +30,41 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
     password: Yup.string()
       .min(4, 'Password is too short!')
       .max(20, 'Password is too long!')
-      .required('Password is required!')
+      .required('Password is required!'),
+    passwordConfirmation: Yup.string()
+      .min(4, 'Password confirmation is too short!')
+      .max(20, 'Password confirmation is too long!')
+      .test('passwords-match', 'Passwords do not match!', function (value) {
+        return this.parent.password === value
+      })
+      .required('Password confirmation is required!')
   })
 
-  const handleLogin = async (values: User) => {
-    // If the onSubmit prop is passed, call it instead of the default
+  const handleSignup = async (values: User) => {
     if (onSubmit) {
       onSubmit(values)
-    } else {
-      // Send the username and password to the server
-      await login({
-        variables: {
-          name: values.name,
-          password: values.password
-        }
-      })
-        .catch(() => {
-          console.log(error)
-        })
-        .then(() => {
-          if (data) {
-            const token = data?.loginUser.token
-            setCookie('token', token)
-          }
-          navigate('/')
-        })
     }
+    // Send the username and password to the server
+    await addUser({
+      variables: {
+        name: values.name,
+        password: values.password
+      }
+    })
+      .catch(() => {
+        console.log(error)
+      })
+      .then(() => {
+        console.log(data)
+        navigate('/')
+      })
   }
 
   const formik = useFormik({
-    initialValues: { name: '', password: '' },
-    validationSchema: LoginSchema,
+    initialValues: { name: '', password: '', passwordConfirmation: '' },
+    validationSchema: SignupSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      handleLogin(values)
+      handleSignup(values)
       setSubmitting(false)
     }
   })
@@ -82,8 +81,8 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
           mb: 6
         }}
       >
-        <CardHeader title={'Login'} sx={{ textAlign: 'center' }} role={'heading'}></CardHeader>
-        <CardContent>Enter your username and password to log in</CardContent>
+        <CardHeader title={'Signup'} sx={{ textAlign: 'center' }} role={'heading'}></CardHeader>
+        <CardContent>Enter your username and password to sign up</CardContent>
         <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
           <form onSubmit={formik.handleSubmit}>
             <TextField
@@ -113,32 +112,35 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
               sx={{ mt: 2 }}
             />
 
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}
-            >
-              <Button
-                variant="contained"
-                sx={{ mr: 1, width: 125 }}
-                onClick={() => navigate('/signup')} // Navigate to the signup page
-              >
-                Signup
-              </Button>
+            <TextField
+              name="passwordConfirmation"
+              label="Confirm Password"
+              type="password"
+              variant="filled"
+              value={formik.values.passwordConfirmation}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.passwordConfirmation && Boolean(formik.errors.passwordConfirmation)
+              }
+              helperText={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
+              fullWidth
+              sx={{ mt: 2 }}
+            />
 
-              {!loading ? (
-                <Button
-                  type="submit"
-                  variant="contained"
-                  endIcon={<LoginIcon />}
-                  sx={{ width: 125 }}
-                >
-                  Login
-                </Button>
-              ) : (
-                <Skeleton variant="rectangular" width={125} height={40} />
-              )}
-            </Stack>
+            {!loading ? (
+              <Button
+                type="submit"
+                variant="contained"
+                endIcon={<LoginIcon />}
+                sx={{ width: '100%', mt: 2 }}
+                aria-label="Sign up"
+              >
+                Sign up
+              </Button>
+            ) : (
+              <Skeleton variant="rectangular" height={50} sx={{ width: '100%', mt: 2 }} />
+            )}
           </form>
         </CardActions>
       </Card>
@@ -146,4 +148,4 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   )
 }
 
-export default Login
+export default Signup

@@ -28,3 +28,14 @@ FullStackOpenProject-BackEnd.code-workspace
 
 # Local Netlify folder
 .netlify
+
+.env
+
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
