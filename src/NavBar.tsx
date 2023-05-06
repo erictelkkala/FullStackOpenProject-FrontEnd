@@ -11,7 +11,7 @@ import { RootState } from './redux/store'
 function NavBar() {
   const selector = useAppSelector((state: RootState) => state.shoppingCart)
   const itemsInCart = selector.items.length
-  const token = getCookie('token')
+  const token = getCookie('token') as string
 
   const navigate = useNavigate()
 

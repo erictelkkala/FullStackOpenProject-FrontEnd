@@ -52,11 +52,14 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
           console.log(error)
         })
         .then(() => {
-          if (data) {
-            const token = data?.loginUser.token
-            setCookie('token', token)
+          console.log(data)
+          const token: string = data.login.token as string
+          if (token) {
+            setCookie('token', token, { expires: 1, secure: true, sameSite: 'Strict' })
+            navigate('/')
+          } else {
+            console.error('Login failed')
           }
-          navigate('/')
         })
     }
   }
