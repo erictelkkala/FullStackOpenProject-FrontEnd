@@ -39,7 +39,6 @@ describe('Signup', async () => {
     it('username is missing', async () => {
       render(<Signup onSubmit={mockSubmit} />)
       const signupButton = screen.getByRole('button', { name: 'Sign up' })
-      const usernameField = screen.getByLabelText('Username')
 
       // Username is missing
       await user.click(signupButton)
@@ -49,7 +48,6 @@ describe('Signup', async () => {
     it('password is missing', async () => {
       render(<Signup onSubmit={mockSubmit} />)
       const signupButton = screen.getByRole('button', { name: 'Sign up' })
-      const usernameField = screen.getByLabelText('Username')
 
       // Password is missing
       await user.click(signupButton)
@@ -59,7 +57,6 @@ describe('Signup', async () => {
     it('passwordConfirmation is missing', async () => {
       render(<Signup onSubmit={mockSubmit} />)
       const signupButton = screen.getByRole('button', { name: 'Sign up' })
-      const usernameField = screen.getByLabelText('Username')
 
       // PasswordConfirmation is missing
       await user.click(signupButton)
