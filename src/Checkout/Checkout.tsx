@@ -1,7 +1,9 @@
 import { useFormik } from 'formik'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
+import { useMutation, useQuery } from '@apollo/client'
 import {
   Box,
   Button,
@@ -12,18 +14,27 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Skeleton,
   Stack,
   TextField,
   Typography
 } from '@mui/material'
 
+import { ADD_ORDER } from '../graphql/orderQueries'
+import { ME } from '../graphql/userQueries'
 import { useCartItems } from '../redux/hooks'
+import { setError } from '../redux/reducers/errors'
 import { NewOrderValues } from '../types'
 import CheckoutItem from './CheckoutItem'
 
 function Checkout() {
   const items = useCartItems()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [submitOrder, { loading, error, data }] = useMutation(ADD_ORDER)
+  const { error: userError, data: userData } = useQuery(ME, {
+    fetchPolicy: 'network-only'
+  })
 
   const OrderSchema: Yup.AnyObject = Yup.object().shape({
     orderItems: Yup.array()
@@ -49,21 +60,6 @@ function Checkout() {
     totalPrice: Yup.number().min(0).max(1000000).required('Required')
   })
 
-  const handleOrderSubmit = async (values: NewOrderValues) => {
-    // Send the username and password to the server
-    const res = await fetch('http://localhost:3001/api/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(values)
-    })
-    // If the status is 200, redirect to login
-    if (res.status === 200) {
-      navigate('/login')
-    }
-  }
-
   const formik = useFormik({
     initialValues: {
       orderItems: items,
@@ -77,6 +73,31 @@ function Checkout() {
       setSubmitting(false)
     }
   })
+
+  // If the user is not logged in, redirect to the login page
+  if (userError?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {
+    console.log('User is not logged in')
+    navigate('/login')
+  } else if (userError) dispatch(setError(userError.message))
+
+  const handleOrderSubmit = async (values: NewOrderValues) => {
+    // console.log('Order submitted')
+    // console.log(values)
+    await submitOrder({
+      variables: {
+        user: userData.me.id,
+        items: values.orderItems,
+        shippingAddress: values.shippingAddress,
+        paymentMethod: values.paymentMethod,
+        totalPrice: values.totalPrice
+      }
+    })
+
+    if (error) dispatch(setError(error.message))
+
+    // TODO: create the order page
+    if (data) navigate(`/order/${data.id}`)
+  }
 
   return (
     <Box sx={{ mx: 20 }}>
@@ -214,14 +235,21 @@ function Checkout() {
                   </RadioGroup>
                 </FormControl>
 
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ width: '100%', mt: 2 }}
-                  aria-label="Button to submit an order"
-                >
-                  Complete order
-                </Button>
+                {/* Render a loading animation on the button if the submit is loading */}
+                {!loading ? (
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ width: '100%', mt: 2 }}
+                    aria-label="Button to submit an order"
+                  >
+                    Complete order
+                  </Button>
+                ) : (
+                  <Skeleton>
+                    <Button />
+                  </Skeleton>
+                )}
               </form>
             </Box>
 
