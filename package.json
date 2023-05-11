@@ -6,7 +6,7 @@
   "packageManager": "yarn@3.5.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx,.vue src",
     "lint:fix": "prettier --write . && eslint --ext .js,.jsx,.ts,.tsx,.vue src --fix",
@@ -34,6 +34,8 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
+    "@rollup/plugin-image": "^3.0.2",
+    "@rollup/plugin-typescript": "^11.1.0",
     "@testing-library/dom": "^9.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
