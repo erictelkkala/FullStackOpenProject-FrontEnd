@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { setCookie } from 'typescript-cookie'
 import * as Yup from 'yup'
 
@@ -24,6 +24,7 @@ import { User } from '../types'
 function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const [login, { loading, error, data }] = useMutation(LOGIN_USER)
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
 
   const LoginSchema: Yup.AnyObject = Yup.object().shape({
     name: Yup.string()
@@ -52,11 +53,14 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
           console.log(error)
         })
         .then(() => {
-          console.log(data)
           const token: string = data.login.token as string
           if (token) {
             setCookie('token', token, { expires: 1, secure: true, sameSite: 'Strict' })
-            navigate('/')
+            if (searchParams.get('redirect')) {
+              navigate(searchParams.get('redirect') as string)
+            } else {
+              navigate('/')
+            }
           } else {
             console.error('Login failed')
           }

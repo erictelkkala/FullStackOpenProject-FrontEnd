@@ -77,7 +77,7 @@ function Checkout() {
   // If the user is not logged in, redirect to the login page
   if (userError?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {
     console.log('User is not logged in')
-    navigate('/login')
+    navigate('/login?redirect=/checkout')
   } else if (userError) dispatch(setError(userError.message))
 
   const handleOrderSubmit = async (values: NewOrderValues) => {
