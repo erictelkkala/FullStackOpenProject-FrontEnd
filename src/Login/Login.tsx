@@ -57,7 +57,7 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
           if (token) {
             setCookie('token', token, { expires: 1, secure: true, sameSite: 'Strict' })
             if (searchParams.get('redirect')) {
-              navigate(searchParams.get('redirect') as string)
+              navigate('/' + searchParams.get('redirect') as string)
             } else {
               navigate('/')
             }

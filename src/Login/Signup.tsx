@@ -57,7 +57,7 @@ function Signup({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
         })
         .then(() => {
           if (searchParams.has('redirect')) {
-            navigate(searchParams.get('redirect')!)
+            navigate('/' + searchParams.get('redirect')!)
           } else {
             navigate('/')
           }
