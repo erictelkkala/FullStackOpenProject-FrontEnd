@@ -22,7 +22,9 @@ import { User } from '../types'
 
 // The Login component accepts an optional onSubmit prop
 function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
-  const [login, { loading, error, data }] = useMutation(LOGIN_USER)
+  const [login, { loading }] = useMutation(LOGIN_USER, {
+    onCompleted: (data) => handleLoginResponse(data)
+  })
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
@@ -37,34 +39,31 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
       .required('Password is required!')
   })
 
-  const handleLogin = async (values: User) => {
+  const handleLogin = (values: User) => {
     // If the onSubmit prop is passed, call it instead of the default
     if (onSubmit) {
       onSubmit(values)
     } else {
       // Send the username and password to the server
-      await login({
+      login({
         variables: {
           name: values.name,
           password: values.password
         }
       })
-        .catch(() => {
-          console.log(error)
-        })
-        .then(() => {
-          const token: string = data.login.token as string
-          if (token) {
-            setCookie('token', token, { expires: 1, secure: true, sameSite: 'Strict' })
-            if (searchParams.get('redirect')) {
-              navigate('/' + searchParams.get('redirect') as string)
-            } else {
-              navigate('/')
-            }
-          } else {
-            console.error('Login failed')
-          }
-        })
+    }
+  }
+
+  const handleLoginResponse = (data: any): void => {
+    // If the server returns a token, store it in a cookie
+    if (data.login.token) {
+      setCookie('token', data.login.token)
+      // If the server returns a redirect path, navigate to it
+      if (searchParams.has('redirect')) {
+        navigate('/' + searchParams.get('redirect')!)
+      } else {
+        navigate('/')
+      }
     }
   }
 
