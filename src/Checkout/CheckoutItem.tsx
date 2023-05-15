@@ -4,8 +4,13 @@ import { Item } from '../types'
 
 function CheckoutItem(item: Item) {
   return (
-    <Box>
-      <Card raised sx={{ display: 'flex', borderRadius: 2 }} aria-label="cart-item" role="listitem">
+    <Box sx={{ display: 'flex', width: '75%', alignSelf: 'center' }}>
+      <Card
+        raised
+        sx={{ display: 'flex', flexDirection: 'row', borderRadius: 2, width: '100%' }}
+        aria-label="cart-item"
+        role="listitem"
+      >
         <CardMedia
           component="img"
           sx={{ width: 75, height: 75, objectFit: 'contain', m: 2, borderRadius: 2 }}

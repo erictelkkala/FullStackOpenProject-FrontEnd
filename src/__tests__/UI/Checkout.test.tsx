@@ -39,7 +39,7 @@ describe('Checkout', () => {
     }
   ]
 
-  it('renders checkout component', () => {
+  it('renders checkout payment details', () => {
     render(<Checkout />, {
       preloadedState: preloadedState,
       mocks: mocks
@@ -52,5 +52,15 @@ describe('Checkout', () => {
     expect(screen.getByRole('textbox', { name: 'Postal Code' })).toBeInTheDocument()
     expect(screen.getByRole('textbox', { name: 'Country' })).toBeInTheDocument()
     expect(screen.getByRole('radiogroup', { name: 'Payment method selection' })).toBeInTheDocument()
+    const radioButtons = screen.getAllByRole('radio')
+    expect(radioButtons).toHaveLength(4)
+    expect(screen.getByRole('button', { name: 'Complete order button' })).toBeInTheDocument()
+  })
+  it('renders checkout order summary', () => {
+    render(<Checkout />, {
+      preloadedState: preloadedState,
+      mocks: mocks
+    })
+    expect(screen.getByRole('heading', { name: 'Order summary' })).toBeInTheDocument()
   })
 })

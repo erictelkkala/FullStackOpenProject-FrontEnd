@@ -103,15 +103,20 @@ function Checkout() {
     <Box sx={{ mx: 20 }}>
       <Stack direction="column" justifyContent="center" spacing={2} aria-label="Checkout section">
         {items.length > 0 ? (
-          <Box sx={{ display: 'flex', flexDirection: 'row', width: '75%' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             {/* Input the payment details to the left side of the screen */}
             <Box
               sx={{
                 justifyContent: 'center',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                width: '100%'
               }}
             >
-              <Typography variant="h4" sx={{ textAlign: 'center' }} aria-label="Payment details">
+              <Typography
+                variant="h4"
+                sx={{ textAlign: 'center', pb: 5 }}
+                aria-label="Payment details"
+              >
                 Payment Details
               </Typography>
 
@@ -241,7 +246,7 @@ function Checkout() {
                     type="submit"
                     variant="contained"
                     sx={{ width: '100%', mt: 2 }}
-                    aria-label="Button to submit an order"
+                    aria-label="Complete order button"
                   >
                     Complete order
                   </Button>
@@ -258,7 +263,17 @@ function Checkout() {
             <Divider orientation="vertical" flexItem sx={{ mx: 10 }} aria-label="Divider" />
 
             {/* Map the items to the preview */}
-            <Box aria-label="Summary of the items you are about to order">
+            <Box
+              aria-label="Summary of the items you are about to order"
+              sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}
+            >
+              <Typography
+                variant="h4"
+                sx={{ textAlign: 'center', pb: 5 }}
+                aria-label="Order summary"
+              >
+                Order Summary
+              </Typography>
               {items.map((item) => (
                 <CheckoutItem key={item.id} {...item} />
               ))}
