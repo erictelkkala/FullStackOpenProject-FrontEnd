@@ -21,7 +21,7 @@ import { User } from '../types'
 function Signup({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const [addUser, { loading, error, data }] = useMutation(ADD_USER)
+  const [addUser, { loading, error }] = useMutation(ADD_USER)
 
   const SignupSchema: Yup.AnyObject = Yup.object().shape({
     name: Yup.string()
@@ -57,7 +57,7 @@ function Signup({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
         })
         .then(() => {
           if (searchParams.has('redirect')) {
-            navigate('/' + searchParams.get('redirect')!)
+            navigate('/' + searchParams.get('redirect'))
           } else {
             navigate('/')
           }
