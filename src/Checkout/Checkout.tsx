@@ -27,7 +27,7 @@ import { setError } from '../redux/reducers/errors'
 import { NewOrderValues } from '../types'
 import CheckoutItem from './CheckoutItem'
 
-function Checkout() {
+function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) => void }) {
   const items = useCartItems()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -83,20 +83,24 @@ function Checkout() {
   const handleOrderSubmit = async (values: NewOrderValues) => {
     // console.log('Order submitted')
     // console.log(values)
-    await submitOrder({
-      variables: {
-        user: userData.me.id,
-        items: values.orderItems,
-        shippingAddress: values.shippingAddress,
-        paymentMethod: values.paymentMethod,
-        totalPrice: values.totalPrice
-      }
-    })
+    if (onSubmit) {
+      onSubmit(values)
+    } else {
+      await submitOrder({
+        variables: {
+          user: userData.me.id,
+          items: values.orderItems,
+          shippingAddress: values.shippingAddress,
+          paymentMethod: values.paymentMethod,
+          totalPrice: values.totalPrice
+        }
+      })
 
-    if (error) dispatch(setError(error.message))
+      if (error) dispatch(setError(error.message))
 
-    // TODO: create the order page
-    if (data) navigate(`/order/${data.id}`)
+      // TODO: create the order page
+      if (data) navigate(`/order/${data.id}`)
+    }
   }
 
   return (
