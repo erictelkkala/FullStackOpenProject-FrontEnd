@@ -124,6 +124,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
                 Payment Details
               </Typography>
 
+              {/* TODO: extract form to its own component */}
               <form onSubmit={formik.handleSubmit} aria-label="Payment detail form">
                 <TextField
                   name="address"
@@ -262,7 +263,8 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
               </form>
             </Box>
 
-            {/* Fill the gap between the form and the cart preview */}
+            {/* write a condition to remove the divider and summary when the viewport gets too small */}
+            {/* Maybe use MeduaQuery here? https://dev.to/christensenjoe/using-breakpoints-in-materialui-5gj0 */}
 
             <Divider orientation="vertical" flexItem sx={{ mx: 10 }} aria-label="Divider" />
 
