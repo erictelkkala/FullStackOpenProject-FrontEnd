@@ -54,13 +54,13 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
     }
   }
 
-  const handleLoginResponse = (data: any): void => {
+  const handleLoginResponse = (data: { login: { token: string } }): void => {
     // If the server returns a token, store it in a cookie
     if (data.login.token) {
       setCookie('token', data.login.token)
       // If the server returns a redirect path, navigate to it
       if (searchParams.has('redirect')) {
-        navigate('/' + searchParams.get('redirect')!)
+        navigate('/' + searchParams.get('redirect'))
       } else {
         navigate('/')
       }
