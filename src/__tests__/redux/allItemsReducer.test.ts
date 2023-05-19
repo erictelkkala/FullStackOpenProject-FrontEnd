@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { allItemsReducer, AllItemsState, setItems } from '../../redux/reducers/items.js'
 import { setupStore } from '../../redux/store.js'
+import { Categories } from '../../types.js'
 
 describe('ItemReducer', () => {
   it('initial state is empty', () => {
@@ -19,7 +20,7 @@ describe('ItemReducer', () => {
       listing_price: 100,
       listing_quantity: 0,
       listing_image: 'src\\assets\\react.svg',
-      listing_category: 'Other'
+      listing_category: Categories.Other
     }
 
     // Dispatch the action
@@ -35,7 +36,7 @@ describe('ItemReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ]
     })
@@ -53,7 +54,7 @@ describe('ItemReducer', () => {
         listing_price: 100,
         listing_quantity: 0,
         listing_image: 'src\\assets\\react.svg',
-        listing_category: 'Other'
+        listing_category: Categories.Other
       },
       {
         id: '2',
@@ -62,7 +63,7 @@ describe('ItemReducer', () => {
         listing_price: 100,
         listing_quantity: 1,
         listing_image: 'src\\assets\\react.svg',
-        listing_category: 'Other'
+        listing_category: Categories.Other
       }
     ]
 
@@ -77,7 +78,7 @@ describe('ItemReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         },
         {
           id: '2',
@@ -86,7 +87,7 @@ describe('ItemReducer', () => {
           listing_price: 100,
           listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ]
     })

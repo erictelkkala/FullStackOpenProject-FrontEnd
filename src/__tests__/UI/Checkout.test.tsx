@@ -4,6 +4,7 @@ import { screen } from '@testing-library/react'
 
 import Checkout from '../../Checkout/Checkout.js'
 import { ME } from '../../graphql/userQueries.js'
+import { Categories } from '../../types.js'
 import { render } from '../../utils/test-utils.js'
 
 describe('Checkout', () => {
@@ -16,7 +17,8 @@ describe('Checkout', () => {
           listing_price: 1,
           listing_quantity: 1,
           listing_description: 'test',
-          listing_image: 'test'
+          listing_image: 'test',
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 1 }]

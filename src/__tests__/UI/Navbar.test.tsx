@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { screen, within } from '@testing-library/react'
 
 import NavBar from '../../NavBar.js'
+import { Categories } from '../../types.js'
 import { render } from '../../utils/test-utils.js'
 
 describe('Navbar', () => {
@@ -37,7 +38,7 @@ describe('Navbar', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         },
         {
           id: '2',
@@ -46,7 +47,7 @@ describe('Navbar', () => {
           listing_price: 99,
           listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Sports'
+          listing_category: Categories.Sports
         }
       ],
       quantity: [

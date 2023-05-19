@@ -1,3 +1,14 @@
+export enum Categories {
+  Electronics = 'Electronics',
+  Home = 'Home',
+  Clothing = 'Clothing',
+  Toys = 'Toys',
+  Books = 'Books',
+  Sports = 'Sports',
+  Tools = 'Tools',
+  Other = 'Other'
+}
+
 export interface Item {
   id: string
   listing_title: string
@@ -5,7 +16,7 @@ export interface Item {
   listing_quantity: number
   listing_description: string
   listing_image: string
-  listing_category?: string
+  listing_category: Categories
 }
 
 export interface CartQuantity {

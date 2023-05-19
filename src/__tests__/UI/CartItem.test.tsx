@@ -4,6 +4,7 @@ import { fireEvent, screen } from '@testing-library/react'
 
 import CartItem from '../../Cart/CartItem'
 import { ShoppingCartState } from '../../redux/reducers/shoppingCart'
+import { Categories } from '../../types'
 import { render } from '../../utils/test-utils'
 
 describe('CartItem', () => {
@@ -16,7 +17,7 @@ describe('CartItem', () => {
         listing_price: 100,
         listing_quantity: 0,
         listing_image: 'src\\assets\\react.svg',
-        listing_category: 'Other'
+        listing_category: Categories.Other
       }
     ],
     quantity: [{ id: '1', quantity: 1 }]

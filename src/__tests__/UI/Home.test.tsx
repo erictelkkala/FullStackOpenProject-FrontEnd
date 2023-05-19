@@ -5,6 +5,7 @@ import { screen, waitFor } from '@testing-library/react'
 import { GET_ITEMS } from '../../graphql/itemQueries.js'
 import Home from '../../Home.js'
 import { render } from '../../utils/test-utils.js'
+import { Categories } from '../../types.js'
 
 describe('Home', async () => {
   it('renders the home page', async () => {
@@ -21,7 +22,7 @@ describe('Home', async () => {
                 listing_price: 100,
                 listing_quantity: 0,
                 listing_image: 'src\\assets\\react.svg',
-                listing_category: 'Other'
+                listing_category: Categories.Other
               }
             ]
           }
