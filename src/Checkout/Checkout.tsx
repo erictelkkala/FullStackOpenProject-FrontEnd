@@ -24,7 +24,7 @@ import { ADD_ORDER } from '../graphql/orderQueries'
 import { ME } from '../graphql/userQueries'
 import { useCartItems } from '../redux/hooks'
 import { setError } from '../redux/reducers/errors'
-import { NewOrderValues } from '../types'
+import { Categories, NewOrderValues } from '../types'
 import CheckoutItem from './CheckoutItem'
 
 function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) => void }) {
@@ -43,6 +43,10 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
           id: Yup.string().required('Required'),
           listing_title: Yup.string().required('Required'),
           listing_price: Yup.number().min(0).max(1000000).required('Required'),
+          listing_image: Yup.string().required('Required'),
+          listing_category: Yup.mixed<keyof typeof Categories>()
+            .oneOf(Object.values(Categories))
+            .required('Required'),
           listing_quantity: Yup.number().required('Required'),
           quantity: Yup.number().required('Required')
         })
@@ -127,7 +131,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
               {/* TODO: extract form to its own component */}
               <form onSubmit={formik.handleSubmit} aria-label="Payment detail form">
                 <TextField
-                  name="address"
+                  name="shippingAddress.address"
                   label="Address"
                   aria-label="Address section"
                   type="text"
@@ -147,7 +151,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
                 />
 
                 <TextField
-                  name="city"
+                  name="shippingAddress.city"
                   label="City"
                   aria-label="City section"
                   type="text"
@@ -167,7 +171,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
                 />
 
                 <TextField
-                  name="postalCode"
+                  name="shippingAddress.postalCode"
                   label="Postal Code"
                   aria-label="Postal code section"
                   type="text"
@@ -188,7 +192,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
                 />
 
                 <TextField
-                  name="country"
+                  name="shippingAddress.country"
                   label="Country"
                   aria-label="Country section"
                   type="text"
