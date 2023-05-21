@@ -22,7 +22,7 @@ import {
 
 import { ADD_ORDER } from '../graphql/orderQueries'
 import { ME } from '../graphql/userQueries'
-import { useCartItems } from '../redux/hooks'
+import { useCartItems, useCartQuantity, useItemQuantity } from '../redux/hooks'
 import { setError } from '../redux/reducers/errors'
 import { Categories, NewOrderValues } from '../types'
 import CheckoutItem from './CheckoutItem'
@@ -35,6 +35,12 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
   const { error: userError, data: userData } = useQuery(ME, {
     fetchPolicy: 'network-only'
   })
+
+  // If the user is not logged in, redirect to the login page
+  if (userError?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {
+    console.log('User is not logged in')
+    navigate('/login?redirect=checkout')
+  } else if (userError) dispatch(setError(userError.message))
 
   const OrderSchema: Yup.AnyObject = Yup.object().shape({
     orderItems: Yup.array()
@@ -64,32 +70,14 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
     totalPrice: Yup.number().min(0).max(1000000).required('Required')
   })
 
-  const formik = useFormik({
-    initialValues: {
-      orderItems: items,
-      shippingAddress: { address: '', city: '', postalCode: '', country: '' },
-      paymentMethod: '',
-      totalPrice: 0
-    },
-    validationSchema: OrderSchema,
-    onSubmit: async (values, { setSubmitting }) => {
-      handleOrderSubmit(values)
-      setSubmitting(false)
-    }
-  })
-
-  // If the user is not logged in, redirect to the login page
-  if (userError?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {
-    console.log('User is not logged in')
-    navigate('/login?redirect=checkout')
-  } else if (userError) dispatch(setError(userError.message))
-
   const handleOrderSubmit = async (values: NewOrderValues) => {
     // console.log('Order submitted')
     // console.log(values)
     if (onSubmit) {
       onSubmit(values)
     } else {
+      console.log('Submitting order')
+      console.log(values)
       await submitOrder({
         variables: {
           user: userData.me.id,
@@ -99,13 +87,33 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
           totalPrice: values.totalPrice
         }
       })
-
-      if (error) dispatch(setError(error.message))
-
+        .catch(() => {
+          if (error) dispatch(setError(error.message))
+        })
+        .then(() => {
+          console.log(data)
+          navigate(`/order/${data.newOrder?.id}`)
+        })
       // TODO: create the order page
-      if (data) navigate(`/order/${data.id}`)
     }
   }
+
+  const formik = useFormik({
+    initialValues: {
+      orderItems: items,
+      shippingAddress: { address: '', city: '', postalCode: '', country: '' },
+      paymentMethod: '',
+      totalPrice: items.reduce(
+        (acc, item) => acc + item.listing_price * useItemQuantity(item.id),
+        0
+      ) as number
+    },
+    validationSchema: OrderSchema,
+    onSubmit: async (values, { setSubmitting }): Promise<void> => {
+      await handleOrderSubmit(values)
+      setSubmitting(false)
+    }
+  })
 
   return (
     <Box sx={{ mx: 20 }}>
