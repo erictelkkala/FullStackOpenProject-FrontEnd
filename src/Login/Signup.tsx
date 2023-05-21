@@ -68,8 +68,8 @@ function Signup({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const formik = useFormik({
     initialValues: { name: '', password: '', passwordConfirmation: '' },
     validationSchema: SignupSchema,
-    onSubmit: async (values, { setSubmitting }) => {
-      handleSignup(values)
+    onSubmit: async (values, { setSubmitting }): Promise<void> => {
+      await handleSignup(values)
       setSubmitting(false)
     }
   })

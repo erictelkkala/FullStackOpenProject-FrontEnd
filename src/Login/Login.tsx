@@ -39,13 +39,13 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
       .required('Password is required!')
   })
 
-  const handleLogin = (values: User) => {
+  const handleLogin = async (values: User): Promise<void> => {
     // If the onSubmit prop is passed, call it instead of the default
     if (onSubmit) {
       onSubmit(values)
     } else {
       // Send the username and password to the server
-      login({
+      await login({
         variables: {
           name: values.name,
           password: values.password
