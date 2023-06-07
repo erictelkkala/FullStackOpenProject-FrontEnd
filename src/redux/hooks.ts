@@ -10,7 +10,7 @@ export const useCartItems = () => {
   return useAppSelector((state) => state.shoppingCart.items)
 }
 
-export const useCartQuantity = () => {
+export const useCartQuantity = (): CartQuantity[] => {
   return useAppSelector((state) => state.shoppingCart.quantity)
 }
 
