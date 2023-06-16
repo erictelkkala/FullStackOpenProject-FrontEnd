@@ -19,6 +19,11 @@ export interface Item {
   listing_category: Categories
 }
 
+export interface NewOrderItem {
+  id: Item['id']
+  quantity: number
+}
+
 export interface CartQuantity {
   id: string
   quantity: number
@@ -31,7 +36,7 @@ export interface User {
 
 export interface Order {
   user: User['name']
-  orderItems: Item[]
+  orderItems: NewOrderItem[]
   shippingAddress: {
     address: string
     city: string
@@ -48,7 +53,7 @@ export interface Order {
 }
 
 export interface NewOrderValues {
-  orderItems: Item[]
+  orderItems: NewOrderItem[]
   shippingAddress: {
     address: string
     city: string

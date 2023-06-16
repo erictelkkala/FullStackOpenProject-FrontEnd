@@ -6,15 +6,15 @@ import { Box, Chip, Divider, Stack, Typography } from '@mui/material'
 
 import { ADD_ORDER } from '../graphql/orderQueries'
 import { ME } from '../graphql/userQueries'
-import { useCartItems, useCartQuantity } from '../redux/hooks'
+import { useCart } from '../redux/hooks'
 import { setError } from '../redux/reducers/errors'
 import { NewOrderValues } from '../types'
 import CheckoutForm from './CheckoutForm'
 import CheckoutItem from './CheckoutItem'
 
 function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) => void }) {
-  const items = useCartItems()
-  const quantities = useCartQuantity()
+  const cart = useCart()
+  const items = cart.items
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [submitOrder, { loading, error, data }] = useMutation(ADD_ORDER)
@@ -29,6 +29,12 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
   } else if (userError) dispatch(setError(userError.message))
 
   const handleOrderSubmit = async (values: NewOrderValues) => {
+    // Hardcode the payment result for now
+    const paymentResult = {
+      id: '123',
+      paymentStatus: 'paid',
+      paymentTime: '2021-10-10'
+    }
     // console.log('Order submitted')
     // console.log(values)
     if (onSubmit) {
@@ -39,9 +45,10 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
       await submitOrder({
         variables: {
           user: userData.me.id,
-          items: values.orderItems,
+          orderItems: values.orderItems,
           shippingAddress: values.shippingAddress,
           paymentMethod: values.paymentMethod,
+          paymentResult: paymentResult,
           totalPrice: values.totalPrice
         }
       })
@@ -79,7 +86,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
 
               <CheckoutForm
                 items={items}
-                quantities={quantities}
+                quantities={cart.quantity}
                 handleOrderSubmit={handleOrderSubmit}
                 loading={loading}
               />

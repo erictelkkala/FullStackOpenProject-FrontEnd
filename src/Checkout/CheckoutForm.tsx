@@ -12,7 +12,7 @@ import {
   TextField
 } from '@mui/material'
 
-import { CartQuantity, Categories, Item, NewOrderValues } from '../types'
+import { CartQuantity, Item, NewOrderValues } from '../types'
 
 function CheckoutForm({
   items,
@@ -29,14 +29,7 @@ function CheckoutForm({
     orderItems: Yup.array()
       .of(
         Yup.object().shape({
-          id: Yup.string().required('Required'),
-          listing_title: Yup.string().required('Required'),
-          listing_price: Yup.number().min(0).max(1000000).required('Required'),
-          listing_image: Yup.string().required('Required'),
-          listing_category: Yup.mixed<keyof typeof Categories>()
-            .oneOf(Object.values(Categories))
-            .required('Required'),
-          listing_quantity: Yup.number().required('Required'),
+          item: Yup.string().required('Required'),
           quantity: Yup.number().required('Required')
         })
       )
@@ -53,23 +46,29 @@ function CheckoutForm({
     totalPrice: Yup.number().min(0).max(1000000).required('Required')
   })
 
+  const itemsWithQuantities = items.map((item: Item) => {
+    const quantity = quantities.find((q) => q.id === item.id)?.quantity || 0
+    return { id: item.id, quantity }
+  })
+
   const formik = useFormik({
     initialValues: {
-      orderItems: items,
+      orderItems: itemsWithQuantities,
       shippingAddress: { address: '', city: '', postalCode: '', country: '' },
       paymentMethod: '',
       totalPrice: items.reduce(
         (acc, item) =>
           acc + item.listing_price * (quantities.find((q) => q.id === item.id)?.quantity || 0),
         0
-      ) as number
+      )
     },
     validationSchema: OrderSchema,
-    onSubmit: async (values, { setSubmitting }): Promise<void> => {
+    onSubmit: async (values: NewOrderValues) => {
       await handleOrderSubmit(values)
-      setSubmitting(false)
     }
   })
+
+  console.debug(formik.values)
 
   return (
     <form onSubmit={formik.handleSubmit} aria-label="Payment detail form">
