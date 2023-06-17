@@ -68,8 +68,6 @@ function CheckoutForm({
     }
   })
 
-  console.debug(formik.values)
-
   return (
     <form onSubmit={formik.handleSubmit} aria-label="Payment detail form">
       <TextField

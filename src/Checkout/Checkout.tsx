@@ -24,7 +24,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
 
   // If the user is not logged in, redirect to the login page
   if (userError?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {
-    console.log('User is not logged in')
+    console.debug('User is not logged in')
     navigate('/login?redirect=checkout')
   } else if (userError) dispatch(setError(userError.message))
 
@@ -35,13 +35,10 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
       paymentStatus: 'paid',
       paymentTime: '2021-10-10'
     }
-    // console.log('Order submitted')
-    // console.log(values)
+
     if (onSubmit) {
       onSubmit(values)
     } else {
-      console.log('Submitting order')
-      console.log(values)
       await submitOrder({
         variables: {
           user: userData.me.id,
