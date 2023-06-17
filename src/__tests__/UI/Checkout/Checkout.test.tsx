@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 
 import { screen } from '@testing-library/react'
 
-import Checkout from '../../Checkout/Checkout.js'
-import { ME } from '../../graphql/userQueries.js'
-import { Categories } from '../../types.js'
-import { render } from '../../utils/test-utils.js'
+import Checkout from '../../../Checkout/Checkout.js'
+import { ME } from '../../../graphql/userQueries.js'
+import { Categories } from '../../../types.js'
+import { render } from '../../../utils/test-utils.js'
 
 describe('Checkout', () => {
   const preloadedState = {
@@ -58,6 +58,7 @@ describe('Checkout', () => {
     expect(radioButtons).toHaveLength(4)
     expect(screen.getByRole('button', { name: 'Complete order button' })).toBeInTheDocument()
   })
+
   it('renders checkout order summary', () => {
     render(<Checkout />, {
       preloadedState: preloadedState,

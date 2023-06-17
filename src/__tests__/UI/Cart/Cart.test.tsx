@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 
 import { fireEvent, screen, within } from '@testing-library/react'
 
-import Cart from '../../Cart/Cart.js'
-import { ShoppingCartState } from '../../redux/reducers/shoppingCart.js'
-import { Categories } from '../../types.js'
-import { render } from '../../utils/test-utils.js'
+import Cart from '../../../Cart/Cart.js'
+import { ShoppingCartState } from '../../../redux/reducers/shoppingCart.js'
+import { Categories } from '../../../types.js'
+import { render } from '../../../utils/test-utils.js'
 
 describe('Cart', () => {
   it('renders the cart page when empty', () => {

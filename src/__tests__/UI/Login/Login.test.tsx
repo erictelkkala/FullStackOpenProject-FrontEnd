@@ -3,8 +3,8 @@ import { describe, expect, it, vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Login from '../../Login/Login'
-import { render } from '../../utils/test-utils.js'
+import Login from '../../../Login/Login'
+import { render } from '../../../utils/test-utils.js'
 
 describe('Login', () => {
   it('renders Login component', () => {

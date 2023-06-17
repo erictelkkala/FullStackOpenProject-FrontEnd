@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 
 import { fireEvent, screen } from '@testing-library/react'
 
-import CartItem from '../../Cart/CartItem'
-import { ShoppingCartState } from '../../redux/reducers/shoppingCart'
-import { Categories } from '../../types'
-import { render } from '../../utils/test-utils'
+import CartItem from '../../../Cart/CartItem'
+import { ShoppingCartState } from '../../../redux/reducers/shoppingCart'
+import { Categories } from '../../../types'
+import { render } from '../../../utils/test-utils'
 
 describe('CartItem', () => {
   const initialCart: ShoppingCartState = {

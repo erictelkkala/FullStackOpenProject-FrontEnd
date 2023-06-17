@@ -12,19 +12,19 @@ import {
   TextField
 } from '@mui/material'
 
-import { CartQuantity, Item, NewOrderValues } from '../types'
+import { useCart } from '../redux/hooks'
+import { Item, NewOrderValues } from '../types'
 
 function CheckoutForm({
   items,
-  quantities,
   handleOrderSubmit,
   loading
 }: {
   items: Item[]
-  quantities: CartQuantity[]
   handleOrderSubmit: (values: NewOrderValues) => Promise<void>
   loading: boolean
 }) {
+  const quantities = useCart().quantity
   const OrderSchema: Yup.AnyObject = Yup.object().shape({
     orderItems: Yup.array()
       .of(

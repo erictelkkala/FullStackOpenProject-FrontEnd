@@ -3,8 +3,8 @@ import { describe, expect, it, vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Signup from '../../Login/Signup'
-import { render } from '../../utils/test-utils.js'
+import Signup from '../../../Login/Signup'
+import { render } from '../../../utils/test-utils.js'
 
 describe('Signup', async () => {
   const user = userEvent.setup()
