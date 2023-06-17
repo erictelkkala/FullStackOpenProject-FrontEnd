@@ -4,6 +4,8 @@ import { useItemQuantity } from '../redux/hooks'
 import { Item } from '../types'
 
 function CheckoutItem(item: Item) {
+  const quantity = useItemQuantity(item.id)
+
   return (
     <Box sx={{ display: 'flex', width: '75%', alignSelf: 'center' }}>
       <Card
@@ -31,10 +33,16 @@ function CheckoutItem(item: Item) {
           <Box sx={{ display: 'flex', justifyContent: 'end' }}>
             <Typography
               variant="h6"
-              aria-label="Quantity and price of the item"
-              color={'text.secondary'}
+              aria-label="Quantity of the item"
+              color={quantity > 0 ? 'text.secondary' : 'error'}
             >
-              {`${useItemQuantity(item.id)} x ${item.listing_price} €`}
+              {quantity}
+            </Typography>
+            <Typography variant="h6" aria-label="x">
+              {' x '}
+            </Typography>
+            <Typography variant="h6" aria-label="Price of the item" color={'text.secondary'}>
+              {`${item.listing_price} €`}
             </Typography>
           </Box>
         </CardContent>
