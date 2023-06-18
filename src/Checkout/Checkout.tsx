@@ -81,7 +81,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
                 Payment Details
               </Typography>
 
-              <CheckoutForm items={items} handleOrderSubmit={handleOrderSubmit} loading={loading} />
+              <CheckoutForm handleOrderSubmit={handleOrderSubmit} loading={loading} />
             </Box>
 
             {/* write a condition to remove the divider and summary when the viewport gets too small */}
