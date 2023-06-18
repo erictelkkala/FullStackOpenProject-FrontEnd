@@ -72,7 +72,7 @@ function CheckoutForm({
       <TextField
         name="shippingAddress.address"
         label="Address"
-        aria-label="Address section"
+        aria-label="Address text field"
         type="text"
         variant="filled"
         value={formik.values.shippingAddress.address}
@@ -90,7 +90,7 @@ function CheckoutForm({
       <TextField
         name="shippingAddress.city"
         label="City"
-        aria-label="City section"
+        aria-label="City text field"
         type="text"
         variant="filled"
         value={formik.values.shippingAddress.city}
@@ -105,7 +105,7 @@ function CheckoutForm({
       <TextField
         name="shippingAddress.postalCode"
         label="Postal Code"
-        aria-label="Postal code section"
+        aria-label="Postal code text field"
         type="text"
         variant="filled"
         value={formik.values.shippingAddress.postalCode}
@@ -125,7 +125,7 @@ function CheckoutForm({
       <TextField
         name="shippingAddress.country"
         label="Country"
-        aria-label="Country section"
+        aria-label="Country text field"
         type="text"
         variant="filled"
         value={formik.values.shippingAddress.country}
