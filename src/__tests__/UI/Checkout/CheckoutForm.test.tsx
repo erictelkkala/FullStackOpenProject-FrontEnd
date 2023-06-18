@@ -1,4 +1,4 @@
-import { describe, vi } from 'vitest'
+import { describe, it, vi } from 'vitest'
 
 import { screen } from '@testing-library/react'
 
@@ -69,5 +69,15 @@ describe('CheckoutForm', () => {
     // Form submit button
     expect(screen.getByRole('button', { name: 'Complete order button' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Complete order button' })).toBeEnabled()
+  })
+
+  it('should render the form with loading animation', () => {
+    render(<CheckoutForm handleOrderSubmit={mockedHandleOrderSubmit} loading={true} />, {
+      preloadedState: preloadedState,
+      mocks: mocks
+    })
+
+    // Form submit button
+    expect(screen.queryByRole('button', { name: 'Complete order button' })).not.toBeInTheDocument()
   })
 })

@@ -174,8 +174,8 @@ function CheckoutForm({
           Complete order
         </Button>
       ) : (
-        <Skeleton>
-          <Button />
+        <Skeleton aria-busy={loading}>
+          <Button sx={{ width: '100%', mt: 2 }} />
         </Skeleton>
       )}
     </form>
