@@ -14,6 +14,7 @@ import { setupStore } from './redux/store'
 import { theme } from './themes/main'
 import PageNotFound from './utils/PageNotFound'
 import ErrorSnackbar from './utils/ErrorSnackbar'
+import ShowAllOrders from './Orders/ShowAllOrders'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/orders" element={<ShowAllOrders />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>

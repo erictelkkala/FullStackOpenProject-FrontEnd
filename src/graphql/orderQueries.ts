@@ -19,3 +19,34 @@ export const ADD_ORDER = gql`
     )
   }
 `
+
+export const GET_ALL_ORDERS_BY_USER = gql`
+  query getAllOrdersByUser {
+    getAllOrdersByUser {
+      id
+      orderItems {
+        id
+        listing_category
+        listing_description
+        listing_image
+        listing_price
+        listing_quantity
+        listing_title
+      }
+      paymentMethod
+      paymentResult {
+        id
+        paymentStatus
+        paymentTime
+      }
+      shippingAddress {
+        address
+        city
+        country
+        postalCode
+      }
+      totalPrice
+      user
+    }
+  }
+`
