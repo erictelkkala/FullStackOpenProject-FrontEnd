@@ -1,13 +1,8 @@
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { useMutation, useQuery } from '@apollo/client'
 import { Box, Chip, Divider, Stack, Typography } from '@mui/material'
 
-import { ADD_ORDER } from '../graphql/orderQueries'
-import { ME } from '../graphql/userQueries'
 import { useCart } from '../redux/hooks'
-import { setError } from '../redux/reducers/errors'
 import { NewOrderValues } from '../types'
 import CheckoutForm from './CheckoutForm'
 import CheckoutItem from './CheckoutItem'
@@ -16,49 +11,6 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
   const cart = useCart()
   const items = cart.items
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [submitOrder, { loading, error, data }] = useMutation(ADD_ORDER)
-  const { error: userError, data: userData } = useQuery(ME, {
-    fetchPolicy: 'network-only'
-  })
-
-  // If the user is not logged in, redirect to the login page
-  if (userError?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {
-    console.debug('User is not logged in')
-    navigate('/login?redirect=checkout')
-  } else if (userError) dispatch(setError(userError.message))
-
-  const handleOrderSubmit = async (values: NewOrderValues) => {
-    // Hardcode the payment result for now
-    const paymentResult = {
-      id: '123',
-      paymentStatus: 'paid',
-      paymentTime: '2021-10-10'
-    }
-
-    if (onSubmit) {
-      onSubmit(values)
-    } else {
-      await submitOrder({
-        variables: {
-          user: userData.me.id,
-          orderItems: values.orderItems,
-          shippingAddress: values.shippingAddress,
-          paymentMethod: values.paymentMethod,
-          paymentResult: paymentResult,
-          totalPrice: values.totalPrice
-        }
-      })
-        .catch(() => {
-          if (error) dispatch(setError(error.message))
-        })
-        .then(() => {
-          console.log(data)
-          navigate(`/order/${data.newOrder?.id}`)
-        })
-      // TODO: create the order page
-    }
-  }
 
   return (
     <Box sx={{ mx: 20 }}>
@@ -81,7 +33,7 @@ function Checkout({ onSubmit: onSubmit }: { onSubmit?: (values: NewOrderValues) 
                 Payment Details
               </Typography>
 
-              <CheckoutForm handleOrderSubmit={handleOrderSubmit} loading={loading} />
+              <CheckoutForm onSubmit={onSubmit} />
             </Box>
 
             {/* write a condition to remove the divider and summary when the viewport gets too small */}

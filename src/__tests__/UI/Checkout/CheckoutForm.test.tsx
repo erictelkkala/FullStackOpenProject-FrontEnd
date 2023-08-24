@@ -42,10 +42,9 @@ describe('CheckoutForm', () => {
   ]
 
   const mockedHandleOrderSubmit = vi.fn()
-  const mockedLoading = false
 
   it('should render the form', () => {
-    render(<CheckoutForm handleOrderSubmit={mockedHandleOrderSubmit} loading={mockedLoading} />, {
+    render(<CheckoutForm onSubmit={mockedHandleOrderSubmit} />, {
       preloadedState: preloadedState,
       mocks: mocks
     })
@@ -69,15 +68,5 @@ describe('CheckoutForm', () => {
     // Form submit button
     expect(screen.getByRole('button', { name: 'Complete order button' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Complete order button' })).toBeEnabled()
-  })
-
-  it('should render the form with loading animation', () => {
-    render(<CheckoutForm handleOrderSubmit={mockedHandleOrderSubmit} loading={true} />, {
-      preloadedState: preloadedState,
-      mocks: mocks
-    })
-
-    // Form submit button
-    expect(screen.queryByRole('button', { name: 'Complete order button' })).not.toBeInTheDocument()
   })
 })

@@ -1,6 +1,9 @@
 import { useFormik } from 'formik'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
+import { useMutation, useQuery } from '@apollo/client'
 import {
   Button,
   FormControl,
@@ -12,16 +15,16 @@ import {
   TextField
 } from '@mui/material'
 
+import { ADD_ORDER } from '../graphql/orderQueries'
+import { ME } from '../graphql/userQueries'
 import { useCartItems, useCartQuantity } from '../redux/hooks'
+import { setError } from '../redux/reducers/errors'
 import { Item, NewOrderValues } from '../types'
 
-function CheckoutForm({
-  handleOrderSubmit,
-  loading
-}: {
-  handleOrderSubmit: (values: NewOrderValues) => Promise<void>
-  loading: boolean
-}) {
+function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => void }) {
+  const [submitOrder, { loading, error, data }] = useMutation(ADD_ORDER)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const items = useCartItems()
   const quantities = useCartQuantity()
   const OrderSchema: Yup.AnyObject = Yup.object().shape({
@@ -45,10 +48,54 @@ function CheckoutForm({
     totalPrice: Yup.number().min(0).max(1000000).required('Required')
   })
 
+  const { error: userError, data: userData } = useQuery(ME, {
+    fetchPolicy: 'network-only'
+  })
+
+  // If the user is not logged in, redirect to the login page
+  if (userError?.graphQLErrors[0]?.extensions?.code === 'UNAUTHENTICATED') {
+    console.debug('User is not logged in')
+    navigate('/login?redirect=checkout')
+  } else if (userError) dispatch(setError(userError.message))
+
   const itemsWithQuantities = items.map((item: Item) => {
     const quantity = quantities.find((q) => q.id === item.id)?.quantity || 0
     return { id: item.id, quantity }
   })
+
+  const handleOrderSubmit = async (values: NewOrderValues) => {
+    // Hardcode the payment result for now
+    const paymentResult = {
+      id: '123',
+      paymentStatus: 'paid',
+      paymentTime: '2021-10-10'
+    }
+
+    console.log(onSubmit)
+
+    if (onSubmit) {
+      onSubmit(values)
+    } else {
+      await submitOrder({
+        variables: {
+          user: userData.me.id,
+          orderItems: values.orderItems,
+          shippingAddress: values.shippingAddress,
+          paymentMethod: values.paymentMethod,
+          paymentResult: paymentResult,
+          totalPrice: values.totalPrice
+        }
+      })
+        .catch(() => {
+          if (error) dispatch(setError(error.message))
+        })
+        .then(() => {
+          console.log(data)
+          navigate(`/order/${data.newOrder?.id}`)
+        })
+      // TODO: create the order page
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -63,7 +110,7 @@ function CheckoutForm({
     },
     validationSchema: OrderSchema,
     onSubmit: async (values: NewOrderValues) => {
-      await handleOrderSubmit(values)
+      handleOrderSubmit(values)
     }
   })
 
@@ -141,6 +188,7 @@ function CheckoutForm({
         sx={{ mt: 2 }}
       />
 
+      {/* TODO: convert to formal HTML radio components */}
       <FormControl aria-label="Payment method section" sx={{ mt: 2 }}>
         <FormLabel>Payment Method</FormLabel>
         <RadioGroup
@@ -174,7 +222,7 @@ function CheckoutForm({
           Complete order
         </Button>
       ) : (
-        <Skeleton aria-busy={loading}>
+        <Skeleton aria-busy={true}>
           <Button sx={{ width: '100%', mt: 2 }} />
         </Skeleton>
       )}
