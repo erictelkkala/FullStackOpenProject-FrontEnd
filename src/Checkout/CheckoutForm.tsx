@@ -20,6 +20,7 @@ import { ME } from '../graphql/userQueries'
 import { useCartItems, useCartQuantity } from '../redux/hooks'
 import { setError } from '../redux/reducers/errors'
 import { Item, NewOrderValues } from '../types'
+import React from 'react'
 
 function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => void }) {
   const [submitOrder, { loading, error, data }] = useMutation(ADD_ORDER)
@@ -27,11 +28,11 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
   const navigate = useNavigate()
   const items = useCartItems()
   const quantities = useCartQuantity()
-  const OrderSchema: Yup.AnyObject = Yup.object().shape({
+  const orderValidationSchema: Yup.AnyObject = Yup.object().shape({
     orderItems: Yup.array()
       .of(
         Yup.object().shape({
-          item: Yup.string().required('Required'),
+          id: Yup.string().required('Required'),
           quantity: Yup.number().required('Required')
         })
       )
@@ -44,8 +45,7 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
         country: Yup.string().required('Required')
       })
       .required('Required'),
-    paymentMethod: Yup.string().required('Required'),
-    totalPrice: Yup.number().min(0).max(1000000).required('Required')
+    paymentMethod: Yup.string().required('Required')
   })
 
   const { error: userError, data: userData } = useQuery(ME, {
@@ -71,8 +71,6 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
       paymentTime: '2021-10-10'
     }
 
-    console.log(onSubmit)
-
     if (onSubmit) {
       onSubmit(values)
     } else {
@@ -91,9 +89,8 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
         })
         .then(() => {
           console.log(data)
-          navigate(`/order/${data.newOrder?.id}`)
+          navigate(`/order/${data.addOrder}`)
         })
-      // TODO: create the order page
     }
   }
 
@@ -108,9 +105,9 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
         0
       )
     },
-    validationSchema: OrderSchema,
+    validationSchema: orderValidationSchema,
     onSubmit: async (values: NewOrderValues) => {
-      handleOrderSubmit(values)
+      await handleOrderSubmit(values)
     }
   })
 
@@ -202,16 +199,16 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
           <FormControlLabel value="PayPal" control={<Radio />} label="PayPal" aria-label="PayPal" />
           <FormControlLabel value="Stripe" control={<Radio />} label="Stripe" aria-label="Stripe" />
           <FormControlLabel
-            value="Credit/Debit Card"
+            value="Credit/Debit"
             control={<Radio />}
-            label="CreditDebit"
+            label="Credit/Debit Card"
             aria-label="Credit or debit card"
           />
           <FormControlLabel value="Klarna" control={<Radio />} label="Klarna" aria-label="Klarna" />
         </RadioGroup>
       </FormControl>
 
-      {/* Render a loading animation on the button if the submit is loading */}
+      {/* Render a loading animation on the button if to submit is loading */}
       {!loading ? (
         <Button
           type="submit"
