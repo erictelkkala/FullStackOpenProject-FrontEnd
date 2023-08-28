@@ -71,7 +71,7 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
     initialValues: { name: '', password: '' },
     validationSchema: LoginSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      handleLogin(values)
+      await handleLogin(values)
       setSubmitting(false)
     }
   })
