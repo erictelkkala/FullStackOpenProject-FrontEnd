@@ -20,7 +20,6 @@ import { ME } from '../graphql/userQueries'
 import { useCartItems, useCartQuantity } from '../redux/hooks'
 import { setError } from '../redux/reducers/errors'
 import { Item, NewOrderValues } from '../types'
-import React from 'react'
 
 function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => void }) {
   const [submitOrder, { loading, error, data }] = useMutation(ADD_ORDER)
