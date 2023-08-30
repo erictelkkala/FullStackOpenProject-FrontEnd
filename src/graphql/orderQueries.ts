@@ -20,6 +20,37 @@ export const ADD_ORDER = gql`
   }
 `
 
+export const GET_ORDER_BY_ID = gql`
+  query getOrderById($id: ID!) {
+    getOrder(id: $id) {
+      id
+      orderItems {
+        _id
+        listing_category
+        listing_description
+        listing_image
+        listing_price
+        listing_quantity
+        listing_title
+      }
+      paymentMethod
+      paymentResult {
+        id
+        paymentStatus
+        paymentTime
+      }
+      shippingAddress {
+        address
+        city
+        country
+        postalCode
+      }
+      totalPrice
+      user
+    }
+  }
+`
+
 export const GET_ALL_ORDERS_BY_USER = gql`
   query getAllOrdersByUser {
     getAllOrdersByUser {

@@ -87,7 +87,6 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
           if (error) dispatch(setError(error.message))
         })
         .then(() => {
-          console.log(data)
           navigate(`/order/${data.addOrder}`)
         })
     }
