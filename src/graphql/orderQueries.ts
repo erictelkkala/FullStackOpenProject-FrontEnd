@@ -25,7 +25,6 @@ export const GET_ORDER_BY_ID = gql`
     getOrder(id: $id) {
       id
       orderItems {
-        _id
         listing_category
         listing_description
         listing_image
@@ -34,11 +33,6 @@ export const GET_ORDER_BY_ID = gql`
         listing_title
       }
       paymentMethod
-      paymentResult {
-        id
-        paymentStatus
-        paymentTime
-      }
       shippingAddress {
         address
         city
@@ -46,7 +40,6 @@ export const GET_ORDER_BY_ID = gql`
         postalCode
       }
       totalPrice
-      user
     }
   }
 `

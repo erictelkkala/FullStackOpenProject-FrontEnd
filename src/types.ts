@@ -20,7 +20,7 @@ export interface Item {
 }
 
 export interface NewOrderItem {
-  id: Item['id']
+  item: Item['id']
   quantity: number
 }
 

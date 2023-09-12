@@ -31,7 +31,7 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
     orderItems: Yup.array()
       .of(
         Yup.object().shape({
-          id: Yup.string().required('Required'),
+          item: Yup.string().required('Required'),
           quantity: Yup.number().required('Required')
         })
       )
@@ -59,7 +59,7 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
 
   const itemsWithQuantities = items.map((item: Item) => {
     const quantity = quantities.find((q) => q.id === item.id)?.quantity || 0
-    return { id: item.id, quantity }
+    return { item: item.id, quantity }
   })
 
   const handleOrderSubmit = async (values: NewOrderValues) => {
@@ -73,7 +73,8 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
     if (onSubmit) {
       onSubmit(values)
     } else {
-      await submitOrder({
+      console.debug('Submitting order')
+      const result = await submitOrder({
         variables: {
           user: userData.me.id,
           orderItems: values.orderItems,
@@ -83,12 +84,12 @@ function CheckoutForm({ onSubmit }: { onSubmit?: (values: NewOrderValues) => voi
           totalPrice: values.totalPrice
         }
       })
-        .catch(() => {
-          if (error) dispatch(setError(error.message))
-        })
-        .then(() => {
-          navigate(`/order/${data.addOrder}`)
-        })
+
+      if (error) {
+        dispatch(setError(error.message))
+      } else if (result) {
+        navigate(`/order/${data.addOrder}`)
+      }
     }
   }
 
