@@ -23,23 +23,26 @@ export const ADD_ORDER = gql`
 export const GET_ORDER_BY_ID = gql`
   query getOrderById($id: ID!) {
     getOrder(id: $id) {
-      id
       orderItems {
-        listing_category
-        listing_description
-        listing_image
-        listing_price
-        listing_quantity
-        listing_title
+        item {
+          id
+          listing_category
+          listing_description
+          listing_image
+          listing_price
+          listing_quantity
+          listing_title
+        }
+        quantity
       }
+      totalPrice
       paymentMethod
       shippingAddress {
-        address
         city
+        address
         country
         postalCode
       }
-      totalPrice
     }
   }
 `

@@ -24,6 +24,11 @@ export interface NewOrderItem {
   quantity: number
 }
 
+export interface OrderItem {
+  item: Item
+  quantity: number
+}
+
 export interface CartQuantity {
   id: string
   quantity: number
