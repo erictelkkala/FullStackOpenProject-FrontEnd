@@ -5,6 +5,8 @@ import { Item, OrderItem } from '../types'
 function OrderItemCard({ orderItem: orderItem }: { orderItem: OrderItem }) {
   const item = orderItem.item as Item
   const quantity = orderItem.quantity
+  console.log(item)
+
   return (
     <Box sx={{ display: 'flex', width: '75%', alignSelf: 'center' }}>
       <Card
@@ -17,7 +19,7 @@ function OrderItemCard({ orderItem: orderItem }: { orderItem: OrderItem }) {
           component="img"
           sx={{ width: 100, height: 100, objectFit: 'contain', m: 2, borderRadius: 2 }}
           image={item.listing_image}
-          alt="Image of the item"
+          alt={`Image of ${item.listing_title}`}
           aria-label="Image of the item"
         />
 
@@ -32,16 +34,10 @@ function OrderItemCard({ orderItem: orderItem }: { orderItem: OrderItem }) {
           <Box sx={{ display: 'flex', justifyContent: 'end' }}>
             <Typography
               variant="h6"
-              aria-label="Quantity of the item"
-              color={quantity > 0 ? 'text.secondary' : 'error'}
+              aria-label="Quantity and the price of the item"
+              color={'text.secondary'}
             >
-              {quantity}
-            </Typography>
-            <Typography variant="h6" aria-label="x">
-              {' x '}
-            </Typography>
-            <Typography variant="h6" aria-label="Price of the item" color={'text.secondary'}>
-              {`${item.listing_price} €`}
+              {`${quantity} x ${item.listing_price} €`}
             </Typography>
           </Box>
         </CardContent>
