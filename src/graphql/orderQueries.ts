@@ -52,13 +52,16 @@ export const GET_ALL_ORDERS_BY_USER = gql`
     getAllOrdersByUser {
       id
       orderItems {
-        id
-        listing_category
-        listing_description
-        listing_image
-        listing_price
-        listing_quantity
-        listing_title
+        item {
+          id
+          listing_title
+          listing_description
+          listing_price
+          listing_image
+          listing_category
+          listing_quantity
+        }
+        quantity
       }
       paymentMethod
       paymentResult {
@@ -69,11 +72,12 @@ export const GET_ALL_ORDERS_BY_USER = gql`
       shippingAddress {
         address
         city
-        country
         postalCode
+        country
       }
       totalPrice
       user
+      createdAt
     }
   }
 `

@@ -40,6 +40,7 @@ export interface User {
 }
 
 export interface Order {
+  id: string
   user: User['name']
   orderItems: NewOrderItem[]
   shippingAddress: {
@@ -55,6 +56,7 @@ export interface Order {
     paymentTime: string
   }
   totalPrice: number
+  createdAt: number
 }
 
 export interface NewOrderValues {
