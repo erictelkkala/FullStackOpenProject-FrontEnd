@@ -25,6 +25,7 @@ export interface NewOrderItem {
 }
 
 export interface OrderItem {
+  id: string | null | undefined
   item: Item
   quantity: number
 }

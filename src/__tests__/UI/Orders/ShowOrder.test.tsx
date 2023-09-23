@@ -42,10 +42,10 @@ const mocks = [
           totalPrice: 200,
           paymentMethod: 'Credit/Debit',
           shippingAddress: {
-            city: 'asd',
-            address: 'asd',
-            country: 'asd',
-            postalCode: 'asd'
+            address: '123 Main St',
+            city: 'Anytown',
+            postalCode: '12345',
+            country: 'USA'
           }
         }
       }
@@ -95,19 +95,12 @@ describe('ShowOrder', () => {
 
     expect(screen.getByText('Loading...')).toBeInTheDocument()
 
-    const shippingAddress = await screen.findByText('Shipping address:')
-    expect(shippingAddress).toBeInTheDocument()
-
-    const city = await screen.findByText('City: asd')
-    expect(city).toBeInTheDocument()
-
-    const address = await screen.findByText('Address: asd')
-    expect(address).toBeInTheDocument()
-
-    const country = await screen.findByText('Country: asd')
-    expect(country).toBeInTheDocument()
-
-    const postalCode = await screen.findByText('Postal code: asd')
-    expect(postalCode).toBeInTheDocument()
+    expect(await screen.findByLabelText('Payment details')).toBeInTheDocument()
+    expect(await screen.findByLabelText('Payment method')).toHaveTextContent(
+      'Payment method: Credit/Debit'
+    )
+    expect(await screen.findByLabelText('Shipping address')).toHaveTextContent(
+      'Shipping address: 123 Main St, Anytown, 12345, USA'
+    )
   })
 })
