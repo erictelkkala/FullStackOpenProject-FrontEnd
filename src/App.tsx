@@ -10,10 +10,12 @@ import ItemDetails from './Item/ItemDetails'
 import Login from './Login/Login'
 import Signup from './Login/Signup'
 import NavBar from './NavBar'
+import ShowAllOrders from './Orders/ShowAllOrders'
+import ShowOrder from './Orders/ShowOrder'
 import { setupStore } from './redux/store'
 import { theme } from './themes/main'
-import PageNotFound from './utils/PageNotFound'
 import ErrorSnackbar from './utils/ErrorSnackbar'
+import PageNotFound from './utils/PageNotFound'
 
 function App() {
   return (
@@ -25,9 +27,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/item/:id" element={<ItemDetails />} />
+            <Route path="/order/:id" element={<ShowOrder />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/orders" element={<ShowAllOrders />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>

@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { setCookie } from 'typescript-cookie'
 import * as Yup from 'yup'
 
@@ -22,8 +22,11 @@ import { User } from '../types'
 
 // The Login component accepts an optional onSubmit prop
 function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
-  const [login, { loading, error, data }] = useMutation(LOGIN_USER)
+  const [login, { loading }] = useMutation(LOGIN_USER, {
+    onCompleted: (data) => handleLoginResponse(data)
+  })
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
 
   const LoginSchema: Yup.AnyObject = Yup.object().shape({
     name: Yup.string()
@@ -36,7 +39,7 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
       .required('Password is required!')
   })
 
-  const handleLogin = async (values: User) => {
+  const handleLogin = async (values: User): Promise<void> => {
     // If the onSubmit prop is passed, call it instead of the default
     if (onSubmit) {
       onSubmit(values)
@@ -48,16 +51,19 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
           password: values.password
         }
       })
-        .catch(() => {
-          console.log(error)
-        })
-        .then(() => {
-          if (data) {
-            const token = data?.loginUser.token
-            setCookie('token', token)
-          }
-          navigate('/')
-        })
+    }
+  }
+
+  const handleLoginResponse = (data: { login: { token: string } }): void => {
+    // If the server returns a token, store it in a cookie
+    if (data.login.token) {
+      setCookie('token', data.login.token)
+      // If the server returns a redirect path, navigate to it
+      if (searchParams.has('redirect')) {
+        navigate('/' + searchParams.get('redirect'))
+      } else {
+        navigate('/')
+      }
     }
   }
 
@@ -65,7 +71,7 @@ function Login({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
     initialValues: { name: '', password: '' },
     validationSchema: LoginSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      handleLogin(values)
+      await handleLogin(values)
       setSubmitting(false)
     }
   })

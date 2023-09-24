@@ -11,7 +11,7 @@ import { RootState } from './redux/store'
 function NavBar() {
   const selector = useAppSelector((state: RootState) => state.shoppingCart)
   const itemsInCart = selector.items.length
-  const token = getCookie('token')
+  const token = getCookie('token') as string
 
   const navigate = useNavigate()
 
@@ -78,9 +78,16 @@ function NavBar() {
             <Button color="inherit">Login</Button>
           </Link>
         ) : (
-          <Button color="inherit" onClick={() => logout()} aria-label="Button to log out">
-            Logout
-          </Button>
+          <>
+            <Link to={'/orders'} style={{ textDecoration: 'none', color: 'white' }}>
+              <Button color={'inherit'} aria-label="Navigate to orders made by the user">
+                Orders
+              </Button>
+            </Link>
+            <Button color="inherit" onClick={() => logout()} aria-label="Button to log out">
+              Logout
+            </Button>
+          </>
         )}
       </Toolbar>
     </AppBar>

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { ApolloError } from '@apollo/client'
 import CloseIcon from '@mui/icons-material/Close'
 import { Alert, IconButton, Snackbar } from '@mui/material'
 

@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export const ADD_ORDER = gql`
   mutation addOrder(
     $user: String!
-    $items: [ItemInput!]!
+    $orderItems: [OrderItemInput!]!
     $shippingAddress: ShippingAddressInput!
     $paymentMethod: String!
     $paymentResult: PaymentResultInput!
@@ -11,29 +11,57 @@ export const ADD_ORDER = gql`
   ) {
     addOrder(
       user: $user
-      items: $items
+      orderItems: $orderItems
       shippingAddress: $shippingAddress
       paymentMethod: $paymentMethod
       paymentResult: $paymentResult
       totalPrice: $totalPrice
-    ) {
-      id
-      user
-      items {
-        id
-        listing_title
-        listing_description
-        listing_price
-        listing_image
-        listing_category
-        listing_quantity
+    )
+  }
+`
+
+export const GET_ORDER_BY_ID = gql`
+  query getOrderById($id: ID!) {
+    getOrder(id: $id) {
+      orderItems {
+        item {
+          id
+          listing_category
+          listing_description
+          listing_image
+          listing_price
+          listing_quantity
+          listing_title
+        }
         quantity
       }
+      totalPrice
+      paymentMethod
       shippingAddress {
-        address
         city
-        postalCode
+        address
         country
+        postalCode
+      }
+    }
+  }
+`
+
+export const GET_ALL_ORDERS_BY_USER = gql`
+  query getAllOrdersByUser {
+    getAllOrdersByUser {
+      id
+      orderItems {
+        item {
+          id
+          listing_title
+          listing_description
+          listing_price
+          listing_image
+          listing_category
+          listing_quantity
+        }
+        quantity
       }
       paymentMethod
       paymentResult {
@@ -41,7 +69,15 @@ export const ADD_ORDER = gql`
         paymentStatus
         paymentTime
       }
+      shippingAddress {
+        address
+        city
+        postalCode
+        country
+      }
       totalPrice
+      user
+      createdAt
     }
   }
 `

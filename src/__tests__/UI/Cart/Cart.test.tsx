@@ -2,9 +2,10 @@ import { describe, expect, it } from 'vitest'
 
 import { fireEvent, screen, within } from '@testing-library/react'
 
-import Cart from '../../Cart/Cart.js'
-import { ShoppingCartState } from '../../redux/reducers/shoppingCart.js'
-import { render } from '../../utils/test-utils.js'
+import Cart from '../../../Cart/Cart.js'
+import { ShoppingCartState } from '../../../redux/reducers/shoppingCart.js'
+import { Categories } from '../../../types.js'
+import { render } from '../../../utils/test-utils.js'
 
 describe('Cart', () => {
   it('renders the cart page when empty', () => {
@@ -22,7 +23,7 @@ describe('Cart', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 1 }]
@@ -45,7 +46,7 @@ describe('Cart', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         },
         {
           id: '2',
@@ -54,7 +55,7 @@ describe('Cart', () => {
           listing_price: 99,
           listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Sports'
+          listing_category: Categories.Sports
         }
       ],
       quantity: [
@@ -81,7 +82,7 @@ describe('Cart', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         },
         {
           id: '2',
@@ -90,7 +91,7 @@ describe('Cart', () => {
           listing_price: 99,
           listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Sports'
+          listing_category: Categories.Sports
         }
       ],
       quantity: [
@@ -130,7 +131,7 @@ describe('Cart', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         },
         {
           id: '2',
@@ -139,7 +140,7 @@ describe('Cart', () => {
           listing_price: 99,
           listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Sports'
+          listing_category: Categories.Sports
         }
       ],
       quantity: [
@@ -179,7 +180,7 @@ describe('Cart', () => {
           listing_price: 100,
           listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 1 }]
@@ -230,7 +231,7 @@ describe('Cart', () => {
           listing_price: 100,
           listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 1 }]

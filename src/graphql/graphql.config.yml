@@ -1,0 +1,2 @@
+schema: ${SCHEMA_ENDPOINT:"http://localhost:3001/graphql"}
+documents: '**/*.graphql'

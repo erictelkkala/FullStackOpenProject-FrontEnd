@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { useMutation } from '@apollo/client'
@@ -20,7 +20,8 @@ import { User } from '../types'
 
 function Signup({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const navigate = useNavigate()
-  const [addUser, { loading, error, data }] = useMutation(ADD_USER)
+  const [searchParams] = useSearchParams()
+  const [addUser, { loading, error }] = useMutation(ADD_USER)
 
   const SignupSchema: Yup.AnyObject = Yup.object().shape({
     name: Yup.string()
@@ -43,28 +44,32 @@ function Signup({ onSubmit: onSubmit }: { onSubmit?: (values: User) => void }) {
   const handleSignup = async (values: User) => {
     if (onSubmit) {
       onSubmit(values)
+    } else {
+      // Send the username and password to the server
+      await addUser({
+        variables: {
+          name: values.name,
+          password: values.password
+        }
+      })
+        .catch(() => {
+          console.log(error)
+        })
+        .then(() => {
+          if (searchParams.has('redirect')) {
+            navigate('/' + searchParams.get('redirect'))
+          } else {
+            navigate('/')
+          }
+        })
     }
-    // Send the username and password to the server
-    await addUser({
-      variables: {
-        name: values.name,
-        password: values.password
-      }
-    })
-      .catch(() => {
-        console.log(error)
-      })
-      .then(() => {
-        console.log(data)
-        navigate('/')
-      })
   }
 
   const formik = useFormik({
     initialValues: { name: '', password: '', passwordConfirmation: '' },
     validationSchema: SignupSchema,
-    onSubmit: async (values, { setSubmitting }) => {
-      handleSignup(values)
+    onSubmit: async (values, { setSubmitting }): Promise<void> => {
+      await handleSignup(values)
       setSubmitting(false)
     }
   })

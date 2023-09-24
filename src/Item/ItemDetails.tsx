@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
 import { useQuery } from '@apollo/client'
-import { Badge, Card, CardMedia, Chip, Container, Typography } from '@mui/material'
+import { Badge, Card, CardMedia, Chip, Container, Skeleton, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
 import { GET_ITEM } from '../graphql/itemQueries'
@@ -52,11 +51,16 @@ function ItemDetails() {
     } else if (error) {
       dispatch(setError(error.message))
     }
-  }, [id, itemInStore, data, error])
+  }, [id, itemInStore, data, error, dispatch])
 
   return (
     <Container maxWidth="xl">
-      {item ? (
+      {loading && (
+        <Skeleton variant="rectangular" width="100%" height={200}>
+          <Card />
+        </Skeleton>
+      )}
+      {item && !loading ? (
         <Card
           raised
           sx={{ display: 'flex', p: 2, borderRadius: 2 }}

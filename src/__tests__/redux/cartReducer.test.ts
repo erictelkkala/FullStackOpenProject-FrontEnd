@@ -9,7 +9,7 @@ import {
   ShoppingCartState
 } from '../../redux/reducers/shoppingCart'
 import { setupStore } from '../../redux/store'
-import { Item } from '../../types'
+import { Categories, Item } from '../../types'
 
 describe('CartReducer', () => {
   it('initial state is empty', () => {
@@ -27,7 +27,7 @@ describe('CartReducer', () => {
       listing_price: 100,
       listing_quantity: 0,
       listing_image: 'src\\assets\\react.svg',
-      listing_category: 'Other'
+      listing_category: Categories.Other
     }
 
     dispatch(addItem([item]))
@@ -41,7 +41,7 @@ describe('CartReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 1 }]
@@ -59,7 +59,7 @@ describe('CartReducer', () => {
         listing_price: 100,
         listing_quantity: 0,
         listing_image: 'src\\assets\\react.svg',
-        listing_category: 'Other'
+        listing_category: Categories.Other
       },
       {
         id: '2',
@@ -68,7 +68,7 @@ describe('CartReducer', () => {
         listing_price: 100,
         listing_quantity: 1,
         listing_image: 'src\\assets\\react.svg',
-        listing_category: 'Other'
+        listing_category: Categories.Other
       }
     ]
 
@@ -83,7 +83,7 @@ describe('CartReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         },
         {
           id: '2',
@@ -92,7 +92,7 @@ describe('CartReducer', () => {
           listing_price: 100,
           listing_quantity: 1,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [
@@ -113,7 +113,7 @@ describe('CartReducer', () => {
             listing_price: 100,
             listing_quantity: 0,
             listing_image: 'src\\assets\\react.svg',
-            listing_category: 'Other'
+            listing_category: Categories.Other
           }
         ],
         quantity: [{ id: '1', quantity: 1 }]
@@ -130,7 +130,7 @@ describe('CartReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 1 }]
@@ -155,7 +155,7 @@ describe('CartReducer', () => {
             listing_price: 100,
             listing_quantity: 0,
             listing_image: 'src\\assets\\react.svg',
-            listing_category: 'Other'
+            listing_category: Categories.Other
           }
         ],
         quantity: [{ id: '1', quantity: 1 }]
@@ -172,7 +172,7 @@ describe('CartReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 1 }]
@@ -192,7 +192,7 @@ describe('CartReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 2 }]
@@ -210,7 +210,7 @@ describe('CartReducer', () => {
             listing_price: 100,
             listing_quantity: 0,
             listing_image: 'src\\assets\\react.svg',
-            listing_category: 'Other'
+            listing_category: Categories.Other
           }
         ],
         quantity: [{ id: '1', quantity: 2 }]
@@ -227,7 +227,7 @@ describe('CartReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 2 }]
@@ -247,7 +247,7 @@ describe('CartReducer', () => {
           listing_price: 100,
           listing_quantity: 0,
           listing_image: 'src\\assets\\react.svg',
-          listing_category: 'Other'
+          listing_category: Categories.Other
         }
       ],
       quantity: [{ id: '1', quantity: 1 }]

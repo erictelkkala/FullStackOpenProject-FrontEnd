@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import { AppBar, Chip, Container, Divider, Stack, Toolbar, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+import { AppBar, Box, Chip, Container, Divider, Stack, Toolbar, Typography } from '@mui/material'
 
 import { useCartItems } from '../redux/hooks'
 import CartItem from './CartItem'
