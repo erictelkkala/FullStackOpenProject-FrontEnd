@@ -25,7 +25,7 @@ describe('OrderItemCard', () => {
     // Quantity
     expect(screen.getByText('2')).toBeInTheDocument()
     // Unit price
-    expect(screen.getByText('10')).toBeInTheDocument()
+    expect(screen.getByText('10 €')).toBeInTheDocument()
     // Total price
     expect(screen.getByText('20 €')).toBeInTheDocument()
   })

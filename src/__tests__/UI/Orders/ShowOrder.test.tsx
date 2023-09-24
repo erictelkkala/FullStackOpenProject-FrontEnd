@@ -79,7 +79,7 @@ describe('ShowOrder', () => {
 
     expect(screen.getByText('Loading...')).toBeInTheDocument()
 
-    const totalPrice = await screen.findByText('Total: 200 €')
+    const totalPrice = await screen.findByText('200.00 €')
     expect(totalPrice).toBeInTheDocument()
 
     const paymentMethod = await screen.findByText('Payment method: Credit/Debit')

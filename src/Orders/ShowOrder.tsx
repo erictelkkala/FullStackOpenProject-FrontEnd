@@ -83,7 +83,7 @@ function showPaymentDetails(data: OrderData) {
       <Typography variant="h5" sx={{ textAlign: 'center' }} aria-label="Payment method">
         Payment method: {data?.getOrder?.paymentMethod}
       </Typography>
-      <Divider sx={{ pt: 5 }} />
+      <Divider sx={{ my: 5 }} />
       <Typography variant="h5" sx={{ textAlign: 'center' }} aria-label="Shipping address">
         Shipping address: {shippingAddress}
       </Typography>
@@ -130,27 +130,21 @@ function mapOrderItems(orderItems: OrderItem[], orderTotalPrice: number) {
             ))}
             <TableRow>
               <TableCell rowSpan={3} />
-              <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell align="right">{ccyFormat(orderTotalPriveWithoutTaxes)}</TableCell>
+              <TableCell colSpan={2}>Subtotal without tax</TableCell>
+              <TableCell align="right">{ccyFormat(orderTotalPriveWithoutTaxes)} €</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Tax</TableCell>
               <TableCell align="right">24 %</TableCell>
-              <TableCell align="right">{ccyFormat(orderTaxes)}</TableCell>
+              <TableCell align="right">{ccyFormat(orderTaxes)} €</TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
-              <TableCell align="right">{ccyFormat(orderTotalPrice)}</TableCell>
+              <TableCell align="right">{ccyFormat(orderTotalPrice)} €</TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
-      <Divider sx={{ pt: 5 }} />
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', pt: 5 }}>
-        <Typography variant="h5" sx={{ textAlign: 'center' }} aria-label="Total price">
-          Total: {orderTotalPrice} €
-        </Typography>
-      </Box>
     </Box>
   )
 }
